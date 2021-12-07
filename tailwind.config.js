@@ -1,4 +1,5 @@
 module.exports = {
+  mode: 'jit',
   prefix: '',
   purge: {
     enabled: process.env.NODE_ENV === 'production',

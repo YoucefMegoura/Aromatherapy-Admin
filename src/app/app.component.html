@@ -1,7 +1,16 @@
-<div class="container">
-
-
-  <button
-    class="py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-400">Hello
-  </button>
+<!-- container -->
+<div class="flex flex-col min-h-screen min-w-screen">
+  <!-- header -->
+  <header>
+    <app-header-layout></app-header-layout>
+  </header>
+  <!-- main -->
+  <main class="flex flex-col flex-grow bg-gray-300">
+    <!-- <router-outlet></router-outlet> -->
+    <div class="flex-grow bg-white mt-3 mx-3 rounded-md">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+  <!-- footer -->
+  <footer class="page-footer"></footer>
 </div>

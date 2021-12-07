@@ -12,4 +12,23 @@ export class GridLayoutComponent implements OnInit {
   ngOnInit(): void {
   }
 
+
+
+  //onClick Export Button
+  onSearch(): void {
+    console.log('Search');
+  }
+
+  //onClick Export Button
+  onExport(): void {
+    console.log('Export');
+  }
+
+  //onClick Export Button
+  onImport(): void {
+    console.log('Import');
+  }
+
+  
+
 }

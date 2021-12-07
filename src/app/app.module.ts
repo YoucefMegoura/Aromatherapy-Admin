@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {RouterModule, Routes} from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,16 +10,8 @@ import { GridLayoutComponent } from './grid-layout/grid-layout.component';
 import { DetailLayoutComponent } from './detail-layout/detail-layout.component';
 import { StatsLayoutComponent } from './stats-layout/stats-layout.component';
 import { AuthComponent } from './auth/auth.component';
+import { AgGridModule } from 'ag-grid-angular';
 
-const appRoutes: Routes = [
-  { path: 'auth', component: AuthComponent },
-  { path: 'stats', component: StatsLayoutComponent },
-  { path: 'oils', component: GridLayoutComponent },
-  //TODO:: oilID path
-  { path: 'recipes', component: GridLayoutComponent },
-  //TODO:: recipeID path
-  { path: '', redirectTo: 'stats', pathMatch: 'full'}
-];
 
 @NgModule({
   declarations: [
@@ -29,15 +21,15 @@ const appRoutes: Routes = [
     GridLayoutComponent,
     DetailLayoutComponent,
     StatsLayoutComponent,
-    AuthComponent
-
+    AuthComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    RouterModule.forRoot(appRoutes)
+    AgGridModule, //
+
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

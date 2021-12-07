@@ -1,1 +1,44 @@
-<p>grid-layout works!</p>
+<div class="flex flex-col">
+
+    <!-- Export, import, search bar -->
+    <div class="flex flex-row justify-end gap-2 mx-6 my-2">
+        <form class="relative text-gray-600" (submit)="onSearch()">
+            <input class="border-1 border-gray-200 px-5 pr-16 h-8 rounded-lg text-sm focus:outline-none"
+            type="search" 
+            name="search" 
+            placeholder="Search"
+            autocomplete="off"
+            >
+            <button  type="submit" class="absolute right-0 top-0 mt-2 mr-2">
+            <svg class="text-gray-600 h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px"
+                viewBox="0 0 56.966 56.966" style="enable-background:new 0 0 56.966 56.966;" xml:space="preserve"
+                width="512px" height="512px">
+                <path
+                d="M55.146,51.887L41.588,37.786c3.486-4.144,5.396-9.358,5.396-14.786c0-12.682-10.318-23-23-23s-23,10.318-23,23  s10.318,23,23,23c4.761,0,9.298-1.436,13.177-4.162l13.661,14.208c0.571,0.593,1.339,0.92,2.162,0.92  c0.779,0,1.518-0.297,2.079-0.837C56.255,54.982,56.293,53.08,55.146,51.887z M23.984,6c9.374,0,17,7.626,17,17s-7.626,17-17,17  s-17-7.626-17-17S14.61,6,23.984,6z" />
+            </svg>
+            </button>
+        </form>
+        
+        <button 
+            class="p-1.5 bg-gray-200 rounded-md"
+            (click)="onExport()"
+            title="Exporter CSV"
+            >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>   
+        </button>
+
+        <button 
+            class="p-1.5 bg-gray-200 rounded-md"
+            (click)="onImport()"
+            title="Importer CSV"
+
+            >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+            </svg> 
+        </button>
+    </div>
+</div>
