@@ -11,7 +11,8 @@ import { DetailLayoutComponent } from './detail-layout/detail-layout.component';
 import { StatsLayoutComponent } from './stats-layout/stats-layout.component';
 import { AuthComponent } from './auth/auth.component';
 import { AgGridModule } from 'ag-grid-angular';
-
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -25,9 +26,10 @@ import { AgGridModule } from 'ag-grid-angular';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule, 
     AppRoutingModule,
-    AgGridModule, //
-
+    FormsModule,
+    AgGridModule.withComponents([])
   ],
   providers: [],
   bootstrap: [AppComponent],
