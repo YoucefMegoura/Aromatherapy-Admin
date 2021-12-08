@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthComponent } from './auth/auth.component';
+import { CrudLayoutComponent } from './crud-layout/crud-layout.component';
 import { GridLayoutComponent } from './grid-layout/grid-layout.component';
 import { StatsLayoutComponent } from './stats-layout/stats-layout.component';
 
@@ -15,12 +16,12 @@ const routes: Routes = [
   },
   {
     path: 'oils',
-    component: GridLayoutComponent,
+    component: CrudLayoutComponent,
   },
   //TODO:: oilID path
   {
     path: 'recipes',
-    component: GridLayoutComponent,
+    component: CrudLayoutComponent,
   },
   //TODO:: recipeID path
   {

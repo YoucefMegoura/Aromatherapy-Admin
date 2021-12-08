@@ -3,7 +3,7 @@
     <!-- Export, import, search bar -->
     <div class="flex flex-row justify-between">
  
-        <div class="flex flex-row justify-end gap-2 mx-6 my-2">          
+        <div class="flex flex-row justify-end gap-2 mx-2 my-2">          
             <button 
                 class="p-1.5 bg-gray-200 rounded-md"
                 (click)="onAdd()"
@@ -13,7 +13,16 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                 </svg> 
             </button>
-    
+            <button 
+            class="p-1.5 bg-gray-200 rounded-md"
+            (click)="onDelete()"
+            title="Importer CSV"
+
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg> 
+            </button>
             <button 
                 class="p-1.5 bg-gray-200 rounded-md"
                 (click)="onRefresh()"
@@ -45,20 +54,11 @@
                     <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clip-rule="evenodd" />
                 </svg> 
             </button>
-            <button 
-                class="p-1.5 bg-gray-200 rounded-md"
-                (click)="onDelete()"
-                title="Importer CSV"
-    
-                >
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                  </svg> 
-            </button>
+            
         </div>
 
 
-        <div class="flex flex-row justify-end gap-2 mx-6 my-2">
+        <div class="flex flex-row justify-end gap-2 mx-2 my-2">
             <div class="relative text-gray-600" (submit)="onSearch()">
                 <input class="border-1 border-gray-200 px-5 pr-16 h-8 rounded-lg text-sm focus:outline-none"
                 type="search" 
@@ -90,9 +90,10 @@
         [rowData]="rowData | async"
         [columnDefs]="columnDefs"
         [defaultColDef]="defaultColDef"
-        rowSelection="multiple"
+        rowSelection="single"
         (gridReady)="onGridReady($event)"
         [gridOptions]="gridOptions"
+        (selectionChanged)="onSelectionChanged($event)"
         >
 
     >

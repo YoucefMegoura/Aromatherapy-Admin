@@ -133,5 +133,9 @@ private filterParams = {
     console.log('Delete');
   }
 
+  onSelectionChanged(params: any) {
+    const selectedRows = this.gridApi.getSelectedRows();
+    console.log(selectedRows);
+  }
   
 }

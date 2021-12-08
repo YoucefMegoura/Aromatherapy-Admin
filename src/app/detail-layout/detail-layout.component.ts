@@ -12,4 +12,19 @@ export class DetailLayoutComponent implements OnInit {
   ngOnInit(): void {
   }
 
+   //onClick Export Button
+   onAdd(): void {
+    console.log('Export');
+  }
+
+  //onClick Export Button
+  onDelete(): void {
+    console.log('Import');
+  }
+
+  //onClick Export Button
+  onSave(): void {
+    console.log('Delete');
+  }
+
 }
