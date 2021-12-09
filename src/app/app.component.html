@@ -1,16 +1,19 @@
 <!-- container -->
-<div class="flex flex-col min-h-screen min-w-screen">
+<div *ngIf="!isAuth" class="flex flex-col min-h-screen min-w-screen">
   <!-- header -->
   <header>
     <app-header-layout></app-header-layout>
   </header>
   <!-- main -->
   <main class="flex flex-col flex-grow bg-gray-300">
-    <!-- <router-outlet></router-outlet> -->
     <div class="flex-grow bg-white mt-3 mx-3 rounded-t-md">
       <router-outlet></router-outlet>
     </div>
   </main>
   <!-- footer -->
   <footer class="page-footer"></footer>
+</div>
+
+<div *ngIf="isAuth" class="flex flex-col min-h-screen min-w-screen">
+  <app-auth></app-auth>
 </div>

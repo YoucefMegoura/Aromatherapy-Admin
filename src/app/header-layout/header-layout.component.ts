@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-header-layout',
@@ -6,12 +8,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header-layout.component.scss']
 })
 export class HeaderLayoutComponent implements OnInit {
-  hello: string = 'Hello world !!!!!';
 
-  constructor() { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
 
+  }
+
+  signOut() : void {
+    this.authService.signOut();
+    this.router.navigate(['auth']);
   }
 
 }

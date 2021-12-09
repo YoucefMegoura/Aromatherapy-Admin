@@ -1,1 +1,63 @@
-<p>auth works!</p>
+<div class="flex flex-col h-screen">
+  <div id="header" class="flex justify-center items-center bg-gray-100">
+    <img src="/assets/images/aromatherapy-logo-test.png" alt="image" />
+  </div>
+  <br />
+  <div id="main" class="bg-white">
+    <div class="flex flex-row justify-center mx-2 my-2">
+      <form class="flex flex-col gap-2 text-gray-600" (submit)="onSignIn()">
+        <input
+          class="
+            border-1 border-gray-200
+            px-5
+            pr-16
+            h-8
+            rounded-lg
+            text-sm
+            focus:outline-none
+          "
+          type="text"
+          name="username"
+          placeholder="Username"
+          autocomplete="off"
+        />
+        <input
+          class="
+            border-1 border-gray-200
+            px-5
+            pr-16
+            h-8
+            rounded-lg
+            text-sm
+            focus:outline-none
+          "
+          type="password"
+          name="password"
+          placeholder="Password"
+          autocomplete="off"
+        />
+        <button
+          routerLink="/"
+          type="submit"
+          class="
+            bg-green-600
+            rounded-lg
+            text-white
+            px-3
+            py-1.5
+            space-x-2
+            max-w-xs
+          "
+        >
+          Login
+        </button>
+      </form>
+    </div>
+  </div>
+  <div id="footer" class="flex justify-center items-end">
+    <p class="m-3 text-gray-500 text-sm">
+      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sapiente,
+      laudantium.
+    </p>
+  </div>
+</div>
