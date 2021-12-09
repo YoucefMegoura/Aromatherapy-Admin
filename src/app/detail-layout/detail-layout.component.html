@@ -1,104 +1,503 @@
 <div class="flex flex-col mx-2">
-    <div class="flex flex-row justify-between">
- 
-        <div class="flex flex-row justify-end gap-2 mx-2 my-2">          
-            <button 
-                class="p-1.5 bg-gray-200 rounded-md"
-                (click)="onAdd()"
-                title="Exporter CSV"
-                >
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                </svg> 
-            </button>
-            <button 
-            class="p-1.5 bg-gray-200 rounded-md"
-            (click)="onDelete()"
-            title="Importer CSV"
+  <!-- Add, Delete, Save bare -->
+  <div class="flex flex-row justify-between">
+    <div class="flex flex-row justify-end gap-2 mx-2 my-2">
+      <button
+        class="p-1.5 bg-gray-200 rounded-md"
+        (click)="onAdd()"
+        title="Ajouter"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 4v16m8-8H4"
+          />
+        </svg>
+      </button>
+      <button
+        class="p-1.5 bg-gray-200 rounded-md"
+        (click)="onDelete()"
+        title="Supprimer"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+          />
+        </svg>
+      </button>
+      <button
+        class="p-1.5 bg-gray-200 rounded-md"
+        (click)="onSave()"
+        title="Enregistrer"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
 
-            >
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                </svg> 
-            </button>
-            <button 
-            class="p-1.5 bg-gray-200 rounded-md"
-            (click)="onSave()"
-            title="Importer CSV"
-
-            >
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
-              </svg>
-            </button>
-            
-            
-        </div>
-
-
-
-
+  <div class="overflow-y-scroll grid gap-1 grid-cols-2">
+    <div class="flex flex-col">
+      <label for="name" class="mx-2">name</label>
+      <input
+        id="name"
+        class="
+          border-1 border-gray-200
+          px-5
+          pr-16
+          h-8
+          rounded-lg
+          text-sm
+          focus:outline-none
+        "
+        type="text"
+      />
+    </div>
+    <div class="flex flex-col">
+      <label for="scientific-name" class="mx-2">Scientific name</label>
+      <input
+        id="scientific-name"
+        class="
+          border-1 border-gray-200
+          px-5
+          pr-16
+          h-8
+          rounded-lg
+          text-sm
+          focus:outline-none
+        "
+        type="text"
+      />
+    </div>
+    <div class="flex flex-col">
+      <label for="other-name" class="mx-2">Other name</label>
+      <input
+        id="other-name"
+        class="
+          border-1 border-gray-200
+          px-5
+          pr-16
+          h-8
+          rounded-lg
+          text-sm
+          focus:outline-none
+        "
+        type="text"
+      />
+    </div>
+    <div class="flex flex-col">
+      <label for="distilled-organ" class="mx-2">distilled organ</label>
+      <input
+        id="distilled-organ"
+        class="
+          border-1 border-gray-200
+          px-5
+          pr-16
+          h-8
+          rounded-lg
+          text-sm
+          focus:outline-none
+        "
+        type="text"
+      />
+    </div>
+    <div class="flex flex-col">
+      <label for="extraction-process" class="mx-2">Extraction process</label>
+      <input
+        id="extraction-process"
+        class="
+          border-1 border-gray-200
+          px-5
+          pr-16
+          h-8
+          rounded-lg
+          text-sm
+          focus:outline-none
+        "
+        type="text"
+      />
+    </div>
+    <div class="flex flex-col">
+      <label for="allergies" class="mx-2">Allergies</label>
+      <input
+        id="allergies"
+        class="
+          border-1 border-gray-200
+          px-5
+          pr-16
+          h-8
+          rounded-lg
+          text-sm
+          focus:outline-none
+        "
+        type="text"
+      />
+    </div>
+    <!-- Organoleptic properties -->
+    <div class="flex flex-col">
+      <label for="organoleptic-aspect" class="mx-2">organoleptic-aspect</label>
+      <input
+        id="organoleptic-aspect"
+        class="
+          border-1 border-gray-200
+          px-5
+          pr-16
+          h-8
+          rounded-lg
+          text-sm
+          focus:outline-none
+        "
+        type="text"
+      />
+    </div>
+    <div class="flex flex-col">
+      <label for="organoleptic-coleur" class="mx-2">organoleptic-coleur</label>
+      <input
+        id="organoleptic-coleur"
+        class="
+          border-1 border-gray-200
+          px-5
+          pr-16
+          h-8
+          rounded-lg
+          text-sm
+          focus:outline-none
+        "
+        type="text"
+      />
     </div>
 
-    <div class="overflow-y-scroll grid gap-1 grid-cols-2">
-        <div class="flex flex-col">
-            <label for="name" class="mx-2">name</label>
-            <input
-                id="name"
-                class="border-1 border-gray-200 px-5 pr-16 h-8 rounded-lg text-sm focus:outline-none"
-                type="text"
-                
-                >
-        </div>
-        <div class="flex flex-col">
-            <label for="scientific-name" class="mx-2">Scientific name</label>
-            <input
-                id="scientific-name"
-                class="border-1 border-gray-200 px-5 pr-16 h-8 rounded-lg text-sm focus:outline-none"
-                type="text"
-                
-                >
-        </div>
-        <div class="flex flex-col">
-            <label for="other-name" class="mx-2">Other name</label>
-            <input
-                id="other-name"
-                class="border-1 border-gray-200 px-5 pr-16 h-8 rounded-lg text-sm focus:outline-none"
-                type="text"
-                
-                >
-        </div>
-        <div class="flex flex-col">
-            <label for="distilled-organ" class="mx-2">distilled organ</label>
-            <input
-                id="distilled-organ"
-                class="border-1 border-gray-200 px-5 pr-16 h-8 rounded-lg text-sm focus:outline-none"
-                type="text"
-                
-                >
-        </div>
-        <div class="flex flex-col">
-            <label for="extraction-process" class="mx-2">Extraction process</label>
-            <input
-                id="extraction-process"
-                class="border-1 border-gray-200 px-5 pr-16 h-8 rounded-lg text-sm focus:outline-none"
-                type="text"
-                
-                >
-        </div>
-        <div class="flex flex-col">
-            <label for="allergies" class="mx-2">Allergies</label>
-            <input
-                id="allergies"
-                class="border-1 border-gray-200 px-5 pr-16 h-8 rounded-lg text-sm focus:outline-none"
-                type="text"
-                
-                >
-        </div>
-        <!-- Organoleptic properties.Aspect	Organoleptic properties.Couleur	Organoleptic properties.Odeur	 -->
-        <!-- Domaine.Santé.proprietés	Domaine.Santé.précaution d'emploi	Domaine.Santé.domaine d'utilisation	Domaine.Santé.utilisation pratique	Domaine.Santé.synergie	 -->
-        <!-- Domaine.Bauté.proprietés	Domaine.bauté.précaution d'emploi	Domaine.bauté.domaine d'utilisation	Domaine.bauté.utilisation pratique	Domaine.Bauté.synergie	 -->
-        <!-- Domaine.Bien-etre.proprietés	Domaine.Bien-etre.précaution d'emploi  Domaine.Bien-etre.domaine d'utilisation	Domaine.Bien-etre.utilisation pratique	Domaine.Bien-etre.synergie -->
-        
+    <div class="flex flex-col">
+      <label for="organoleptic-odeur" class="mx-2">organoleptic-odeur</label>
+      <input
+        id="organoleptic-odeur"
+        class="
+          border-1 border-gray-200
+          px-5
+          pr-16
+          h-8
+          rounded-lg
+          text-sm
+          focus:outline-none
+        "
+        type="text"
+      />
     </div>
+
+    <div class="flex flex-col">
+      <label for="organoleptic-odeur" class="mx-2">organoleptic-odeur</label>
+      <input
+        id="organoleptic-odeur"
+        class="
+          border-1 border-gray-200
+          px-5
+          pr-16
+          h-8
+          rounded-lg
+          text-sm
+          focus:outline-none
+        "
+        type="text"
+      />
+    </div>
+
+    <!-- 
+            Domaines
+        -->
+
+    <!-- Santé -->
+    <div class="flex flex-col">
+      <label for="sante-proprietes" class="mx-2">sante-proprietes</label>
+      <input
+        id="sante-proprietes"
+        class="
+          border-1 border-gray-200
+          px-5
+          pr-16
+          h-8
+          rounded-lg
+          text-sm
+          focus:outline-none
+        "
+        type="text"
+      />
+    </div>
+    <div class="flex flex-col">
+      <label for="sante-domaine-utilisation" class="mx-2"
+        >sante-domaine-utilisation</label
+      >
+      <input
+        id="sante-domaine-utilisation"
+        class="
+          border-1 border-gray-200
+          px-5
+          pr-16
+          h-8
+          rounded-lg
+          text-sm
+          focus:outline-none
+        "
+        type="text"
+      />
+    </div>
+    <div class="flex flex-col">
+      <label for="sante-precaution-emploi" class="mx-2"
+        >sante-precaution-emploi</label
+      >
+      <input
+        id="sante-precaution-emploi"
+        class="
+          border-1 border-gray-200
+          px-5
+          pr-16
+          h-8
+          rounded-lg
+          text-sm
+          focus:outline-none
+        "
+        type="text"
+      />
+    </div>
+    <div class="flex flex-col">
+      <label for="sante-utilisation-pratique" class="mx-2"
+        >sante-utilisation-pratique</label
+      >
+      <input
+        id="sante-utilisation-pratique"
+        class="
+          border-1 border-gray-200
+          px-5
+          pr-16
+          h-8
+          rounded-lg
+          text-sm
+          focus:outline-none
+        "
+        type="text"
+      />
+    </div>
+    <div class="flex flex-col">
+      <label for="sante-synergy" class="mx-2">sante-synergy</label>
+      <input
+        id="sante-synergy"
+        class="
+          border-1 border-gray-200
+          px-5
+          pr-16
+          h-8
+          rounded-lg
+          text-sm
+          focus:outline-none
+        "
+        type="text"
+      />
+    </div>
+
+    <!-- Bauté -->
+
+    <div class="flex flex-col">
+      <label for="baute-proprietes" class="mx-2">baute-proprietes</label>
+      <input
+        id="baute-proprietes"
+        class="
+          border-1 border-gray-200
+          px-5
+          pr-16
+          h-8
+          rounded-lg
+          text-sm
+          focus:outline-none
+        "
+        type="text"
+      />
+    </div>
+    <div class="flex flex-col">
+      <label for="baute-domaine-utilisation" class="mx-2"
+        >baute-domaine-utilisation</label
+      >
+      <input
+        id="baute-domaine-utilisation"
+        class="
+          border-1 border-gray-200
+          px-5
+          pr-16
+          h-8
+          rounded-lg
+          text-sm
+          focus:outline-none
+        "
+        type="text"
+      />
+    </div>
+    <div class="flex flex-col">
+      <label for="baute-precaution-emploi" class="mx-2"
+        >baute-precaution-emploi</label
+      >
+      <input
+        id="baute-precaution-emploi"
+        class="
+          border-1 border-gray-200
+          px-5
+          pr-16
+          h-8
+          rounded-lg
+          text-sm
+          focus:outline-none
+        "
+        type="text"
+      />
+    </div>
+    <div class="flex flex-col">
+      <label for="baute-utilisation-pratique" class="mx-2"
+        >baute-utilisation-pratique</label
+      >
+      <input
+        id="baute-utilisation-pratique"
+        class="
+          border-1 border-gray-200
+          px-5
+          pr-16
+          h-8
+          rounded-lg
+          text-sm
+          focus:outline-none
+        "
+        type="text"
+      />
+    </div>
+    <div class="flex flex-col">
+      <label for="baute-synergy" class="mx-2">baute-synergy</label>
+      <input
+        id="baute-synergy"
+        class="
+          border-1 border-gray-200
+          px-5
+          pr-16
+          h-8
+          rounded-lg
+          text-sm
+          focus:outline-none
+        "
+        type="text"
+      />
+    </div>
+
+    <!-- Bien-etre -->
+
+    <div class="flex flex-col">
+      <label for="bienetre-proprietes" class="mx-2">bienetre-proprietes</label>
+      <input
+        id="bienetre-proprietes"
+        class="
+          border-1 border-gray-200
+          px-5
+          pr-16
+          h-8
+          rounded-lg
+          text-sm
+          focus:outline-none
+        "
+        type="text"
+      />
+    </div>
+    <div class="flex flex-col">
+      <label for="bienetre-domaine-utilisation" class="mx-2"
+        >bienetre-domaine-utilisation</label
+      >
+      <input
+        id="bienetre-domaine-utilisation"
+        class="
+          border-1 border-gray-200
+          px-5
+          pr-16
+          h-8
+          rounded-lg
+          text-sm
+          focus:outline-none
+        "
+        type="text"
+      />
+    </div>
+    <div class="flex flex-col">
+      <label for="bienetre-precaution-emploi" class="mx-2"
+        >bienetre-precaution-emploi</label
+      >
+      <input
+        id="bienetre-precaution-emploi"
+        class="
+          border-1 border-gray-200
+          px-5
+          pr-16
+          h-8
+          rounded-lg
+          text-sm
+          focus:outline-none
+        "
+        type="text"
+      />
+    </div>
+    <div class="flex flex-col">
+      <label for="bienetre-utilisation-pratique" class="mx-2"
+        >bienetre-utilisation-pratique</label
+      >
+      <input
+        id="bienetre-utilisation-pratique"
+        class="
+          border-1 border-gray-200
+          px-5
+          pr-16
+          h-8
+          rounded-lg
+          text-sm
+          focus:outline-none
+        "
+        type="text"
+      />
+    </div>
+    <div class="flex flex-col">
+      <label for="bienetre-synergy" class="mx-2">bienetre-synergy</label>
+      <input
+        id="bienetre-synergy"
+        class="
+          border-1 border-gray-200
+          px-5
+          pr-16
+          h-8
+          rounded-lg
+          text-sm
+          focus:outline-none
+        "
+        type="text"
+      />
+    </div>
+  </div>
 </div>
