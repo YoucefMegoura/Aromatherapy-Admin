@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ColDef } from 'ag-grid-community';
 import { Observable } from 'rxjs';
+import { DatabaseService } from '../services/database.service';
 
 @Component({
   selector: 'app-grid-layout',
@@ -20,7 +21,7 @@ export class GridLayoutComponent implements OnInit {
 
   public gridOptions: any;
 
-  constructor(private http: HttpClient) {
+  constructor(private databaseService: DatabaseService) {
     this.columnDefs = [
       { field: 'athlete' },
       {
@@ -72,8 +73,8 @@ export class GridLayoutComponent implements OnInit {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
 
-    this.http
-      .get('https://www.ag-grid.com/example-assets/olympic-winners.json')
+    this.databaseService
+      .getData()
       .subscribe((data) => params.api.setRowData(data));
   }
 
