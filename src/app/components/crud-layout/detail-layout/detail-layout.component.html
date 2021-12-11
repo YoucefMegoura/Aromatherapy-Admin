@@ -1,5 +1,5 @@
 <div class="flex flex-col mx-2">
-  <!-- Add, Delete, Save bare -->
+
   <div class="flex flex-row justify-between">
     <div class="flex flex-row justify-end gap-2 mx-2 my-2">
       <button
@@ -45,423 +45,248 @@
 
     </div>
 
-  </div>
+  </div><!-- Add, Delete, Save bare -->
 
-  <div class="overflow-y-scroll grid gap-1 grid-cols-2 px-4">
-    <div class="flex flex-col">
-      <label for="name" class="mx-2">name</label>
-      <input
-        id="name"
-        class="
-          border-1 border-gray-200
-          px-5
-          pr-16
-          h-8
-          rounded-lg
-          text-sm
-          focus:outline-none
-        "
-        type="text"
-      >
+  <form
+    class="flex flex-col gap-1 px-4 overflow-y-scroll"
+    [formGroup]="oilDetailForm"
+    (ngSubmit)="onSave()"
+  >
+    <div formGroupName="globalData" class="grid grid-col-2">
+      <div class="flex flex-col">
+        <label for="name" class="mx-2">Name</label>
+        <input
+          formControlName="name"
+          id="name"
+          class="primary-input"
+          type="text"
+        >
+      </div><!--Name-->
+      <div class="flex flex-col">
+        <label for="sciName" class="mx-2">Scientific name</label>
+        <input
+          formControlName="sciName"
+          id="sciName"
+          class="primary-input"
+          type="text"
+        >
+      </div><!--Scientific name-->
+      <div class="flex flex-col">
+        <label for="otherNames" class="mx-2">Other names</label>
+        <input
+          formControlName="otherNames"
+          id="otherNames"
+          class="primary-input"
+          type="text"
+        >
+      </div><!--Other names-->
+      <div class="flex flex-col">
+        <label for="distilledOrgan" class="mx-2">distilled organ</label>
+        <input
+          id="distilledOrgan"
+          class="primary-input"
+          type="text"
+        >
+      </div><!--distilled organ-->
+      <div class="flex flex-col">
+        <label for="extractionProcess" class="mx-2">Extraction process</label>
+        <input
+          id="extractionProcess"
+          class="primary-input"
+          type="text"
+        >
+      </div><!--Extraction process-->
+      <div class="flex flex-col">
+        <label for="allergies" class="mx-2">Allergies</label>
+        <input
+          id="allergies"
+          class="primary-input"
+          type="text"
+        >
+      </div><!--Allergies-->
     </div>
-    <div class="flex flex-col">
-      <label for="scientific-name" class="mx-2">Scientific name</label>
-      <input
-        id="scientific-name"
-        class="
-          border-1 border-gray-200
-          px-5
-          pr-16
-          h-8
-          rounded-lg
-          text-sm
-          focus:outline-none
-        "
-        type="text"
-      >
-    </div>
-    <div class="flex flex-col">
-      <label for="other-name" class="mx-2">Other name</label>
-      <input
-        id="other-name"
-        class="
-          border-1 border-gray-200
-          px-5
-          pr-16
-          h-8
-          rounded-lg
-          text-sm
-          focus:outline-none
-        "
-        type="text"
-      >
-    </div>
-    <div class="flex flex-col">
-      <label for="distilled-organ" class="mx-2">distilled organ</label>
-      <input
-        id="distilled-organ"
-        class="
-          border-1 border-gray-200
-          px-5
-          pr-16
-          h-8
-          rounded-lg
-          text-sm
-          focus:outline-none
-        "
-        type="text"
-      >
-    </div>
-    <div class="flex flex-col">
-      <label for="extraction-process" class="mx-2">Extraction process</label>
-      <input
-        id="extraction-process"
-        class="
-          border-1 border-gray-200
-          px-5
-          pr-16
-          h-8
-          rounded-lg
-          text-sm
-          focus:outline-none
-        "
-        type="text"
-      >
-    </div>
-    <div class="flex flex-col">
-      <label for="allergies" class="mx-2">Allergies</label>
-      <input
-        id="allergies"
-        class="
-          border-1 border-gray-200
-          px-5
-          pr-16
-          h-8
-          rounded-lg
-          text-sm
-          focus:outline-none
-        "
-        type="text"
-      >
-    </div>
+
+
     <!-- Organoleptic properties -->
-    <div class="flex flex-col">
-      <label for="organoleptic-aspect" class="mx-2">organoleptic-aspect</label>
-      <input
-        id="organoleptic-aspect"
-        class="
-          border-1 border-gray-200
-          px-5
-          pr-16
-          h-8
-          rounded-lg
-          text-sm
-          focus:outline-none
-        "
-        type="text"
-      >
-    </div>
-    <div class="flex flex-col">
-      <label for="organoleptic-coleur" class="mx-2">organoleptic-coleur</label>
-      <input
-        id="organoleptic-coleur"
-        class="
-          border-1 border-gray-200
-          px-5
-          pr-16
-          h-8
-          rounded-lg
-          text-sm
-          focus:outline-none
-        "
-        type="text"
-      >
-    </div>
-    <div class="flex flex-col">
-      <label for="organoleptic-odeur" class="mx-2">organoleptic-odeur</label>
-      <input
-        id="organoleptic-odeur"
-        class="
-          border-1 border-gray-200
-          px-5
-          pr-16
-          h-8
-          rounded-lg
-          text-sm
-          focus:outline-none
-        "
-        type="text"
-      >
+    <div formGroupName="organolepticProperties" class="grid grid-col-2">
+      <div class="flex flex-col">
+        <label for="aspect" class="mx-2">Aspect</label>
+        <input
+          id="aspect"
+          class="primary-input"
+          type="text"
+        >
+      </div><!--Aspect-->
+      <div class="flex flex-col">
+        <label for="color" class="mx-2">Color</label>
+        <input
+          id="color"
+          class="primary-input"
+          type="text"
+        >
+      </div><!--Color-->
+      <div class="flex flex-col">
+        <label for="Smell" class="mx-2">Smell</label>
+        <input
+          id="Smell"
+          class="primary-input"
+          type="text"
+        >
+      </div><!--Smell-->
+
     </div>
 
-    <!--
-            Domaines
-        -->
 
-    <!-- Santé -->
-    <div class="flex flex-col">
-      <label for="sante-proprietes" class="mx-2">sante-proprietes</label>
-      <input
-        id="sante-proprietes"
-        class="
-          border-1 border-gray-200
-          px-5
-          pr-16
-          h-8
-          rounded-lg
-          text-sm
-          focus:outline-none
-        "
-        type="text"
-      >
-    </div>
-    <div class="flex flex-col">
-      <label for="sante-domaine-utilisation" class="mx-2"
-      >sante-domaine-utilisation</label
-      >
-      <input
-        id="sante-domaine-utilisation"
-        class="
-          border-1 border-gray-200
-          px-5
-          pr-16
-          h-8
-          rounded-lg
-          text-sm
-          focus:outline-none
-        "
-        type="text"
-      >
-    </div>
-    <div class="flex flex-col">
-      <label for="sante-precaution-emploi" class="mx-2"
-      >sante-precaution-emploi</label
-      >
-      <input
-        id="sante-precaution-emploi"
-        class="
-          border-1 border-gray-200
-          px-5
-          pr-16
-          h-8
-          rounded-lg
-          text-sm
-          focus:outline-none
-        "
-        type="text"
-      >
-    </div>
-    <div class="flex flex-col">
-      <label for="sante-utilisation-pratique" class="mx-2"
-      >sante-utilisation-pratique</label
-      >
-      <input
-        id="sante-utilisation-pratique"
-        class="
-          border-1 border-gray-200
-          px-5
-          pr-16
-          h-8
-          rounded-lg
-          text-sm
-          focus:outline-none
-        "
-        type="text"
-      >
-    </div>
-    <div class="flex flex-col">
-      <label for="sante-synergy" class="mx-2">sante-synergy</label>
-      <input
-        id="sante-synergy"
-        class="
-          border-1 border-gray-200
-          px-5
-          pr-16
-          h-8
-          rounded-lg
-          text-sm
-          focus:outline-none
-        "
-        type="text"
-      >
-    </div>
+    <div formGroupName="domains">
+      <div formGroupName="health">
+        <div class="flex flex-col">
+          <label for="health-proprietes" class="mx-2">health-proprietes</label>
+          <input
+            id="health-proprietes"
+            class="primary-input"
+            type="text"
+          >
+        </div>
+        <div class="flex flex-col">
+          <label for="health-areaOfUse" class="mx-2"
+          >health-areaOfUse</label
+          >
+          <input
+            id="health-areaOfUse"
+            class="primary-input"
+            type="text"
+          >
+        </div>
+        <div class="flex flex-col">
+          <label for="health-precautionOfUse" class="mx-2"
+          >health-precautionOfUse</label
+          >
+          <input
+            id="health-precautionOfUse"
+            class="primary-input"
+            type="text"
+          >
+        </div>
+        <div class="flex flex-col">
+          <label for="health-practicalUse" class="mx-2"
+          >health-practicalUse</label
+          >
+          <input
+            id="health-practicalUse"
+            class="primary-input"
+            type="text"
+          >
+        </div>
+        <div class="flex flex-col">
+          <label for="health-synergy" class="mx-2">health-synergy</label>
+          <input
+            id="health-synergy"
+            class="primary-input"
+            type="text"
+          >
+        </div>
 
-    <!-- Bauté -->
+      </div>
+      <div formGroupName="beauty">
+        <div class="flex flex-col">
+          <label for="beauty-proprietes" class="mx-2">beauty-proprietes</label>
+          <input
+            id="beauty-proprietes"
+            class="primary-input"
+            type="text"
+          >
+        </div>
+        <div class="flex flex-col">
+          <label for="beauty-areaOfUse" class="mx-2"
+          >beauty-areaOfUse</label
+          >
+          <input
+            id="beauty-areaOfUse"
+            class="primary-input"
+            type="text"
+          >
+        </div>
+        <div class="flex flex-col">
+          <label for="beauty-precautionOfUse" class="mx-2"
+          >beauty-precautionOfUse</label
+          >
+          <input
+            id="beauty-precautionOfUse"
+            class="primary-input"
+            type="text"
+          >
+        </div>
+        <div class="flex flex-col">
+          <label for="beauty-practicalUse" class="mx-2"
+          >beauty-practicalUse</label
+          >
+          <input
+            id="beauty-practicalUse"
+            class="primary-input"
+            type="text"
+          >
+        </div>
+        <div class="flex flex-col">
+          <label for="beauty-synergy" class="mx-2">beauty-synergy</label>
+          <input
+            id="beauty-synergy"
+            class="primary-input"
+            type="text"
+          >
+        </div>
 
-    <div class="flex flex-col">
-      <label for="baute-proprietes" class="mx-2">baute-proprietes</label>
-      <input
-        id="baute-proprietes"
-        class="
-          border-1 border-gray-200
-          px-5
-          pr-16
-          h-8
-          rounded-lg
-          text-sm
-          focus:outline-none
-        "
-        type="text"
-      >
-    </div>
-    <div class="flex flex-col">
-      <label for="baute-domaine-utilisation" class="mx-2"
-      >baute-domaine-utilisation</label
-      >
-      <input
-        id="baute-domaine-utilisation"
-        class="
-          border-1 border-gray-200
-          px-5
-          pr-16
-          h-8
-          rounded-lg
-          text-sm
-          focus:outline-none
-        "
-        type="text"
-      >
-    </div>
-    <div class="flex flex-col">
-      <label for="baute-precaution-emploi" class="mx-2"
-      >baute-precaution-emploi</label
-      >
-      <input
-        id="baute-precaution-emploi"
-        class="
-          border-1 border-gray-200
-          px-5
-          pr-16
-          h-8
-          rounded-lg
-          text-sm
-          focus:outline-none
-        "
-        type="text"
-      >
-    </div>
-    <div class="flex flex-col">
-      <label for="baute-utilisation-pratique" class="mx-2"
-      >baute-utilisation-pratique</label
-      >
-      <input
-        id="baute-utilisation-pratique"
-        class="
-          border-1 border-gray-200
-          px-5
-          pr-16
-          h-8
-          rounded-lg
-          text-sm
-          focus:outline-none
-        "
-        type="text"
-      >
-    </div>
-    <div class="flex flex-col">
-      <label for="baute-synergy" class="mx-2">baute-synergy</label>
-      <input
-        id="baute-synergy"
-        class="
-          border-1 border-gray-200
-          px-5
-          pr-16
-          h-8
-          rounded-lg
-          text-sm
-          focus:outline-none
-        "
-        type="text"
-      >
+      </div>
+      <div formGroupName="wellBeing">
+        <div class="flex flex-col">
+          <label for="wellBeing-proprietes" class="mx-2">wellBeing-proprietes</label>
+          <input
+            id="wellBeing-proprietes"
+            class="primary-input"
+            type="text"
+          >
+        </div>
+        <div class="flex flex-col">
+          <label for="wellBeing-areaOfUse" class="mx-2"
+          >wellBeing-areaOfUse</label
+          >
+          <input
+            id="wellBeing-areaOfUse"
+            class="primary-input"
+            type="text"
+          >
+        </div>
+        <div class="flex flex-col">
+          <label for="wellBeing-precautionOfUse" class="mx-2"
+          >wellBeing-precautionOfUse</label
+          >
+          <input
+            id="wellBeing-precautionOfUse"
+            class="primary-input"
+            type="text"
+          >
+        </div>
+        <div class="flex flex-col">
+          <label for="wellBeing-practicalUse" class="mx-2"
+          >wellBeing-practicalUse</label
+          >
+          <input
+            id="wellBeing-practicalUse"
+            class="primary-input"
+            type="text"
+          >
+        </div>
+        <div class="flex flex-col">
+          <label for="wellBeing-synergy" class="mx-2">wellBeing-synergy</label>
+          <input
+            id="wellBeing-synergy"
+            class="primary-input"
+            type="text"
+          >
+        </div>
+
+      </div>
+
     </div>
 
-    <!-- Bien-etre -->
-
-    <div class="flex flex-col">
-      <label for="bienetre-proprietes" class="mx-2">bienetre-proprietes</label>
-      <input
-        id="bienetre-proprietes"
-        class="
-          border-1 border-gray-200
-          px-5
-          pr-16
-          h-8
-          rounded-lg
-          text-sm
-          focus:outline-none
-        "
-        type="text"
-      >
-    </div>
-    <div class="flex flex-col">
-      <label for="bienetre-domaine-utilisation" class="mx-2"
-      >bienetre-domaine-utilisation</label
-      >
-      <input
-        id="bienetre-domaine-utilisation"
-        class="
-          border-1 border-gray-200
-          px-5
-          pr-16
-          h-8
-          rounded-lg
-          text-sm
-          focus:outline-none
-        "
-        type="text"
-      >
-    </div>
-    <div class="flex flex-col">
-      <label for="bienetre-precaution-emploi" class="mx-2"
-      >bienetre-precaution-emploi</label
-      >
-      <input
-        id="bienetre-precaution-emploi"
-        class="
-          border-1 border-gray-200
-          px-5
-          pr-16
-          h-8
-          rounded-lg
-          text-sm
-          focus:outline-none
-        "
-        type="text"
-      >
-    </div>
-    <div class="flex flex-col">
-      <label for="bienetre-utilisation-pratique" class="mx-2"
-      >bienetre-utilisation-pratique</label
-      >
-      <input
-        id="bienetre-utilisation-pratique"
-        class="
-          border-1 border-gray-200
-          px-5
-          pr-16
-          h-8
-          rounded-lg
-          text-sm
-          focus:outline-none
-        "
-        type="text"
-      >
-    </div>
-    <div class="flex flex-col">
-      <label for="bienetre-synergy" class="mx-2">bienetre-synergy</label>
-      <input
-        id="bienetre-synergy"
-        class="
-          border-1 border-gray-200
-          px-5
-          pr-16
-          h-8
-          rounded-lg
-          text-sm
-          focus:outline-none
-        "
-        type="text"
-      >
-    </div>
-  </div>
+  </form>
 </div>

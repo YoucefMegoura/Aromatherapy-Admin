@@ -1,7 +1,7 @@
 export enum DomainType {
-  wellBeing,
-  health,
-  beauty
+  wellBeing = 'wellBeing',
+  health = 'health',
+  beauty = 'beauty'
 }
 
 export class Domain {

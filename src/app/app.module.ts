@@ -8,10 +8,10 @@ import { CrudLayoutComponent } from './components/crud-layout/crud-layout.compon
 import { GridLayoutComponent } from './components/crud-layout/grid-layout/grid-layout.component';
 import { DetailLayoutComponent } from './components/crud-layout/detail-layout/detail-layout.component';
 import { StatsLayoutComponent } from './components/stats-layout/stats-layout.component';
-import { AuthComponent } from './auth/auth.component';
+import { SigninComponent } from './auth/signin.component';
 import { AgGridModule } from 'ag-grid-angular';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -21,12 +21,13 @@ import { FormsModule } from '@angular/forms';
     GridLayoutComponent,
     DetailLayoutComponent,
     StatsLayoutComponent,
-    AuthComponent,
+    SigninComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
+    ReactiveFormsModule,
     FormsModule,
     AgGridModule.withComponents([])
   ],

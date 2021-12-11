@@ -4,6 +4,7 @@ import {DatabaseService} from "../database.service";
 import {Oil} from "../../../models/oil.model";
 import {Organoleptic} from "../../../models/organoleptic.model";
 import {Domain, DomainType} from "../../../models/domain.model";
+import {FormControl, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-detail-layout',
@@ -12,7 +13,55 @@ import {Domain, DomainType} from "../../../models/domain.model";
 })
 export class DetailLayoutComponent implements OnInit {
 
-  constructor(private crudService: CrudService, private databaseService: DatabaseService) {
+  public oilDetailForm: FormGroup;
+
+  constructor(
+    private crudService: CrudService,
+    private databaseService: DatabaseService
+  ) {
+    this.oilDetailForm = new FormGroup({
+      'globalData': new FormGroup({
+        'name': new FormControl(null),
+        'sciName': new FormControl(null),
+        'otherNames': new FormControl(null),
+        'distilledOrgan': new FormControl(null),
+        'extractionProcess': new FormControl(null),
+        'allergies': new FormControl(null),
+      }),
+      'organolepticProperties': new FormGroup({
+        'color': new FormControl(null),
+        'smell': new FormControl(null),
+        'aspect': new FormControl(null),
+      }),
+      'domains': new FormGroup({
+        'health' : new FormGroup({
+          'properties' : new FormControl(null),
+          'precautionOfUse' : new FormControl(null),
+          'areaOfUse' : new FormControl(null),
+          'practicalUse' : new FormControl(null),
+          'synergy' : new FormControl(null),
+
+        }),
+        'beauty' : new FormGroup({
+          'properties' : new FormControl(null),
+          'precautionOfUse' : new FormControl(null),
+          'areaOfUse' : new FormControl(null),
+          'practicalUse' : new FormControl(null),
+          'synergy' : new FormControl(null),
+
+        }),
+        'wellBeing' : new FormGroup({
+          'properties' : new FormControl(null),
+          'precautionOfUse' : new FormControl(null),
+          'areaOfUse' : new FormControl(null),
+          'practicalUse' : new FormControl(null),
+          'synergy' : new FormControl(null),
+
+        }),
+      }),
+
+
+    });
   }
 
   ngOnInit(): void {
@@ -21,106 +70,12 @@ export class DetailLayoutComponent implements OnInit {
 
   //onClick Export Button
   onAdd(): void {
-    let oil = new Oil(
-      '1234567',
-      'Apricot',
-      'Prunus Armeniaca',
-      ['Herbe de Saint-Jean Distilled '],
-      'Almond contained in the core',
-      'First pressing at cold',
-      ['limonene, IinaIoI'],
-      new Organoleptic('Jaune', 'Riha', 'Aspect'),
-      [
-        new Domain(
-          DomainType.beauty,
-          'Illuminating oil, it brings a real glow to your skin.\n' +
-          'Regenerating and revitalizing, it fights against the effects of aging.\n' +
-          'Toning, it softens the driest skins.\n' +
-          'Emollient, it nourishes the skin and contributes\n' +
-          'to make it softer.\n' +
-          'By reinforcing the hydrolipidic film, it protects the skin from dehydration.\n',
-          'Can be used pure or mixed with essential oils or other vegetable oils as a day or night cream, or to compose a massage oil.\n' +
-          'To be introduced as a fatty phase in the\n',
-          'Dull, tired, asphyxiated complexion\n' +
-          'Withered, tired, crumpled skin (décolleté),\n' +
-          'face and hands)\n' +
-          'Skin without tone, devitalized\n',
-          'Creams and foundations for a ""healthy glow"" effect\n' +
-          'Toning serums for complexion radiance\n' +
-          'Anti-aging care\n' +
-          'After-sun oils\n' +
-          'Massage oils\n',
-          'Essential oil of Carrot, vegetable oil of Buriti, oily macerate of Carrot for a tanning oil.\n' +
-          'All the vegetable oils to make a day care for the face or an oil for the body:\n' +
-          'Essential oil of Carrot, vegetable oil of Buriti, oily macerate of Carrot for a tanning oil.\n' +
-          'All the vegetable oils to make a day care for the face or an oil for the body:\n' +
-          'Jojoba, Hemp, Hazelnut and Macadamia for a very fluid oil suitable for combination or normal skin.\n' +
-          'Rosehip, Borage and Prickly Pear for a nourishing and anti-aging oil adapted to dry skin.\n' +
-          'Shea and Cocoa butters, wheat germ vegetable oil for very dry skin.\n'
-        ),
-        new Domain(
-          DomainType.health,
-          'Illuminating oil, it brings a real glow to your skin.\n' +
-          'Regenerating and revitalizing, it fights against the effects of aging.\n' +
-          'Toning, it softens the driest skins.\n' +
-          'Emollient, it nourishes the skin and contributes\n' +
-          'to make it softer.\n' +
-          'By reinforcing the hydrolipidic film, it protects the skin from dehydration.\n',
-          'Can be used pure or mixed with essential oils or other vegetable oils as a day or night cream, or to compose a massage oil.\n' +
-          'To be introduced as a fatty phase in the\n',
-          'Dull, tired, asphyxiated complexion\n' +
-          'Withered, tired, crumpled skin (décolleté),\n' +
-          'face and hands)\n' +
-          'Skin without tone, devitalized\n',
-          'Creams and foundations for a ""healthy glow"" effect\n' +
-          'Toning serums for complexion radiance\n' +
-          'Anti-aging care\n' +
-          'After-sun oils\n' +
-          'Massage oils\n',
-          'Essential oil of Carrot, vegetable oil of Buriti, oily macerate of Carrot for a tanning oil.\n' +
-          'All the vegetable oils to make a day care for the face or an oil for the body:\n' +
-          'Essential oil of Carrot, vegetable oil of Buriti, oily macerate of Carrot for a tanning oil.\n' +
-          'All the vegetable oils to make a day care for the face or an oil for the body:\n' +
-          'Jojoba, Hemp, Hazelnut and Macadamia for a very fluid oil suitable for combination or normal skin.\n' +
-          'Rosehip, Borage and Prickly Pear for a nourishing and anti-aging oil adapted to dry skin.\n' +
-          'Shea and Cocoa butters, wheat germ vegetable oil for very dry skin.\n'
-        ),
-        new Domain(
-          DomainType.wellBeing,
-          'Illuminating oil, it brings a real glow to your skin.\n' +
-          'Regenerating and revitalizing, it fights against the effects of aging.\n' +
-          'Toning, it softens the driest skins.\n' +
-          'Emollient, it nourishes the skin and contributes\n' +
-          'to make it softer.\n' +
-          'By reinforcing the hydrolipidic film, it protects the skin from dehydration.\n',
-          'Can be used pure or mixed with essential oils or other vegetable oils as a day or night cream, or to compose a massage oil.\n' +
-          'To be introduced as a fatty phase in the\n',
-          'Dull, tired, asphyxiated complexion\n' +
-          'Withered, tired, crumpled skin (décolleté),\n' +
-          'face and hands)\n' +
-          'Skin without tone, devitalized\n',
-          'Creams and foundations for a ""healthy glow"" effect\n' +
-          'Toning serums for complexion radiance\n' +
-          'Anti-aging care\n' +
-          'After-sun oils\n' +
-          'Massage oils\n',
-          'Essential oil of Carrot, vegetable oil of Buriti, oily macerate of Carrot for a tanning oil.\n' +
-          'All the vegetable oils to make a day care for the face or an oil for the body:\n' +
-          'Essential oil of Carrot, vegetable oil of Buriti, oily macerate of Carrot for a tanning oil.\n' +
-          'All the vegetable oils to make a day care for the face or an oil for the body:\n' +
-          'Jojoba, Hemp, Hazelnut and Macadamia for a very fluid oil suitable for combination or normal skin.\n' +
-          'Rosehip, Borage and Prickly Pear for a nourishing and anti-aging oil adapted to dry skin.\n' +
-          'Shea and Cocoa butters, wheat germ vegetable oil for very dry skin.\n'
-        ),
-      ],
-      new Date(),
-      new Date(),
-    )
-    this.databaseService.addOil(oil).subscribe((data) => {
-      console.log(data)
-    }, (error) => {
-      console.log(error)
-    });
+
+    // this.databaseService.addOil(oil).subscribe((data) => {
+    //   console.log(data)
+    // }, (error) => {
+    //   console.log(error)
+    // });
   }
 
   //onClick Export Button
@@ -131,6 +86,7 @@ export class DetailLayoutComponent implements OnInit {
   //onClick Export Button
   onSave(): void {
     console.log('Save');
+    console.log(this.oilDetailForm.value)
   }
 
   //onClick Export Button
