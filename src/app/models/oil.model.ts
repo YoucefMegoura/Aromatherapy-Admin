@@ -6,7 +6,7 @@ export class Oil {
     private id: string,
     private name: string,
     private sciName: string | undefined,
-    private otherNames: string[]  | undefined,
+    private otherNames: string[] | undefined,
     private distilledOrgan: string | undefined,
     private extractionProcess: string | undefined,
     private allergies: string[] | undefined,
