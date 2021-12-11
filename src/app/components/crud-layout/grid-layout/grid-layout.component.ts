@@ -1,6 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {DatabaseService} from '../../../services/database.service';
+import {DatabaseService} from '../database.service';
 import {CrudService} from "../crud.service";
+import * as moment from "moment";
+import {Oil} from "../../../models/oil.model";
 
 @Component({
   selector: 'app-grid-layout',
@@ -20,43 +22,56 @@ export class GridLayoutComponent implements OnInit {
   public gridOptions: any;
 
   constructor(
-      private databaseService: DatabaseService,
-      private crudService: CrudService
+    private databaseService: DatabaseService,
+    private crudService: CrudService
   ) {
     this.columnDefs = [
-      {field: 'athlete'},
       {
-        field: 'age',
-        filter: 'agNumberColumnFilter',
-        maxWidth: 100,
-      },
-      {field: 'country'},
-      {
-        field: 'year',
-        maxWidth: 100,
+        field: 'name',
+        filter: 'agTextColumnFilter',
+        maxWidth: 200,
       },
       {
-        field: 'date',
+        headerName: 'Scientific Name',
+        field: 'sciName',
+        filter: 'agTextColumnFilter',
+        maxWidth: 200,
+      },
+      {
+        field: 'otherNames',
+        filter: 'agTextColumnFilter',
+        maxWidth: 200,
+      },
+      {
+        field: 'distilledOrgan',
+        filter: 'agTextColumnFilter',
+        maxWidth: 200,
+      },
+
+      {
+        field: 'allergies',
+        filter: 'agTextColumnFilter',
+        maxWidth: 200,
+      },
+      {
+        headerName: 'Created At',
+        field: 'createdAt',
         filter: 'agDateColumnFilter',
         filterParams: this.filterParams,
-      },
-      {field: 'sport'},
-      {
-        field: 'gold',
-        filter: 'agNumberColumnFilter',
+        valueFormatter: (data: any) => {
+          return moment(data.createdAt).format('MM/DD/YYYY HH:mm')
+        }
       },
       {
-        field: 'silver',
-        filter: 'agNumberColumnFilter',
+        headerName: 'Updated At',
+        field: 'updatedAt',
+        filter: 'agDateColumnFilter',
+        filterParams: this.filterParams,
+        valueFormatter: (data: any) => {
+          return moment(data.createdAt).format('MM/DD/YYYY HH:mm')
+        }
       },
-      {
-        field: 'bronze',
-        filter: 'agNumberColumnFilter',
-      },
-      {
-        field: 'total',
-        filter: false,
-      },
+
     ];
     this.defaultColDef = {
       flex: 1,
@@ -70,6 +85,11 @@ export class GridLayoutComponent implements OnInit {
     };
   }
 
+
+  ngOnInit(): void {
+  }
+
+
   onGridReady(params: any) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
@@ -82,10 +102,13 @@ export class GridLayoutComponent implements OnInit {
 
   private filterParams = {
     comparator: function (filterLocalDateAtMidnight: any, cellValue: any): any {
-      var dateAsString = cellValue;
+      const
+       dateAsString = cellValue;
       if (dateAsString == null) return -1;
-      var dateParts = dateAsString.split('/');
-      var cellDate = new Date(
+      const
+       dateParts = dateAsString.split('/');
+      const
+       cellDate = new Date(
         Number(dateParts[2]),
         Number(dateParts[1]) - 1,
         Number(dateParts[0])
@@ -102,9 +125,6 @@ export class GridLayoutComponent implements OnInit {
     },
     browserDatePicker: true,
   };
-
-  ngOnInit(): void {
-  }
 
   //onClick Export Button
   onAdd(): void {
@@ -137,7 +157,7 @@ export class GridLayoutComponent implements OnInit {
   }
 
   onSelectionChanged(params: any) {
-    const selectedRows = this.gridApi.getSelectedRows();
+    const selectedRows : Oil = this.gridApi.getSelectedRows();
     console.log(selectedRows);
   }
 

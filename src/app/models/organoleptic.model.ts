@@ -1,7 +1,7 @@
 export class Organoleptic {
   constructor (
-    private color: string,
-    private smell: string,
-    private aspect: string,
+    private color: string | undefined,
+    private smell: string | undefined,
+    private aspect: string | undefined,
   ) {}
 }

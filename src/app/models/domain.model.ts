@@ -7,10 +7,10 @@ export enum DomainType {
 export class Domain {
   constructor (
     private type: DomainType,
-    private properties: string,
-    private precautionOfUse: string,
-    private areaOfUse: string,
-    private practicalUse: string,
-    private synergy: string
+    private properties: string | undefined,
+    private precautionOfUse: string | undefined,
+    private areaOfUse: string | undefined,
+    private practicalUse: string | undefined,
+    private synergy: string | undefined
   ) {}
 }
