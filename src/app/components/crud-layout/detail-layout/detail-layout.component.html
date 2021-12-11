@@ -46,7 +46,21 @@
     </div>
 
   </div><!-- Add, Delete, Save bare -->
-
+  <div
+    class="flex flex-row justify-between px-6 py-2 m-2 bg-green-500 rounded-md "
+    *ngIf="false"
+  >
+    <p class="text-white">The information are saved.</p>
+    <button
+      (click)="onClose()"
+      title="Close"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24"
+           stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+      </svg>
+    </button>
+  </div>
   <form
     class="flex flex-col gap-1 px-4 overflow-y-scroll"
     [formGroup]="oilDetailForm"
@@ -83,6 +97,7 @@
       <div class="flex flex-col">
         <label for="distilledOrgan" class="mx-2">distilled organ</label>
         <input
+          formControlName="distilledOrgan"
           id="distilledOrgan"
           class="primary-input"
           type="text"
@@ -91,6 +106,7 @@
       <div class="flex flex-col">
         <label for="extractionProcess" class="mx-2">Extraction process</label>
         <input
+          formControlName="extractionProcess"
           id="extractionProcess"
           class="primary-input"
           type="text"
@@ -99,6 +115,7 @@
       <div class="flex flex-col">
         <label for="allergies" class="mx-2">Allergies</label>
         <input
+          formControlName="allergies"
           id="allergies"
           class="primary-input"
           type="text"
@@ -112,6 +129,7 @@
       <div class="flex flex-col">
         <label for="aspect" class="mx-2">Aspect</label>
         <input
+          formControlName="aspect"
           id="aspect"
           class="primary-input"
           type="text"
@@ -120,15 +138,17 @@
       <div class="flex flex-col">
         <label for="color" class="mx-2">Color</label>
         <input
+          formControlName="color"
           id="color"
           class="primary-input"
           type="text"
         >
       </div><!--Color-->
       <div class="flex flex-col">
-        <label for="Smell" class="mx-2">Smell</label>
+        <label for="smell" class="mx-2">Smell</label>
         <input
-          id="Smell"
+          formControlName="smell"
+          id="smell"
           class="primary-input"
           type="text"
         >
@@ -140,147 +160,154 @@
     <div formGroupName="domains">
       <div formGroupName="health">
         <div class="flex flex-col">
-          <label for="health-proprietes" class="mx-2">health-proprietes</label>
-          <input
-            id="health-proprietes"
-            class="primary-input"
-            type="text"
+          <label for="health-properties"
+                 class="mx-2">health-properties
+
+          </label>
+          <input formControlName="properties"
+                 id="health-properties"
+                 class="primary-input"
+                 type="text"
           >
         </div>
         <div class="flex flex-col">
           <label for="health-areaOfUse" class="mx-2"
           >health-areaOfUse</label
           >
-          <input
-            id="health-areaOfUse"
-            class="primary-input"
-            type="text"
+          <input formControlName="areaOfUse"
+                 id="health-areaOfUse"
+                 class="primary-input"
+                 type="text"
           >
         </div>
         <div class="flex flex-col">
           <label for="health-precautionOfUse" class="mx-2"
           >health-precautionOfUse</label
           >
-          <input
-            id="health-precautionOfUse"
-            class="primary-input"
-            type="text"
+          <input formControlName="precautionOfUse"
+                 id="health-precautionOfUse"
+                 class="primary-input"
+                 type="text"
           >
         </div>
         <div class="flex flex-col">
           <label for="health-practicalUse" class="mx-2"
           >health-practicalUse</label
           >
-          <input
-            id="health-practicalUse"
-            class="primary-input"
-            type="text"
+          <input formControlName="practicalUse"
+                 id="health-practicalUse"
+                 class="primary-input"
+                 type="text"
           >
         </div>
         <div class="flex flex-col">
           <label for="health-synergy" class="mx-2">health-synergy</label>
-          <input
-            id="health-synergy"
-            class="primary-input"
-            type="text"
+          <input formControlName="synergy"
+                 id="health-synergy"
+                 class="primary-input"
+                 type="text"
           >
         </div>
 
       </div>
       <div formGroupName="beauty">
         <div class="flex flex-col">
-          <label for="beauty-proprietes" class="mx-2">beauty-proprietes</label>
-          <input
-            id="beauty-proprietes"
-            class="primary-input"
-            type="text"
+          <label for="beauty-properties" class="mx-2">beauty-properties
+
+          </label>
+          <input formControlName="properties"
+                 id="beauty-properties"
+                 class="primary-input"
+                 type="text"
           >
         </div>
         <div class="flex flex-col">
           <label for="beauty-areaOfUse" class="mx-2"
           >beauty-areaOfUse</label
           >
-          <input
-            id="beauty-areaOfUse"
-            class="primary-input"
-            type="text"
+          <input formControlName="areaOfUse"
+                 id="beauty-areaOfUse"
+                 class="primary-input"
+                 type="text"
           >
         </div>
         <div class="flex flex-col">
           <label for="beauty-precautionOfUse" class="mx-2"
           >beauty-precautionOfUse</label
           >
-          <input
-            id="beauty-precautionOfUse"
-            class="primary-input"
-            type="text"
+          <input formControlName="precautionOfUse"
+                 id="beauty-precautionOfUse"
+                 class="primary-input"
+                 type="text"
           >
         </div>
         <div class="flex flex-col">
           <label for="beauty-practicalUse" class="mx-2"
           >beauty-practicalUse</label
           >
-          <input
-            id="beauty-practicalUse"
-            class="primary-input"
-            type="text"
+          <input formControlName="practicalUse"
+                 id="beauty-practicalUse"
+                 class="primary-input"
+                 type="text"
           >
         </div>
         <div class="flex flex-col">
           <label for="beauty-synergy" class="mx-2">beauty-synergy</label>
-          <input
-            id="beauty-synergy"
-            class="primary-input"
-            type="text"
+          <input formControlName="synergy"
+                 id="beauty-synergy"
+                 class="primary-input"
+                 type="text"
           >
         </div>
 
       </div>
       <div formGroupName="wellBeing">
         <div class="flex flex-col">
-          <label for="wellBeing-proprietes" class="mx-2">wellBeing-proprietes</label>
-          <input
-            id="wellBeing-proprietes"
-            class="primary-input"
-            type="text"
+          <label for="wellBeing-properties" class="mx-2">wellBeing-properties
+
+          </label>
+          <input formControlName="properties"
+                 id="wellBeing-properties"
+                 class="primary-input"
+                 type="text"
           >
         </div>
         <div class="flex flex-col">
           <label for="wellBeing-areaOfUse" class="mx-2"
           >wellBeing-areaOfUse</label
           >
-          <input
-            id="wellBeing-areaOfUse"
-            class="primary-input"
-            type="text"
+          <input formControlName="areaOfUse"
+                 id="wellBeing-areaOfUse"
+                 class="primary-input"
+                 type="text"
           >
         </div>
         <div class="flex flex-col">
           <label for="wellBeing-precautionOfUse" class="mx-2"
           >wellBeing-precautionOfUse</label
           >
-          <input
-            id="wellBeing-precautionOfUse"
-            class="primary-input"
-            type="text"
+          <input formControlName="precautionOfUse"
+                 id="wellBeing-precautionOfUse"
+                 class="primary-input"
+                 type="text"
           >
         </div>
         <div class="flex flex-col">
           <label for="wellBeing-practicalUse" class="mx-2"
           >wellBeing-practicalUse</label
           >
-          <input
-            id="wellBeing-practicalUse"
-            class="primary-input"
-            type="text"
+          <input formControlName="practicalUse"
+                 id="wellBeing-practicalUse"
+                 class="primary-input"
+                 type="text"
           >
         </div>
         <div class="flex flex-col">
           <label for="wellBeing-synergy" class="mx-2">wellBeing-synergy</label>
-          <input
-            id="wellBeing-synergy"
-            class="primary-input"
-            type="text"
+          <input formControlName="synergy"
+                 id="wellBeing-synergy"
+                 class="primary-input"
+                 type="text"
           >
         </div>
 

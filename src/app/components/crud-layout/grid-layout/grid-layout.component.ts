@@ -1,15 +1,19 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {DatabaseService} from '../database.service';
 import {CrudService} from "../crud.service";
 import * as moment from "moment";
 import {Oil} from "../../../models/oil.model";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-grid-layout',
   templateUrl: './grid-layout.component.html',
   styleUrls: ['./grid-layout.component.scss'],
 })
-export class GridLayoutComponent implements OnInit {
+export class GridLayoutComponent implements OnInit, OnDestroy {
+
+  public isExpanded: boolean | undefined;
+  private isExpandedSubscription: Subscription | undefined;
 
   public searchValue: string | undefined;
   public gridApi: any;
@@ -87,6 +91,13 @@ export class GridLayoutComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.isExpandedSubscription = this.crudService.isDetailsExpandedSubject.subscribe((isExpanded: boolean) => {
+      this.isExpanded = isExpanded;
+    })
+  }
+
+  ngOnDestroy(): void {
+    this.isExpandedSubscription?.unsubscribe();
   }
 
 
@@ -103,16 +114,16 @@ export class GridLayoutComponent implements OnInit {
   private filterParams = {
     comparator: function (filterLocalDateAtMidnight: any, cellValue: any): any {
       const
-       dateAsString = cellValue;
+        dateAsString = cellValue;
       if (dateAsString == null) return -1;
       const
-       dateParts = dateAsString.split('/');
+        dateParts = dateAsString.split('/');
       const
-       cellDate = new Date(
-        Number(dateParts[2]),
-        Number(dateParts[1]) - 1,
-        Number(dateParts[0])
-      );
+        cellDate = new Date(
+          Number(dateParts[2]),
+          Number(dateParts[1]) - 1,
+          Number(dateParts[0])
+        );
       if (filterLocalDateAtMidnight.getTime() === cellDate.getTime()) {
         return 0;
       }
@@ -157,7 +168,7 @@ export class GridLayoutComponent implements OnInit {
   }
 
   onSelectionChanged(params: any) {
-    const selectedRows : Oil = this.gridApi.getSelectedRows();
+    const selectedRows: Oil = this.gridApi.getSelectedRows();
     console.log(selectedRows);
   }
 

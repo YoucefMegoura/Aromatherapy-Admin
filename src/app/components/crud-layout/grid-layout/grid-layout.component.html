@@ -1,10 +1,11 @@
 <div class="flex flex-col flex-grow">
 
-  <!-- Export, import, search bar -->
+
   <div class="flex flex-row justify-between">
 
-    <div class="flex flex-row justify-end gap-2 mx-2 my-2">
+    <div class="flex flex-row gap-2 mx-2 my-2" >
       <button
+        *ngIf="!isExpanded"
         class="p-1.5 bg-gray-200 rounded-md"
         (click)="onAdd()"
         title="Exporter CSV"
@@ -12,8 +13,9 @@
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
         </svg>
-      </button>
+      </button><!--Add-->
       <button
+        *ngIf="!isExpanded"
         class="p-1.5 bg-gray-200 rounded-md"
         (click)="onDelete()"
         title="Importer CSV"
@@ -23,8 +25,9 @@
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
         </svg>
-      </button>
+      </button><!--Delete-->
       <button
+        *ngIf="!isExpanded"
         class="p-1.5 bg-gray-200 rounded-md"
         (click)="onRefresh()"
         title="Importer CSV"
@@ -34,9 +37,9 @@
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
         </svg>
-      </button>
-
+      </button><!--Refresh-->
       <button
+        *ngIf="!isExpanded"
         class="p-1.5 bg-gray-200 rounded-md"
         (click)="onExport()"
         title="Exporter CSV"
@@ -46,20 +49,19 @@
                 d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
                 clip-rule="evenodd"/>
         </svg>
-      </button>
-
+      </button><!--Import-->
       <button
+        *ngIf="!isExpanded"
         class="p-1.5 bg-gray-200 rounded-md"
         (click)="onImport()"
         title="Importer CSV"
-
       >
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
           <path fill-rule="evenodd"
                 d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z"
                 clip-rule="evenodd"/>
         </svg>
-      </button>
+      </button><!--Export-->
 
     </div>
 
@@ -87,9 +89,9 @@
 
     </div>
 
-  </div>
+  </div><!-- Export, import, search bar -->
 
-  <!-- grid -->
+
   <!-- TODO:: make it flex-->
     <ag-grid-angular
       class="ag-theme-alpine"

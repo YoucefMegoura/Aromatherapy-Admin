@@ -14,11 +14,14 @@ import {FormControl, FormGroup} from "@angular/forms";
 export class DetailLayoutComponent implements OnInit {
 
   public oilDetailForm: FormGroup;
+  public saveInfos: string = '';
 
   constructor(
     private crudService: CrudService,
     private databaseService: DatabaseService
   ) {
+    //TODO:: implements form Validation
+    //TODO:: Implements FormArray (211)
     this.oilDetailForm = new FormGroup({
       'globalData': new FormGroup({
         'name': new FormControl(null),
@@ -34,38 +37,47 @@ export class DetailLayoutComponent implements OnInit {
         'aspect': new FormControl(null),
       }),
       'domains': new FormGroup({
-        'health' : new FormGroup({
-          'properties' : new FormControl(null),
-          'precautionOfUse' : new FormControl(null),
-          'areaOfUse' : new FormControl(null),
-          'practicalUse' : new FormControl(null),
-          'synergy' : new FormControl(null),
+        'health': new FormGroup({
+          'properties': new FormControl(null),
+          'precautionOfUse': new FormControl(null),
+          'areaOfUse': new FormControl(null),
+          'practicalUse': new FormControl(null),
+          'synergy': new FormControl(null),
 
         }),
-        'beauty' : new FormGroup({
-          'properties' : new FormControl(null),
-          'precautionOfUse' : new FormControl(null),
-          'areaOfUse' : new FormControl(null),
-          'practicalUse' : new FormControl(null),
-          'synergy' : new FormControl(null),
+        'beauty': new FormGroup({
+          'properties': new FormControl(null),
+          'precautionOfUse': new FormControl(null),
+          'areaOfUse': new FormControl(null),
+          'practicalUse': new FormControl(null),
+          'synergy': new FormControl(null),
 
         }),
-        'wellBeing' : new FormGroup({
-          'properties' : new FormControl(null),
-          'precautionOfUse' : new FormControl(null),
-          'areaOfUse' : new FormControl(null),
-          'practicalUse' : new FormControl(null),
-          'synergy' : new FormControl(null),
+        'wellBeing': new FormGroup({
+          'properties': new FormControl(null),
+          'precautionOfUse': new FormControl(null),
+          'areaOfUse': new FormControl(null),
+          'practicalUse': new FormControl(null),
+          'synergy': new FormControl(null),
 
         }),
       }),
-
-
     });
   }
 
   ngOnInit(): void {
+    this.oilDetailForm.patchValue({
+      'globalData': {
+        'name': 'Apricot',
+        'sciName': 'Apricot',
+        'otherNames': 'Herbe de Saint-Jean Distilled',
+        'distilledOrgan': 'First pressing at cold',
+        'extractionProcess': 'First pressing at cold',
+        'allergies': 'First pressing at cold',
+      }
 
+
+    })
   }
 
   //onClick Export Button
