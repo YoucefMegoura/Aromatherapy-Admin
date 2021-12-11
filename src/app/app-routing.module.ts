@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuardService } from './auth/auth-guard.service';
 import { AuthComponent } from './auth/auth.component';
-import { CrudLayoutComponent } from './crud-layout/crud-layout.component';
-import { StatsLayoutComponent } from './stats-layout/stats-layout.component';
+import { CrudLayoutComponent } from './components/crud-layout/crud-layout.component';
+import { StatsLayoutComponent } from './components/stats-layout/stats-layout.component';
 
 const routes: Routes = [
 

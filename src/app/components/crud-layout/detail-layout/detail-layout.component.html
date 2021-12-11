@@ -7,19 +7,8 @@
         (click)="onAdd()"
         title="Ajouter"
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-5 w-5"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M12 4v16m8-8H4"
-          />
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
         </svg>
       </button>
       <button
@@ -27,19 +16,9 @@
         (click)="onDelete()"
         title="Supprimer"
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-5 w-5"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-          />
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
         </svg>
       </button>
       <button
@@ -47,25 +26,28 @@
         (click)="onSave()"
         title="Enregistrer"
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-5 w-5"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"
-          />
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/>
         </svg>
       </button>
     </div>
+    <div class="flex flex-row justify-end gap-2 mx-2 my-2">
+      <button
+        class="p-1.5 bg-gray-200 rounded-md"
+        (click)="onClose()"
+        title="Close"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+
+    </div>
+
   </div>
 
-  <div class="overflow-y-scroll grid gap-1 grid-cols-2">
+  <div class="overflow-y-scroll grid gap-1 grid-cols-2 px-4">
     <div class="flex flex-col">
       <label for="name" class="mx-2">name</label>
       <input
@@ -230,7 +212,7 @@
       />
     </div>
 
-    <!-- 
+    <!--
             Domaines
         -->
 
@@ -253,7 +235,7 @@
     </div>
     <div class="flex flex-col">
       <label for="sante-domaine-utilisation" class="mx-2"
-        >sante-domaine-utilisation</label
+      >sante-domaine-utilisation</label
       >
       <input
         id="sante-domaine-utilisation"
@@ -271,7 +253,7 @@
     </div>
     <div class="flex flex-col">
       <label for="sante-precaution-emploi" class="mx-2"
-        >sante-precaution-emploi</label
+      >sante-precaution-emploi</label
       >
       <input
         id="sante-precaution-emploi"
@@ -289,7 +271,7 @@
     </div>
     <div class="flex flex-col">
       <label for="sante-utilisation-pratique" class="mx-2"
-        >sante-utilisation-pratique</label
+      >sante-utilisation-pratique</label
       >
       <input
         id="sante-utilisation-pratique"
@@ -342,7 +324,7 @@
     </div>
     <div class="flex flex-col">
       <label for="baute-domaine-utilisation" class="mx-2"
-        >baute-domaine-utilisation</label
+      >baute-domaine-utilisation</label
       >
       <input
         id="baute-domaine-utilisation"
@@ -360,7 +342,7 @@
     </div>
     <div class="flex flex-col">
       <label for="baute-precaution-emploi" class="mx-2"
-        >baute-precaution-emploi</label
+      >baute-precaution-emploi</label
       >
       <input
         id="baute-precaution-emploi"
@@ -378,7 +360,7 @@
     </div>
     <div class="flex flex-col">
       <label for="baute-utilisation-pratique" class="mx-2"
-        >baute-utilisation-pratique</label
+      >baute-utilisation-pratique</label
       >
       <input
         id="baute-utilisation-pratique"
@@ -431,7 +413,7 @@
     </div>
     <div class="flex flex-col">
       <label for="bienetre-domaine-utilisation" class="mx-2"
-        >bienetre-domaine-utilisation</label
+      >bienetre-domaine-utilisation</label
       >
       <input
         id="bienetre-domaine-utilisation"
@@ -449,7 +431,7 @@
     </div>
     <div class="flex flex-col">
       <label for="bienetre-precaution-emploi" class="mx-2"
-        >bienetre-precaution-emploi</label
+      >bienetre-precaution-emploi</label
       >
       <input
         id="bienetre-precaution-emploi"
@@ -467,7 +449,7 @@
     </div>
     <div class="flex flex-col">
       <label for="bienetre-utilisation-pratique" class="mx-2"
-        >bienetre-utilisation-pratique</label
+      >bienetre-utilisation-pratique</label
       >
       <input
         id="bienetre-utilisation-pratique"

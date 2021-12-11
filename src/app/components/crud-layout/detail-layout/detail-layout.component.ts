@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-detail-layout',
@@ -7,13 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DetailLayoutComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
 
-   //onClick Export Button
-   onAdd(): void {
+  //onClick Export Button
+  onAdd(): void {
     console.log('Export');
   }
 
@@ -27,4 +28,8 @@ export class DetailLayoutComponent implements OnInit {
     console.log('Delete');
   }
 
+  //onClick Export Button
+  onClose() {
+
+  }
 }

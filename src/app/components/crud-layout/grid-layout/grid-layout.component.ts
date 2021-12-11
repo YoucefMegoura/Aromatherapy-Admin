@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { DatabaseService } from '../services/database.service';
+import {Component, OnInit} from '@angular/core';
+import {DatabaseService} from '../../../services/database.service';
 
 @Component({
   selector: 'app-grid-layout',
@@ -20,13 +20,13 @@ export class GridLayoutComponent implements OnInit {
 
   constructor(private databaseService: DatabaseService) {
     this.columnDefs = [
-      { field: 'athlete' },
+      {field: 'athlete'},
       {
         field: 'age',
         filter: 'agNumberColumnFilter',
         maxWidth: 100,
       },
-      { field: 'country' },
+      {field: 'country'},
       {
         field: 'year',
         maxWidth: 100,
@@ -36,7 +36,7 @@ export class GridLayoutComponent implements OnInit {
         filter: 'agDateColumnFilter',
         filterParams: this.filterParams,
       },
-      { field: 'sport' },
+      {field: 'sport'},
       {
         field: 'gold',
         filter: 'agNumberColumnFilter',
@@ -62,7 +62,7 @@ export class GridLayoutComponent implements OnInit {
     };
     this.gridOptions = {
       pagination: true,
-      paginationAutoPageSize:true,
+      paginationAutoPageSize: true,
     };
   }
 
@@ -76,30 +76,31 @@ export class GridLayoutComponent implements OnInit {
   }
 
 
-private filterParams = {
-  comparator: function (filterLocalDateAtMidnight: any, cellValue: any): any {
-    var dateAsString = cellValue;
-    if (dateAsString == null) return -1;
-    var dateParts = dateAsString.split('/');
-    var cellDate = new Date(
-      Number(dateParts[2]),
-      Number(dateParts[1]) - 1,
-      Number(dateParts[0])
-    );
-    if (filterLocalDateAtMidnight.getTime() === cellDate.getTime()) {
-      return 0;
-    }
-    if (cellDate < filterLocalDateAtMidnight) {
-      return -1;
-    }
-    if (cellDate > filterLocalDateAtMidnight) {
-      return 1;
-    }
-  },
-  browserDatePicker: true,
-};
+  private filterParams = {
+    comparator: function (filterLocalDateAtMidnight: any, cellValue: any): any {
+      var dateAsString = cellValue;
+      if (dateAsString == null) return -1;
+      var dateParts = dateAsString.split('/');
+      var cellDate = new Date(
+        Number(dateParts[2]),
+        Number(dateParts[1]) - 1,
+        Number(dateParts[0])
+      );
+      if (filterLocalDateAtMidnight.getTime() === cellDate.getTime()) {
+        return 0;
+      }
+      if (cellDate < filterLocalDateAtMidnight) {
+        return -1;
+      }
+      if (cellDate > filterLocalDateAtMidnight) {
+        return 1;
+      }
+    },
+    browserDatePicker: true,
+  };
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   //onClick Export Button
   onAdd(): void {
