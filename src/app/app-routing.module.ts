@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuardService } from './auth/auth-guard.service';
 import { AuthComponent } from './auth/auth.component';
 import { CrudLayoutComponent } from './crud-layout/crud-layout.component';
-import { GridLayoutComponent } from './grid-layout/grid-layout.component';
 import { StatsLayoutComponent } from './stats-layout/stats-layout.component';
 
 const routes: Routes = [

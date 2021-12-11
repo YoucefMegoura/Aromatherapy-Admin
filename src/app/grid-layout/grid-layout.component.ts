@@ -1,7 +1,4 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ColDef } from 'ag-grid-community';
-import { Observable } from 'rxjs';
 import { DatabaseService } from '../services/database.service';
 
 @Component({
@@ -10,7 +7,7 @@ import { DatabaseService } from '../services/database.service';
   styleUrls: ['./grid-layout.component.scss'],
 })
 export class GridLayoutComponent implements OnInit {
-  
+
   public searchValue: string | undefined;
   public gridApi: any;
   public gridColumnApi: any;
@@ -138,5 +135,5 @@ private filterParams = {
     const selectedRows = this.gridApi.getSelectedRows();
     console.log(selectedRows);
   }
-  
+
 }

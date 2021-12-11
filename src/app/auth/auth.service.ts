@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import {Subject} from "rxjs";
 
 @Injectable({
   providedIn: 'root',
@@ -6,12 +7,18 @@ import { Injectable } from '@angular/core';
 export class AuthService {
   constructor() {}
 
-  isAuth = false;
+  private isAuth = false;
+  public authSubject = new Subject<boolean>();
+
+  emiAuthSubject() : void {
+    this.authSubject.next(this.isAuth);
+  }
 
   signIn(): any {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         this.isAuth = true;
+        this.emiAuthSubject();
         resolve(true);
       }, 1000);
     });
@@ -19,5 +26,6 @@ export class AuthService {
 
   signOut(): void {
     this.isAuth = false;
+    this.emiAuthSubject();
   }
 }

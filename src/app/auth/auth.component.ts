@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-auth',
@@ -9,19 +10,26 @@ import { AuthService } from './auth.service';
 })
 export class AuthComponent implements OnInit {
 
+  public authSubscription: Subscription | undefined;
   public authStatus: boolean | undefined;
 
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
-    this.authStatus = this.authService.isAuth;
+    this.authSubscription = this.authService.authSubject.subscribe(
+      (isAuth: boolean) => {
+        this.authStatus = isAuth;
+      },
+      (error: any) => {
+        console.log(error)
+      }
+    )
   }
 
   onSignIn() {
     this.authService.signIn().then(
       () => {
         console.log('Sign in successful!');
-        this.authStatus = this.authService.isAuth;
         this.router.navigate(['stats']);
       }
     );
@@ -29,7 +37,6 @@ export class AuthComponent implements OnInit {
 
   onSignOut() {
     this.authService.signOut();
-    this.authStatus = this.authService.isAuth;
   }
 
 }
