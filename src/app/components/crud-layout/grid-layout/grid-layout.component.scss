@@ -1,27 +1,3 @@
 ag-grid-angular {
   height: 86.3vh;
 }
-
-.overflow-x-scroll {
-  height: 85vh;
-  scrollbar-width: thin;
-}
-
-.ag-root ::-webkit-scrollbar {
-  width: 12px;
-}
-
-/* Track */
-.ag-root ::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-  -webkit-border-radius: 10px;
-  border-radius: 10px;
-}
-
-/* Handle */
-.ag-root ::-webkit-scrollbar-thumb {
-  -webkit-border-radius: 10px;
-  border-radius: 10px;
-  background: rgba(172, 172, 172, 0.27);
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.16);
-}

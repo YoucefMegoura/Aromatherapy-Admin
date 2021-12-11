@@ -9,4 +9,28 @@ html, body {
   min-width: 100%;
   height: auto;
   margin: 0;
-}/* You can add global styles to this file, and also import other style files */
+}
+
+
+.ag-root ::-webkit-scrollbar {
+  scrollbar-width: thin;
+  height: 12px;
+}
+
+/* Track */
+.ag-root ::-webkit-scrollbar-track {
+
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.16);
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+
+/* Handle */
+.ag-root ::-webkit-scrollbar-thumb {
+  scrollbar-width: thin;
+
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.13);
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.25);
+}

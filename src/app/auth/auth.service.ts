@@ -5,7 +5,8 @@ import {Subject} from "rxjs";
   providedIn: 'root',
 })
 export class AuthService {
-  constructor() {}
+  constructor() {
+  }
 
   private isAuth = false;
   public authSubject = new Subject<boolean>();

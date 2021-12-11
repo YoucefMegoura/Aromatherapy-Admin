@@ -1,5 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {DatabaseService} from '../../../services/database.service';
+import {CrudService} from "../crud.service";
 
 @Component({
   selector: 'app-grid-layout',
@@ -18,7 +19,10 @@ export class GridLayoutComponent implements OnInit {
 
   public gridOptions: any;
 
-  constructor(private databaseService: DatabaseService) {
+  constructor(
+      private databaseService: DatabaseService,
+      private crudService: CrudService
+  ) {
     this.columnDefs = [
       {field: 'athlete'},
       {
@@ -104,7 +108,7 @@ export class GridLayoutComponent implements OnInit {
 
   //onClick Export Button
   onAdd(): void {
-    console.log('Add');
+    this.crudService.expandDetail();
   }
 
   //onClick Export Button

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
 import {Subscription} from "rxjs";
@@ -8,29 +8,24 @@ import {Subscription} from "rxjs";
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss']
 })
-export class AuthComponent implements OnInit {
+export class AuthComponent implements OnInit{
 
-  public authSubscription: Subscription | undefined;
   public authStatus: boolean | undefined;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router) {
+
+  }
 
   ngOnInit() {
-    this.authSubscription = this.authService.authSubject.subscribe(
-      (isAuth: boolean) => {
-        this.authStatus = isAuth;
-      },
-      (error: any) => {
-        console.log(error)
-      }
-    )
+    this.onSignIn(); //TODO:: REMOVE
+
   }
 
   onSignIn() {
     this.authService.signIn().then(
       () => {
         console.log('Sign in successful!');
-        this.router.navigate(['stats']);
+        this.router.navigate(['oils']);
       }
     );
   }

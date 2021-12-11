@@ -1,4 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {CrudService} from "../crud.service";
+import {Subject} from "rxjs";
 
 @Component({
   selector: 'app-detail-layout',
@@ -7,29 +9,30 @@ import {Component, OnInit} from '@angular/core';
 })
 export class DetailLayoutComponent implements OnInit {
 
-  constructor() {
+  constructor(private crudService: CrudService) {
   }
 
   ngOnInit(): void {
+
   }
 
   //onClick Export Button
   onAdd(): void {
-    console.log('Export');
+    this.crudService.expandDetail();
   }
 
   //onClick Export Button
   onDelete(): void {
-    console.log('Import');
-  }
-
-  //onClick Export Button
-  onSave(): void {
     console.log('Delete');
   }
 
   //onClick Export Button
-  onClose() {
+  onSave(): void {
+    console.log('Save');
+  }
 
+  //onClick Export Button
+  onClose() {
+    this.crudService.closeDetail();
   }
 }
