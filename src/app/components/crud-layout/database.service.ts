@@ -10,9 +10,14 @@ export class DatabaseService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getData() : Observable<Object> {
+  getOilsList() : Observable<Object> {
     return this.httpClient
       .get('http://localhost:3000/oils')
+  }
+
+  getOilByID(id: string): Observable<Oil>{
+    return this.httpClient
+      .get<Oil>(`http://localhost:3000/oils/${id}`);
   }
 
   addOil(oil: Oil) : Observable<any> {

@@ -15,12 +15,16 @@ export class AuthService {
     this.authSubject.next(this.isAuth);
   }
 
-  signIn(): any {
+  signIn(email: string, password: string): any {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        this.isAuth = true;
-        this.emiAuthSubject();
-        resolve(true);
+        if (email == 'superuser@email.com' && password == 'testtest') { //TODO:: remove
+          this.isAuth = true;
+          this.emiAuthSubject();
+          resolve(true);
+        } else {
+          reject('Incorrect Email/password, try again');
+        }
       }, 1000);
     });
   }

@@ -11,7 +11,7 @@
         (ngSubmit)="onSignIn()"
       >
         <span class="text-red-400 text-sm" *ngIf="form.invalid && form.submitted && form.dirty">Please enter a valid username and password!</span>
-        <span class="text-red-400" *ngIf="!(form.invalid && form.submitted)"> </span>
+        <span class="text-red-400 text-sm" *ngIf="authError && authForm.touched">{{authError}}</span>
 
         <input
           formControlName="email"

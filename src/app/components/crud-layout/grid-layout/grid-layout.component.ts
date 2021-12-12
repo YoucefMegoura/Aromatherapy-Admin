@@ -33,23 +33,23 @@ export class GridLayoutComponent implements OnInit, OnDestroy {
       {
         field: 'name',
         filter: 'agTextColumnFilter',
-        maxWidth: 200,
+        maxWidth: 300,
       },
       {
         headerName: 'Scientific Name',
         field: 'sciName',
         filter: 'agTextColumnFilter',
-        maxWidth: 200,
+        maxWidth: 300,
       },
       {
         field: 'otherNames',
         filter: 'agTextColumnFilter',
-        maxWidth: 200,
+        maxWidth: 300,
       },
       {
         field: 'distilledOrgan',
         filter: 'agTextColumnFilter',
-        maxWidth: 200,
+        maxWidth: 300,
       },
 
       {
@@ -61,6 +61,7 @@ export class GridLayoutComponent implements OnInit, OnDestroy {
         headerName: 'Created At',
         field: 'createdAt',
         filter: 'agDateColumnFilter',
+        maxWidth: 200,
         filterParams: this.filterParams,
         valueFormatter: (data: any) => {
           return moment(data.createdAt).format('MM/DD/YYYY HH:mm')
@@ -71,6 +72,7 @@ export class GridLayoutComponent implements OnInit, OnDestroy {
         field: 'updatedAt',
         filter: 'agDateColumnFilter',
         filterParams: this.filterParams,
+        maxWidth: 200,
         valueFormatter: (data: any) => {
           return moment(data.createdAt).format('MM/DD/YYYY HH:mm')
         }
@@ -106,7 +108,7 @@ export class GridLayoutComponent implements OnInit, OnDestroy {
     this.gridColumnApi = params.columnApi;
 
     this.databaseService
-      .getData()
+      .getOilsList()
       .subscribe((data) => params.api.setRowData(data));
   }
 
@@ -139,7 +141,7 @@ export class GridLayoutComponent implements OnInit, OnDestroy {
 
   //onClick Export Button
   onAdd(): void {
-    this.crudService.expandDetail();
+    this.crudService.expandDetailAdding();
   }
 
   //onClick Export Button
@@ -168,7 +170,10 @@ export class GridLayoutComponent implements OnInit, OnDestroy {
   }
 
   onSelectionChanged(params: any) {
-    const selectedRows: Oil = this.gridApi.getSelectedRows();
+    const selectedRows: Oil = this.gridApi.getSelectedRows()[0];
+    console.log('ID == ' + selectedRows.id)
+
+    this.crudService.expandDetailEdition(selectedRows.id);
     console.log(selectedRows);
   }
 

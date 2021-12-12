@@ -12,6 +12,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 export class SigninComponent implements OnInit{
 
   public authStatus: boolean | undefined;
+  public authError: string | undefined;
 
   public authForm: FormGroup;
 
@@ -29,12 +30,17 @@ export class SigninComponent implements OnInit{
   }
 
   onSignIn() {
-    this.authService.signIn().then(
+    const email: string = this.authForm.value['email'];
+    const password: string = this.authForm.value['password'];
+    this.authService.signIn(email, password).then(
       () => {
         console.log('Sign in successful!');
         this.router.navigate(['oils']);
       }
-    );
+    ).catch((error : any) => {
+      this.authError = error;
+      console.log(error)
+    });
     console.log(this.authForm.value);
   }
 

@@ -1,32 +1,43 @@
-import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {Subject} from 'rxjs';
+import {DetailsMethod} from "./detail-layout/detail-layout.component";
 
 @Injectable({
   providedIn: 'root'
 })
 export class CrudService {
-
+  public detailMethod: DetailsMethod | undefined;
+  public selectedModelID: string | undefined;
   public isDetailsExpanded: boolean = false;
-  public isDetailsExpandedSubject = new Subject<boolean>() ;
+  public isDetailsExpandedSubject = new Subject<boolean>();
 
-  constructor() { }
+  constructor() {
+  }
 
-  emiAuthSubject() : void {
+  emiDetailsExpandedSubject(): void {
     this.isDetailsExpandedSubject.next(this.isDetailsExpanded);
   }
 
-  expandDetail() : void {
+  expandDetailAdding(): void {
+    this.detailMethod = DetailsMethod.Add;
     this.isDetailsExpanded = true;
-    this.emiAuthSubject();
+    this.emiDetailsExpandedSubject();
   }
 
-  closeDetail() : void {
+  expandDetailEdition(selectedModelID: string): void {
+    this.detailMethod = DetailsMethod.Edit;
+    this.selectedModelID = selectedModelID;
+    this.isDetailsExpanded = true;
+    this.emiDetailsExpandedSubject();
+  }
+
+
+
+  closeDetail(): void {
+    //TODO:: gridApi.deselectAll()
     this.isDetailsExpanded = false;
-    this.emiAuthSubject();
+    this.emiDetailsExpandedSubject();
   }
-
-
-
 
 
 }

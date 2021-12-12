@@ -6,11 +6,17 @@ import {Organoleptic} from "../../../models/organoleptic.model";
 import {Domain, DomainType} from "../../../models/domain.model";
 import {FormControl, FormGroup} from "@angular/forms";
 
+export enum DetailsMethod {//TODO:: find a other name
+  Add = 'add',
+  Edit = 'edit'
+}
+
 @Component({
   selector: 'app-detail-layout',
   templateUrl: './detail-layout.component.html',
   styleUrls: ['./detail-layout.component.scss']
 })
+
 export class DetailLayoutComponent implements OnInit {
 
   public oilDetailForm: FormGroup;
@@ -66,18 +72,25 @@ export class DetailLayoutComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.oilDetailForm.patchValue({
-      'globalData': {
-        'name': 'Apricot',
-        'sciName': 'Apricot',
-        'otherNames': 'Herbe de Saint-Jean Distilled',
-        'distilledOrgan': 'First pressing at cold',
-        'extractionProcess': 'First pressing at cold',
-        'allergies': 'First pressing at cold',
-      }
+    if (this.crudService.detailMethod == DetailsMethod.Edit) {
+      let id = this.crudService.selectedModelID;
+      console.log('ZERTYUIO = ' + id);
+      //TODO:: check if id exists
+      this.databaseService.getOilByID(id!).subscribe((oil: Oil) => {
+        this.oilDetailForm.patchValue({
+          'globalData': {
+            'name': oil.name,
+            'sciName': oil.sciName,
+            'otherNames': oil.otherNames,
+            'distilledOrgan': oil.distilledOrgan,
+            'extractionProcess': oil.extractionProcess,
+            'allergies': oil.allergies,
+          }
+        });
+      });
 
+    }
 
-    })
   }
 
   //onClick Export Button
