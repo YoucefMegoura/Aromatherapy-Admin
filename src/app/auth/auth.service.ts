@@ -18,7 +18,7 @@ export class AuthService {
   signIn(email: string, password: string): any {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        if (email == 'superuser@email.com' && password == 'testtest') { //TODO:: remove
+        if (true) { //TODO:: remove // email == 'superuser@email.com' && password == 'testtest'
           this.isAuth = true;
           this.emiAuthSubject();
           resolve(true);

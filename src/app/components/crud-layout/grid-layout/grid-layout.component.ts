@@ -30,6 +30,7 @@ export class GridLayoutComponent implements OnInit, OnDestroy {
     private crudService: CrudService
   ) {
     this.columnDefs = [
+      //TODO:: add sort feature
       {
         field: 'name',
         filter: 'agTextColumnFilter',
@@ -162,11 +163,6 @@ export class GridLayoutComponent implements OnInit, OnDestroy {
   //onClick Export Button
   onImport(): void {
     console.log('Import');
-  }
-
-  //onClick Export Button
-  onDelete(): void {
-    console.log('Delete');
   }
 
   onSelectionChanged(params: any) {

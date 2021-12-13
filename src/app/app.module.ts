@@ -12,17 +12,19 @@ import { SigninComponent } from './auth/signin.component';
 import { AgGridModule } from 'ag-grid-angular';
 import { HttpClientModule } from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { DropdownDirective } from './shared/dropdown.directive';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HeaderLayoutComponent,
-    CrudLayoutComponent,
-    GridLayoutComponent,
-    DetailLayoutComponent,
-    StatsLayoutComponent,
-    SigninComponent,
-  ],
+    declarations: [
+        AppComponent,
+        HeaderLayoutComponent,
+        CrudLayoutComponent,
+        GridLayoutComponent,
+        DetailLayoutComponent,
+        StatsLayoutComponent,
+        SigninComponent,
+        DropdownDirective,
+    ],
   imports: [
     BrowserModule,
     HttpClientModule,
