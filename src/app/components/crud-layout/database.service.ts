@@ -20,11 +20,14 @@ export class DatabaseService {
       .get<Oil>(`http://localhost:3000/oils/${id}`);
   }
 
+  getOilDetailById (id: string): Observable<any> {
+    return this.httpClient
+      .get<any>(`http://localhost:3000/oils/${id}/?_embed=domains`)
+  }
+
   addOil(oil: Oil) : Observable<any> {
-    console.log('erzerz')
     const headers = { 'content-type': 'application/json'};
     const body=JSON.stringify(oil);
-    console.log(body);
-    return this.httpClient.post('http://localhost:3000/oils', body, {'headers': headers});
+    return this.httpClient.post('http://localhost:3000/oils/?_embed=domains', body, {'headers': headers});
   }
 }

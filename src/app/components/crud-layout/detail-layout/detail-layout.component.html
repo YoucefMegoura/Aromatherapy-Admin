@@ -66,53 +66,52 @@
     [formGroup]="oilDetailForm"
     (ngSubmit)="onSave()"
   >
-    <div formGroupName="globalData" class="grid grid-col-2">
-      <div class="flex flex-col">
-        <label for="name" class="mx-2">Name</label>
-        <input
-          formControlName="name"
-          id="name"
-          class="primary-input"
-          type="text"
-        >
-      </div><!--Name-->
-      <div class="flex flex-col">
-        <label for="sciName" class="mx-2">Scientific name</label>
-        <input
-          formControlName="sciName"
-          id="sciName"
-          class="primary-input"
-          type="text"
-        >
-      </div><!--Scientific name-->
-      <div class="flex flex-col">
-        <label for="otherNames" class="mx-2">Other names</label>
-        <input
-          formControlName="otherNames"
-          id="otherNames"
-          class="primary-input"
-          type="text"
-        >
-      </div><!--Other names-->
-      <div class="flex flex-col">
-        <label for="distilledOrgan" class="mx-2">distilled organ</label>
-        <input
-          formControlName="distilledOrgan"
-          id="distilledOrgan"
-          class="primary-input"
-          type="text"
-        >
-      </div><!--distilled organ-->
-      <div class="flex flex-col">
-        <label for="extractionProcess" class="mx-2">Extraction process</label>
-        <input
-          formControlName="extractionProcess"
-          id="extractionProcess"
-          class="primary-input"
-          type="text"
-        >
-      </div><!--Extraction process-->
-      <div class="flex flex-col">
+    <div class="flex flex-col">
+      <label for="name" class="mx-2">Name</label>
+      <input
+        formControlName="name"
+        id="name"
+        class="primary-input"
+        type="text"
+      >
+    </div><!--Name-->
+    <div class="flex flex-col">
+      <label for="sciName" class="mx-2">Scientific name</label>
+      <input
+        formControlName="sciName"
+        id="sciName"
+        class="primary-input"
+        type="text"
+      >
+    </div><!--Scientific name-->
+    <div class="flex flex-col">
+      <label for="otherNames" class="mx-2">Other names</label>
+      <input
+        formControlName="otherNames"
+        id="otherNames"
+        class="primary-input"
+        type="text"
+      >
+    </div><!--Other names-->
+    <div class="flex flex-col">
+      <label for="distilledOrgan" class="mx-2">distilled organ</label>
+      <input
+        formControlName="distilledOrgan"
+        id="distilledOrgan"
+        class="primary-input"
+        type="text"
+      >
+    </div><!--distilled organ-->
+    <div class="flex flex-col">
+      <label for="extractionProcess" class="mx-2">Extraction process</label>
+      <input
+        formControlName="extractionProcess"
+        id="extractionProcess"
+        class="primary-input"
+        type="text"
+      >
+    </div><!--Extraction process-->
+    <div class="flex flex-col">
         <label for="allergies" class="mx-2">Allergies</label>
         <input
           formControlName="allergies"
@@ -121,11 +120,10 @@
           type="text"
         >
       </div><!--Allergies-->
-    </div>
 
 
     <!-- Organoleptic properties -->
-    <div formGroupName="organolepticProperties" class="grid grid-col-2">
+    <div formGroupName="organoleptics" class="grid grid-col-2">
       <div class="flex flex-col">
         <label for="aspect" class="mx-2">Aspect</label>
         <input

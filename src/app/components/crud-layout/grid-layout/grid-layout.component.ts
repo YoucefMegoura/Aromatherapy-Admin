@@ -30,7 +30,6 @@ export class GridLayoutComponent implements OnInit, OnDestroy {
     private crudService: CrudService
   ) {
     this.columnDefs = [
-      //TODO:: add sort feature
       {
         field: 'name',
         filter: 'agTextColumnFilter',
@@ -41,28 +40,33 @@ export class GridLayoutComponent implements OnInit, OnDestroy {
         field: 'sciName',
         filter: 'agTextColumnFilter',
         maxWidth: 300,
+        sortable: true
       },
       {
         field: 'otherNames',
         filter: 'agTextColumnFilter',
         maxWidth: 300,
+        sortable: true
       },
       {
         field: 'distilledOrgan',
         filter: 'agTextColumnFilter',
         maxWidth: 300,
+        sortable: true
       },
 
       {
         field: 'allergies',
         filter: 'agTextColumnFilter',
         maxWidth: 200,
+        sortable: true
       },
       {
         headerName: 'Created At',
         field: 'createdAt',
         filter: 'agDateColumnFilter',
         maxWidth: 200,
+        sortable: true,
         filterParams: this.filterParams,
         valueFormatter: (data: any) => {
           return moment(data.createdAt).format('MM/DD/YYYY HH:mm')
@@ -74,6 +78,7 @@ export class GridLayoutComponent implements OnInit, OnDestroy {
         filter: 'agDateColumnFilter',
         filterParams: this.filterParams,
         maxWidth: 200,
+        sortable: true,
         valueFormatter: (data: any) => {
           return moment(data.createdAt).format('MM/DD/YYYY HH:mm')
         }
@@ -147,7 +152,7 @@ export class GridLayoutComponent implements OnInit, OnDestroy {
 
   //onClick Export Button
   onRefresh(): void {
-    console.log('Refresh');
+    this.gridApi.refreshCells();
   }
 
   //onClick Export Button
@@ -169,7 +174,7 @@ export class GridLayoutComponent implements OnInit, OnDestroy {
     const selectedRows: Oil = this.gridApi.getSelectedRows()[0];
     console.log('ID == ' + selectedRows.id)
 
-    this.crudService.expandDetailEdition(selectedRows.id);
+    this.crudService.expandDetailEdition(selectedRows.id!);
     console.log(selectedRows);
   }
 

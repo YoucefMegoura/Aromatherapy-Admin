@@ -1,7 +1,8 @@
-export class Organoleptic {
+export class Organoleptics {
   constructor (
-    private color: string | undefined,
-    private smell: string | undefined,
-    private aspect: string | undefined,
+    public color: string | null,
+    public smell: string | null,
+    public aspect: string | null,
   ) {}
+
 }

@@ -6,12 +6,16 @@ export enum DomainType {
 
 export class Domain {
   constructor(
-    private type: DomainType,
-    private properties: string | undefined,
-    private precautionOfUse: string | undefined,
-    private areaOfUse: string | undefined,
-    private practicalUse: string | undefined,
-    private synergy: string | undefined
+    public id: string | null,
+    public type: DomainType,
+    public properties: string | null,
+    public precautionOfUse: string | null,
+    public areaOfUse: string | null,
+    public practicalUse: string | null,
+    public synergy: string | null,
+    public oilId: string | null
   ) {
   }
+
+
 }
