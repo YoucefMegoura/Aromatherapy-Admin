@@ -1,5 +1,5 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {DatabaseService} from '../database.service';
+import {OilService} from '../oil.service';
 import {CrudService} from "../crud.service";
 import * as moment from "moment";
 import {Oil} from "../../../models/oil.model";
@@ -26,7 +26,7 @@ export class GridLayoutComponent implements OnInit, OnDestroy {
   public gridOptions: any;
 
   constructor(
-    private databaseService: DatabaseService,
+    private databaseService: OilService,
     private crudService: CrudService
   ) {
     this.columnDefs = [
@@ -113,9 +113,9 @@ export class GridLayoutComponent implements OnInit, OnDestroy {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
 
-    this.databaseService
+    /*this.databaseService
       .getOilsList()
-      .subscribe((data) => params.api.setRowData(data));
+      .subscribe((data) => params.api.setRowData(data));*/
   }
 
 

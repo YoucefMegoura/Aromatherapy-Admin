@@ -3,7 +3,7 @@ import {Domain} from "./domain.model";
 
 export class Oil {
   constructor(
-    public id: string | null,
+    public id: string | null | undefined,
     public name: string,
     public sciName: string | null,
     public otherNames: string[] | null,
@@ -11,7 +11,6 @@ export class Oil {
     public extractionProcess: string | null,
     public allergies: string[] | null,
     public organoleptics: Organoleptics,
-    public domains: Domain[],
     public createdAt: Date | null,
     public updatedAt: Date | null
   ) {
