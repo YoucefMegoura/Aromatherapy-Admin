@@ -16,6 +16,8 @@ import { DropdownDirective } from './shared/dropdown.directive';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
+import {AngularFireModule} from "@angular/fire/compat";
+import {AngularFireDatabaseModule} from "@angular/fire/compat/database";
 
 @NgModule({
     declarations: [
@@ -35,8 +37,8 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
     ReactiveFormsModule,
     FormsModule,
     AgGridModule.withComponents([]),
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideFirestore(() => getFirestore())
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
