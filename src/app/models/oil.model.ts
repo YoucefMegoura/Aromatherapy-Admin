@@ -1,5 +1,5 @@
 import {Organoleptics} from "./organoleptic.model";
-import {Domain} from "./domain.model";
+import {OilDomain} from "./domain.model";
 
 export class Oil {
   constructor(

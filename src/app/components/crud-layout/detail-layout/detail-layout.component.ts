@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {CrudService} from "../crud.service";
 import {OilService} from "../oil.service";
 import {Oil} from "../../../models/oil.model";
-import {Domain, DomainType} from "../../../models/domain.model";
+import {OilDomain, DomainType} from "../../../models/domain.model";
 import {FormControl, FormGroup} from "@angular/forms";
 
 export enum DetailsMethod {//TODO:: find a other name
@@ -23,7 +23,7 @@ export class DetailLayoutComponent implements OnInit {
 
   constructor(
     private crudService: CrudService,
-    private databaseService: OilService
+    private oilService: OilService
   ) {
     //TODO:: implements form Validation
     //TODO:: Implements FormArray (211)
@@ -73,47 +73,60 @@ export class DetailLayoutComponent implements OnInit {
     if (this.crudService.detailMethod == DetailsMethod.Edit) {
       let id = this.crudService.selectedModelID;
       //TODO:: check if id exists
-      /*this.databaseService.getOilDetailById(id!).subscribe((oil: Oil) => {
-        this.oilDetailForm.patchValue({
 
-          'name': oil.name,
-          'sciName': oil.sciName,
-          'otherNames': oil.otherNames,
-          'distilledOrgan': oil.distilledOrgan,
-          'extractionProcess': oil.extractionProcess,
-          'allergies': oil.allergies,
+      let currentOilDomains: OilDomain[] = [];
+      let currentOil: Oil;
+      this.oilService.getOilById(id!).subscribe(data => {
+        currentOil = data.data();
+      });
+      console.log("=================")
+      console.log('id === ', id!)
+      this.oilService.getOilDetailByID(id!).subscribe((data) => {
+        console.log(data)
+        data.forEach(result => {
+          console.log("=================")
+          currentOilDomains.push(result.data());
+        })
+        this.oilDetailForm.patchValue({
+          'name': currentOil.name,
+          'sciName': currentOil.sciName,
+          'otherNames': currentOil.otherNames,
+          'distilledOrgan': currentOil.distilledOrgan,
+          'extractionProcess': currentOil.extractionProcess,
+          'allergies': currentOil.allergies,
 
           'organoleptics': {
-            'color': oil.organoleptics.color,
-            'aspect': oil.organoleptics.aspect,
-            'smell': oil.organoleptics.smell,
+            'color': currentOil.organoleptics.color,
+            'aspect': currentOil.organoleptics.aspect,
+            'smell': currentOil.organoleptics.smell,
           },
-          // 'domains': {
-          //   'health': {
-          //     'areaOfUse': oil.domains.filter(domain => domain.type == DomainType.health)[0].areaOfUse,
-          //     'practicalUse': oil.domains.filter(domain => domain.type == DomainType.health)[0].practicalUse,
-          //     'precautionOfUse': oil.domains.filter(domain => domain.type == DomainType.health)[0].precautionOfUse,
-          //     'properties': oil.domains.filter(domain => domain.type == DomainType.health)[0].properties,
-          //     'synergy': oil.domains.filter(domain => domain.type == DomainType.health)[0].synergy,
-          //   },
-          //   'beauty': {
-          //     'areaOfUse': oil.domains.filter(domain => domain.type == DomainType.beauty)[0].areaOfUse,
-          //     'practicalUse': oil.domains.filter(domain => domain.type == DomainType.beauty)[0].practicalUse,
-          //     'precautionOfUse': oil.domains.filter(domain => domain.type == DomainType.beauty)[0].precautionOfUse,
-          //     'properties': oil.domains.filter(domain => domain.type == DomainType.beauty)[0].properties,
-          //     'synergy': oil.domains.filter(domain => domain.type == DomainType.beauty)[0].synergy,
-          //   },
-          //   'wellBeing': {
-          //     'areaOfUse': oil.domains.filter(domain => domain.type == DomainType.wellBeing)[0].areaOfUse,
-          //     'practicalUse': oil.domains.filter(domain => domain.type == DomainType.wellBeing)[0].practicalUse,
-          //     'precautionOfUse': oil.domains.filter(domain => domain.type == DomainType.wellBeing)[0].precautionOfUse,
-          //     'properties': oil.domains.filter(domain => domain.type == DomainType.wellBeing)[0].properties,
-          //     'synergy': oil.domains.filter(domain => domain.type == DomainType.wellBeing)[0].synergy,
-          //   },
-          //
-          // }
+          'domains': {
+            'health': {
+              'areaOfUse': currentOilDomains.filter(domain => domain.type == DomainType.health)[0].areaOfUse,
+              'practicalUse': currentOilDomains.filter(domain => domain.type == DomainType.health)[0].practicalUse,
+              'precautionOfUse': currentOilDomains.filter(domain => domain.type == DomainType.health)[0].precautionOfUse,
+              'properties': currentOilDomains.filter(domain => domain.type == DomainType.health)[0].properties,
+              'synergy': currentOilDomains.filter(domain => domain.type == DomainType.health)[0].synergy,
+            },
+            'beauty': {
+              'areaOfUse': currentOilDomains.filter(domain => domain.type == DomainType.beauty)[0].areaOfUse,
+              'practicalUse': currentOilDomains.filter(domain => domain.type == DomainType.beauty)[0].practicalUse,
+              'precautionOfUse': currentOilDomains.filter(domain => domain.type == DomainType.beauty)[0].precautionOfUse,
+              'properties': currentOilDomains.filter(domain => domain.type == DomainType.beauty)[0].properties,
+              'synergy': currentOilDomains.filter(domain => domain.type == DomainType.beauty)[0].synergy,
+            },
+            'wellBeing': {
+              'areaOfUse': currentOilDomains.filter(domain => domain.type == DomainType.wellBeing)[0].areaOfUse,
+              'practicalUse': currentOilDomains.filter(domain => domain.type == DomainType.wellBeing)[0].practicalUse,
+              'precautionOfUse': currentOilDomains.filter(domain => domain.type == DomainType.wellBeing)[0].precautionOfUse,
+              'properties': currentOilDomains.filter(domain => domain.type == DomainType.wellBeing)[0].properties,
+              'synergy': currentOilDomains.filter(domain => domain.type == DomainType.wellBeing)[0].synergy,
+            },
+
+          }
         });
-      });*/
+      });
+
 
     }
 
@@ -122,9 +135,11 @@ export class DetailLayoutComponent implements OnInit {
   //onClick Export Button
   onAdd(): void {
     //TODO:: add mapping methods
-    console.log(this.oilDetailForm.value);
-    let oil = this.formToOil();
-    this.databaseService.createOil({...oil}).then((data) => {
+    let oil: Oil = this.formToOil();
+    let oilDomains: OilDomain[] = this.formToOilDomain();
+    console.log(oilDomains);
+    debugger;
+    this.oilService.createOil(oil, oilDomains).then((data) => {
       console.log(data);
     }, (error => {
       console.log(error);
@@ -138,7 +153,18 @@ export class DetailLayoutComponent implements OnInit {
 
   //onClick Export Button
   onSave(): void {
-    console.log('Save');
+    if (this.crudService.detailMethod == DetailsMethod.Edit) {
+      //update
+      console.log('edit')
+    } else if (this.crudService.detailMethod == DetailsMethod.Add) {
+      //add
+      console.log('add')
+      let currentOil: Oil = this.formToOil();
+      let currentOilDomains: OilDomain[] = []
+      currentOilDomains.push(...this.formToOilDomain());
+      this.oilService.createOil(currentOil, currentOilDomains).then(r =>
+      console.log(r));
+    }
     console.log(this.oilDetailForm.value)
   }
 
@@ -147,7 +173,7 @@ export class DetailLayoutComponent implements OnInit {
     this.crudService.closeDetail();
   }
 
-  formToOil (): Oil {
+  formToOil(): Oil {
     return new Oil(
       null,
       this.oilDetailForm.value.name,
@@ -157,40 +183,45 @@ export class DetailLayoutComponent implements OnInit {
       this.oilDetailForm.value.extractionProcess,
       this.oilDetailForm.value.allergies,
       this.oilDetailForm.value.organoleptics,
-      // [
-      //   new Domain(
-      //     null,
-      //     DomainType.health,
-      //     this.oilDetailForm.value.domains.health.properties,
-      //     this.oilDetailForm.value.domains.health.precautionOfUse,
-      //     this.oilDetailForm.value.domains.health.areaOfUse,
-      //     this.oilDetailForm.value.domains.health.practicalUse,
-      //     this.oilDetailForm.value.domains.health.synergy,
-      //     null
-      //   ),
-      //   new Domain(
-      //     null,
-      //     DomainType.beauty,
-      //     this.oilDetailForm.value.domains.beauty.properties,
-      //     this.oilDetailForm.value.domains.beauty.precautionOfUse,
-      //     this.oilDetailForm.value.domains.beauty.areaOfUse,
-      //     this.oilDetailForm.value.domains.beauty.practicalUse,
-      //     this.oilDetailForm.value.domains.beauty.synergy,
-      //     null
-      //   ),
-      //   new Domain(
-      //     null,
-      //     DomainType.wellBeing,
-      //     this.oilDetailForm.value.domains.wellBeing.properties,
-      //     this.oilDetailForm.value.domains.wellBeing.precautionOfUse,
-      //     this.oilDetailForm.value.domains.wellBeing.areaOfUse,
-      //     this.oilDetailForm.value.domains.wellBeing.practicalUse,
-      //     this.oilDetailForm.value.domains.wellBeing.synergy,
-      //     null
-      //   )
-      // ],
       new Date(),
       new Date()
     );
+  }
+
+  formToOilDomain(): OilDomain[] {
+    let oilDomains: OilDomain[] = [];
+    oilDomains.push(
+      new OilDomain(
+        null,
+        DomainType.beauty,
+        this.oilDetailForm.value.domains.beauty.properties,
+        this.oilDetailForm.value.domains.beauty.precautionOfUse,
+        this.oilDetailForm.value.domains.beauty.areaOfUse,
+        this.oilDetailForm.value.domains.beauty.practicalUse,
+        this.oilDetailForm.value.domains.beauty.synergy,
+        null
+      ),
+      new OilDomain(
+        null,
+        DomainType.health,
+        this.oilDetailForm.value.domains.health.properties,
+        this.oilDetailForm.value.domains.health.precautionOfUse,
+        this.oilDetailForm.value.domains.health.areaOfUse,
+        this.oilDetailForm.value.domains.health.practicalUse,
+        this.oilDetailForm.value.domains.health.synergy,
+        null
+      ),
+      new OilDomain(
+        null,
+        DomainType.wellBeing,
+        this.oilDetailForm.value.domains.wellBeing.properties,
+        this.oilDetailForm.value.domains.wellBeing.precautionOfUse,
+        this.oilDetailForm.value.domains.wellBeing.areaOfUse,
+        this.oilDetailForm.value.domains.wellBeing.practicalUse,
+        this.oilDetailForm.value.domains.wellBeing.synergy,
+        null
+      ),
+    );
+    return oilDomains;
   }
 }

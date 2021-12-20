@@ -26,7 +26,7 @@ export class GridLayoutComponent implements OnInit, OnDestroy {
   public gridOptions: any;
 
   constructor(
-    private databaseService: OilService,
+    private oilService: OilService,
     private crudService: CrudService
   ) {
     this.columnDefs = [
@@ -112,6 +112,15 @@ export class GridLayoutComponent implements OnInit, OnDestroy {
   onGridReady(params: any) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
+    let oilList: Oil[] = [];
+    this.oilService.getOils().subscribe(querySnapshot => {
+      querySnapshot.forEach((doc) => {
+        let data: Oil = doc.data();
+        data.id = doc.id;
+        oilList.push(data);
+      });
+      params.api.setRowData(oilList);
+    });
 
     /*this.databaseService
       .getOilsList()
@@ -152,7 +161,8 @@ export class GridLayoutComponent implements OnInit, OnDestroy {
 
   //onClick Export Button
   onRefresh(): void {
-    this.gridApi.refreshCells();
+    this.gridOptions.api.deselectAll();
+
   }
 
   //onClick Export Button
@@ -172,7 +182,6 @@ export class GridLayoutComponent implements OnInit, OnDestroy {
 
   onSelectionChanged(params: any) {
     const selectedRows: Oil = this.gridApi.getSelectedRows()[0];
-    console.log('ID == ' + selectedRows.id)
 
     this.crudService.expandDetailEdition(selectedRows.id!);
     console.log(selectedRows);

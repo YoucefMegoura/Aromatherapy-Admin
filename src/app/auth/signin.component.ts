@@ -41,7 +41,6 @@ export class SigninComponent implements OnInit{
       this.authError = error;
       console.log(error)
     });
-    console.log(this.authForm.value);
   }
 
   onSignOut() {

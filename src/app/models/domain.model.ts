@@ -4,7 +4,7 @@ export enum DomainType {
   beauty = 'beauty'
 }
 
-export class Domain {
+export class OilDomain {
   constructor(
     public id: string | null,
     public type: DomainType,
