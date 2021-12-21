@@ -79,13 +79,12 @@ export class DetailLayoutComponent implements OnInit {
       this.oilService.getOilById(id!).subscribe(data => {
         currentOil = data.data();
       });
-      console.log("=================")
-      console.log('id === ', id!)
       this.oilService.getOilDetailByID(id!).subscribe((data) => {
         console.log(data)
         data.forEach(result => {
-          console.log("=================")
-          currentOilDomains.push(result.data());
+          let s = result.data();
+          s.id = result.id;
+          currentOilDomains.push(s);
         })
         this.oilDetailForm.patchValue({
           'name': currentOil.name,
@@ -154,18 +153,21 @@ export class DetailLayoutComponent implements OnInit {
   //onClick Export Button
   onSave(): void {
     if (this.crudService.detailMethod == DetailsMethod.Edit) {
-      //update
-      console.log('edit')
+      let currentOil: Oil = this.formToOil();
+      let currentOilDomains: OilDomain[] = []
+      currentOilDomains.push(...this.formToOilDomain());
+      this.oilService.updateOilById(currentOil, this.crudService.selectedModelID!).then(r =>
+        console.log(r)
+      )
+
+
     } else if (this.crudService.detailMethod == DetailsMethod.Add) {
-      //add
-      console.log('add')
       let currentOil: Oil = this.formToOil();
       let currentOilDomains: OilDomain[] = []
       currentOilDomains.push(...this.formToOilDomain());
       this.oilService.createOil(currentOil, currentOilDomains).then(r =>
       console.log(r));
     }
-    console.log(this.oilDetailForm.value)
   }
 
   //onClick Export Button

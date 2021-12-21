@@ -6,7 +6,7 @@ export enum DomainType {
 
 export class OilDomain {
   constructor(
-    public id: string | null,
+    public id: string | null | undefined,
     public type: DomainType,
     public properties: string | null,
     public precautionOfUse: string | null,

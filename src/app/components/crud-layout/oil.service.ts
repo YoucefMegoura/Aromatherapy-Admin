@@ -56,10 +56,34 @@ export class OilService {
   }
 
 
-  async updateOil(oil: Oil): Promise<void> {
-    delete oil.id;
-    return await this.firestore.doc('oils/' + oil.id).update(oil);
+  async updateOilById(oil: Oil, oilId: string): Promise<void> {
+    return await this.firestore.doc('oils/' + oilId).update({...oil});
+
+
+
   }
+  async updateOilDomainById(oilDomain: OilDomain): Promise<void> {
+    //delete oilDomain.id;
+    //return await this.firestore.doc('oilsDomains/' + oilDomain.id).update(oilDomain);
+  }
+
+  async updateOilAndDomains(oil: Oil, oilDomains: OilDomain[]): Promise<void> {
+    //await this.updateOilById(oil);
+    for (let oilDomain of oilDomains) {
+      this.updateOilDomainById(oilDomain).then(data2 => {
+        console.log(data2)
+      })
+    }
+    for (let oilDomain of oilDomains) {
+      await this.updateOilDomainById(oilDomain);
+    }
+  }
+
+
+
+
+
+
 
   async deleteOil(oilId: string): Promise<void> {
     return await this.firestore.doc('oils/' + oilId).delete();
