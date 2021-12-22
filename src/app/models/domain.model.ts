@@ -13,7 +13,7 @@ export class OilDomain {
     public areaOfUse: string | null,
     public practicalUse: string | null,
     public synergy: string | null,
-    public oilId: string | null
+    public oilId: string | null | undefined
   ) {
   }
 

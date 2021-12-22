@@ -66,6 +66,13 @@
     [formGroup]="oilDetailForm"
     (ngSubmit)="onSave()"
   >
+    <div>
+      <input
+        formControlName="oilId"
+        id="oilId"
+        hidden
+      >
+    </div><!--oilId-->
     <div class="flex flex-col">
       <label for="name" class="mx-2">Name</label>
       <input
@@ -157,6 +164,12 @@
 
     <div formGroupName="domains">
       <div formGroupName="health">
+        <div>
+          <input formControlName="healthId"
+                 id="healthId"
+                 hidden
+          >
+        </div><!--healthId-->
         <div class="flex flex-col">
           <label for="health-properties"
                  class="mx-2">health-properties
@@ -167,7 +180,7 @@
                  class="primary-input"
                  type="text"
           >
-        </div>
+        </div><!--properties-->
         <div class="flex flex-col">
           <label for="health-areaOfUse" class="mx-2"
           >health-areaOfUse</label
@@ -177,7 +190,7 @@
                  class="primary-input"
                  type="text"
           >
-        </div>
+        </div><!--areaOfUse-->
         <div class="flex flex-col">
           <label for="health-precautionOfUse" class="mx-2"
           >health-precautionOfUse</label
@@ -187,7 +200,7 @@
                  class="primary-input"
                  type="text"
           >
-        </div>
+        </div><!--precautionOfUse-->
         <div class="flex flex-col">
           <label for="health-practicalUse" class="mx-2"
           >health-practicalUse</label
@@ -197,7 +210,7 @@
                  class="primary-input"
                  type="text"
           >
-        </div>
+        </div><!--practicalUse-->
         <div class="flex flex-col">
           <label for="health-synergy" class="mx-2">health-synergy</label>
           <input formControlName="synergy"
@@ -205,10 +218,16 @@
                  class="primary-input"
                  type="text"
           >
-        </div>
+        </div><!--synergy-->
 
       </div>
       <div formGroupName="beauty">
+        <div >
+          <input formControlName="beautyId"
+                 id="beautyId"
+                 hidden
+          >
+        </div><!--beautyId-->
         <div class="flex flex-col">
           <label for="beauty-properties" class="mx-2">beauty-properties
 
@@ -218,7 +237,7 @@
                  class="primary-input"
                  type="text"
           >
-        </div>
+        </div><!--properties-->
         <div class="flex flex-col">
           <label for="beauty-areaOfUse" class="mx-2"
           >beauty-areaOfUse</label
@@ -228,7 +247,7 @@
                  class="primary-input"
                  type="text"
           >
-        </div>
+        </div><!--areaOfUse-->
         <div class="flex flex-col">
           <label for="beauty-precautionOfUse" class="mx-2"
           >beauty-precautionOfUse</label
@@ -238,7 +257,7 @@
                  class="primary-input"
                  type="text"
           >
-        </div>
+        </div><!--precautionOfUse-->
         <div class="flex flex-col">
           <label for="beauty-practicalUse" class="mx-2"
           >beauty-practicalUse</label
@@ -248,7 +267,7 @@
                  class="primary-input"
                  type="text"
           >
-        </div>
+        </div><!--practicalUse-->
         <div class="flex flex-col">
           <label for="beauty-synergy" class="mx-2">beauty-synergy</label>
           <input formControlName="synergy"
@@ -256,10 +275,16 @@
                  class="primary-input"
                  type="text"
           >
-        </div>
+        </div><!--synergy-->
 
       </div>
       <div formGroupName="wellBeing">
+        <div >
+          <input formControlName="wellBeingId"
+                 id="wellBeingId"
+                 hidden
+          >
+        </div><!--wellBeingId-->
         <div class="flex flex-col">
           <label for="wellBeing-properties" class="mx-2">wellBeing-properties
 
@@ -269,7 +294,7 @@
                  class="primary-input"
                  type="text"
           >
-        </div>
+        </div><!--properties-->
         <div class="flex flex-col">
           <label for="wellBeing-areaOfUse" class="mx-2"
           >wellBeing-areaOfUse</label
@@ -279,7 +304,7 @@
                  class="primary-input"
                  type="text"
           >
-        </div>
+        </div><!--areaOfUse-->
         <div class="flex flex-col">
           <label for="wellBeing-precautionOfUse" class="mx-2"
           >wellBeing-precautionOfUse</label
@@ -289,7 +314,7 @@
                  class="primary-input"
                  type="text"
           >
-        </div>
+        </div><!--precautionOfUse-->
         <div class="flex flex-col">
           <label for="wellBeing-practicalUse" class="mx-2"
           >wellBeing-practicalUse</label
@@ -299,7 +324,7 @@
                  class="primary-input"
                  type="text"
           >
-        </div>
+        </div><!--practicalUse-->
         <div class="flex flex-col">
           <label for="wellBeing-synergy" class="mx-2">wellBeing-synergy</label>
           <input formControlName="synergy"
@@ -307,7 +332,7 @@
                  class="primary-input"
                  type="text"
           >
-        </div>
+        </div><!--synergy-->
 
       </div>
 

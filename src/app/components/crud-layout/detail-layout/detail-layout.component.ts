@@ -20,7 +20,8 @@ export class DetailLayoutComponent implements OnInit {
 
   public oilDetailForm: FormGroup;
   public saveInfos: string = '';
-
+  public currentOilDomains: OilDomain[] = [];
+  public currentOil: Oil | undefined;
   constructor(
     private crudService: CrudService,
     private oilService: OilService
@@ -28,6 +29,7 @@ export class DetailLayoutComponent implements OnInit {
     //TODO:: implements form Validation
     //TODO:: Implements FormArray (211)
     this.oilDetailForm = new FormGroup({
+      'oilId': new FormControl(null),
       'name': new FormControl(null),
       'sciName': new FormControl(null),
       'otherNames': new FormControl(null),
@@ -42,6 +44,7 @@ export class DetailLayoutComponent implements OnInit {
       }),
       'domains': new FormGroup({
         'health': new FormGroup({
+          'healthId': new FormControl(null),
           'properties': new FormControl(null),
           'precautionOfUse': new FormControl(null),
           'areaOfUse': new FormControl(null),
@@ -50,6 +53,7 @@ export class DetailLayoutComponent implements OnInit {
 
         }),
         'beauty': new FormGroup({
+          'beautyId': new FormControl(null),
           'properties': new FormControl(null),
           'precautionOfUse': new FormControl(null),
           'areaOfUse': new FormControl(null),
@@ -58,6 +62,7 @@ export class DetailLayoutComponent implements OnInit {
 
         }),
         'wellBeing': new FormGroup({
+          'wellBeingId': new FormControl(null),
           'properties': new FormControl(null),
           'precautionOfUse': new FormControl(null),
           'areaOfUse': new FormControl(null),
@@ -74,52 +79,54 @@ export class DetailLayoutComponent implements OnInit {
       let id = this.crudService.selectedModelID;
       //TODO:: check if id exists
 
-      let currentOilDomains: OilDomain[] = [];
-      let currentOil: Oil;
       this.oilService.getOilById(id!).subscribe(data => {
-        currentOil = data.data();
+        this.currentOil = data.data();
+        this.currentOil!.id = data.id;
       });
       this.oilService.getOilDetailByID(id!).subscribe((data) => {
-        console.log(data)
         data.forEach(result => {
           let s = result.data();
           s.id = result.id;
-          currentOilDomains.push(s);
+          this.currentOilDomains.push(s);
         })
         this.oilDetailForm.patchValue({
-          'name': currentOil.name,
-          'sciName': currentOil.sciName,
-          'otherNames': currentOil.otherNames,
-          'distilledOrgan': currentOil.distilledOrgan,
-          'extractionProcess': currentOil.extractionProcess,
-          'allergies': currentOil.allergies,
+          'oilId': this.currentOil?.id,
+          'name': this.currentOil!.name,
+          'sciName': this.currentOil!.sciName,
+          'otherNames': this.currentOil!.otherNames,
+          'distilledOrgan': this.currentOil!.distilledOrgan,
+          'extractionProcess': this.currentOil!.extractionProcess,
+          'allergies': this.currentOil!.allergies,
 
           'organoleptics': {
-            'color': currentOil.organoleptics.color,
-            'aspect': currentOil.organoleptics.aspect,
-            'smell': currentOil.organoleptics.smell,
+            'color': this.currentOil!.organoleptics.color,
+            'aspect': this.currentOil!.organoleptics.aspect,
+            'smell': this.currentOil!.organoleptics.smell,
           },
           'domains': {
             'health': {
-              'areaOfUse': currentOilDomains.filter(domain => domain.type == DomainType.health)[0].areaOfUse,
-              'practicalUse': currentOilDomains.filter(domain => domain.type == DomainType.health)[0].practicalUse,
-              'precautionOfUse': currentOilDomains.filter(domain => domain.type == DomainType.health)[0].precautionOfUse,
-              'properties': currentOilDomains.filter(domain => domain.type == DomainType.health)[0].properties,
-              'synergy': currentOilDomains.filter(domain => domain.type == DomainType.health)[0].synergy,
+              'healthId': this.currentOilDomains.filter(domain => domain.type == DomainType.health)[0].id,
+              'areaOfUse': this.currentOilDomains.filter(domain => domain.type == DomainType.health)[0].areaOfUse,
+              'practicalUse': this.currentOilDomains.filter(domain => domain.type == DomainType.health)[0].practicalUse,
+              'precautionOfUse': this.currentOilDomains.filter(domain => domain.type == DomainType.health)[0].precautionOfUse,
+              'properties': this.currentOilDomains.filter(domain => domain.type == DomainType.health)[0].properties,
+              'synergy': this.currentOilDomains.filter(domain => domain.type == DomainType.health)[0].synergy,
             },
             'beauty': {
-              'areaOfUse': currentOilDomains.filter(domain => domain.type == DomainType.beauty)[0].areaOfUse,
-              'practicalUse': currentOilDomains.filter(domain => domain.type == DomainType.beauty)[0].practicalUse,
-              'precautionOfUse': currentOilDomains.filter(domain => domain.type == DomainType.beauty)[0].precautionOfUse,
-              'properties': currentOilDomains.filter(domain => domain.type == DomainType.beauty)[0].properties,
-              'synergy': currentOilDomains.filter(domain => domain.type == DomainType.beauty)[0].synergy,
+              'beautyId': this.currentOilDomains.filter(domain => domain.type == DomainType.beauty)[0].id,
+              'areaOfUse': this.currentOilDomains.filter(domain => domain.type == DomainType.beauty)[0].areaOfUse,
+              'practicalUse': this.currentOilDomains.filter(domain => domain.type == DomainType.beauty)[0].practicalUse,
+              'precautionOfUse': this.currentOilDomains.filter(domain => domain.type == DomainType.beauty)[0].precautionOfUse,
+              'properties': this.currentOilDomains.filter(domain => domain.type == DomainType.beauty)[0].properties,
+              'synergy': this.currentOilDomains.filter(domain => domain.type == DomainType.beauty)[0].synergy,
             },
             'wellBeing': {
-              'areaOfUse': currentOilDomains.filter(domain => domain.type == DomainType.wellBeing)[0].areaOfUse,
-              'practicalUse': currentOilDomains.filter(domain => domain.type == DomainType.wellBeing)[0].practicalUse,
-              'precautionOfUse': currentOilDomains.filter(domain => domain.type == DomainType.wellBeing)[0].precautionOfUse,
-              'properties': currentOilDomains.filter(domain => domain.type == DomainType.wellBeing)[0].properties,
-              'synergy': currentOilDomains.filter(domain => domain.type == DomainType.wellBeing)[0].synergy,
+              'wellBeingId': this.currentOilDomains.filter(domain => domain.type == DomainType.wellBeing)[0].id,
+              'areaOfUse': this.currentOilDomains.filter(domain => domain.type == DomainType.wellBeing)[0].areaOfUse,
+              'practicalUse': this.currentOilDomains.filter(domain => domain.type == DomainType.wellBeing)[0].practicalUse,
+              'precautionOfUse': this.currentOilDomains.filter(domain => domain.type == DomainType.wellBeing)[0].precautionOfUse,
+              'properties': this.currentOilDomains.filter(domain => domain.type == DomainType.wellBeing)[0].properties,
+              'synergy': this.currentOilDomains.filter(domain => domain.type == DomainType.wellBeing)[0].synergy,
             },
 
           }
@@ -137,7 +144,6 @@ export class DetailLayoutComponent implements OnInit {
     let oil: Oil = this.formToOil();
     let oilDomains: OilDomain[] = this.formToOilDomain();
     console.log(oilDomains);
-    debugger;
     this.oilService.createOil(oil, oilDomains).then((data) => {
       console.log(data);
     }, (error => {
@@ -156,7 +162,7 @@ export class DetailLayoutComponent implements OnInit {
       let currentOil: Oil = this.formToOil();
       let currentOilDomains: OilDomain[] = []
       currentOilDomains.push(...this.formToOilDomain());
-      this.oilService.updateOilById(currentOil, this.crudService.selectedModelID!).then(r =>
+      this.oilService.updateOilAndDomains(currentOil, currentOilDomains).then(r =>
         console.log(r)
       )
 
@@ -177,7 +183,7 @@ export class DetailLayoutComponent implements OnInit {
 
   formToOil(): Oil {
     return new Oil(
-      null,
+      this.currentOil?.id == null ? null : this.currentOil?.id,
       this.oilDetailForm.value.name,
       this.oilDetailForm.value.sciName,
       this.oilDetailForm.value.otherNames,
@@ -194,34 +200,34 @@ export class DetailLayoutComponent implements OnInit {
     let oilDomains: OilDomain[] = [];
     oilDomains.push(
       new OilDomain(
-        null,
+        (this.crudService.detailMethod == DetailsMethod.Edit) ? this.currentOilDomains.filter(domain => domain.type == DomainType.beauty)[0].id : null,
         DomainType.beauty,
         this.oilDetailForm.value.domains.beauty.properties,
         this.oilDetailForm.value.domains.beauty.precautionOfUse,
         this.oilDetailForm.value.domains.beauty.areaOfUse,
         this.oilDetailForm.value.domains.beauty.practicalUse,
         this.oilDetailForm.value.domains.beauty.synergy,
-        null
+        this.crudService.selectedModelID == null ? null : this.crudService.selectedModelID
       ),
       new OilDomain(
-        null,
+        (this.crudService.detailMethod == DetailsMethod.Edit) ? this.currentOilDomains.filter(domain => domain.type == DomainType.health)[0].id : null,
         DomainType.health,
         this.oilDetailForm.value.domains.health.properties,
         this.oilDetailForm.value.domains.health.precautionOfUse,
         this.oilDetailForm.value.domains.health.areaOfUse,
         this.oilDetailForm.value.domains.health.practicalUse,
         this.oilDetailForm.value.domains.health.synergy,
-        null
+        this.crudService.selectedModelID == null ? null : this.crudService.selectedModelID
       ),
       new OilDomain(
-        null,
+        (this.crudService.detailMethod == DetailsMethod.Edit) ? this.currentOilDomains.filter(domain => domain.type == DomainType.wellBeing)[0].id : null,
         DomainType.wellBeing,
         this.oilDetailForm.value.domains.wellBeing.properties,
         this.oilDetailForm.value.domains.wellBeing.precautionOfUse,
         this.oilDetailForm.value.domains.wellBeing.areaOfUse,
         this.oilDetailForm.value.domains.wellBeing.practicalUse,
         this.oilDetailForm.value.domains.wellBeing.synergy,
-        null
+        this.crudService.selectedModelID == null ? null : this.crudService.selectedModelID
       ),
     );
     return oilDomains;
