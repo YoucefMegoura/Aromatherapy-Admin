@@ -157,7 +157,19 @@ export class DetailLayoutComponent implements OnInit, OnDestroy {
 
   //onClick Export Button
   onDelete(): void {
-    console.log('Delete');
+    if (this.crudService.detailMethod == DetailsMethod.Edit) {
+      let currentOil: Oil = this.formToOil();
+      let currentOilDomains: OilDomain[] = []
+      currentOilDomains.push(...this.formToOilDomain());
+      this.oilService.deleteOilAndDomain(currentOil, currentOilDomains).then(r =>
+        console.log(r)
+        //TODO:: dialog to confirm
+        // and close details
+      )
+    } else if (this.crudService.detailMethod == DetailsMethod.Add) {
+      this.oilDetailForm.reset();
+    }
+
   }
 
   //onClick Export Button
