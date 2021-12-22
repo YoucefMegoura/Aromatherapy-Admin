@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {CrudService} from "../crud.service";
 import {OilService} from "../oil.service";
 import {Oil} from "../../../models/oil.model";
@@ -16,7 +16,7 @@ export enum DetailsMethod {//TODO:: find a other name
   styleUrls: ['./detail-layout.component.scss']
 })
 
-export class DetailLayoutComponent implements OnInit {
+export class DetailLayoutComponent implements OnInit, OnDestroy {
 
   public oilDetailForm: FormGroup;
   public saveInfos: string = '';
@@ -73,6 +73,10 @@ export class DetailLayoutComponent implements OnInit {
       }),
     });
   }
+
+  ngOnDestroy(): void {
+
+    }
 
   ngOnInit(): void {
     if (this.crudService.detailMethod == DetailsMethod.Edit) {
@@ -179,6 +183,7 @@ export class DetailLayoutComponent implements OnInit {
   //onClick Export Button
   onClose() {
     this.crudService.closeDetail();
+    this.ngOnDestroy();
   }
 
   formToOil(): Oil {

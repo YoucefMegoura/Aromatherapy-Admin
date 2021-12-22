@@ -12,6 +12,7 @@ import {Subscription} from "rxjs";
 })
 export class GridLayoutComponent implements OnInit, OnDestroy {
 
+  public oilList: Oil[] = [];
   public isExpanded: boolean | undefined;
   private isExpandedSubscription: Subscription | undefined;
 
@@ -109,45 +110,43 @@ export class GridLayoutComponent implements OnInit, OnDestroy {
   }
 
 
-  onGridReady(params: any) {
-    this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-    let oilList: Oil[] = [];
+  getData(params: any): void {
+    this.oilList = [];
     this.oilService.getOils().subscribe(querySnapshot => {
       querySnapshot.forEach((doc) => {
         let data: Oil = doc.data();
         data.id = doc.id;
-        oilList.push(data);
+        this.oilList.push(data);
       });
-      params.api.setRowData(oilList);
+      params.api.setRowData(this.oilList);
     });
+  }
+  public params: any;
+  onGridReady(params: any) {
+    this.params = params;
+    this.gridApi = params.api;
+    this.gridColumnApi = params.columnApi;
+    this.getData(params);
 
-    /*this.databaseService
-      .getOilsList()
-      .subscribe((data) => params.api.setRowData(data));*/
   }
 
 
   private filterParams = {
     comparator: function (filterLocalDateAtMidnight: any, cellValue: any): any {
+      //TODO:: Extract this method
+      const filterDate = moment(moment(filterLocalDateAtMidnight).format('L'))
       const
-        dateAsString = cellValue;
-      if (dateAsString == null) return -1;
-      const
-        dateParts = dateAsString.split('/');
-      const
-        cellDate = new Date(
-          Number(dateParts[2]),
-          Number(dateParts[1]) - 1,
-          Number(dateParts[0])
-        );
-      if (filterLocalDateAtMidnight.getTime() === cellDate.getTime()) {
+        date = moment(moment.unix(cellValue.seconds).format('L'));
+      debugger
+      if (date == null) return -1;
+
+      if (filterDate.isSame(date)) {
         return 0;
       }
-      if (cellDate < filterLocalDateAtMidnight) {
+      if (date.isBefore(filterDate)) {
         return -1;
       }
-      if (cellDate > filterLocalDateAtMidnight) {
+      if (date.isAfter(filterDate)) {
         return 1;
       }
     },
@@ -162,6 +161,7 @@ export class GridLayoutComponent implements OnInit, OnDestroy {
   //onClick Export Button
   onRefresh(): void {
     this.gridOptions.api.deselectAll();
+    this.getData(this.params);
 
   }
 
@@ -181,10 +181,13 @@ export class GridLayoutComponent implements OnInit, OnDestroy {
   }
 
   onSelectionChanged(params: any) {
-    const selectedRows: Oil = this.gridApi.getSelectedRows()[0];
 
-    this.crudService.expandDetailEdition(selectedRows.id!);
-    console.log(selectedRows);
+    const selectedRows: Oil = this.gridApi.getSelectedRows()[0];
+    if (selectedRows != null) {
+      this.crudService.expandDetailEdition(selectedRows.id!);
+      console.log(selectedRows);
+    }
+
   }
 
 }
