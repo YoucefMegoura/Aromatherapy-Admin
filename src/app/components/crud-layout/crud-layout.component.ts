@@ -13,6 +13,7 @@ export class CrudLayoutComponent implements OnInit, OnDestroy {
   public isDetailsExpadedSubscription: Subscription | undefined;
   constructor(private crudService : CrudService) { }
 
+
   ngOnInit(): void {
     this.isDetailsExpadedSubscription = this.crudService.isDetailsExpandedSubject.subscribe(
       (isDetailsExpaded: boolean) => {

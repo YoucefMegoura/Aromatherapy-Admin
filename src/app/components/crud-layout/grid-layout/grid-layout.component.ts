@@ -4,6 +4,8 @@ import {CrudService} from "../crud.service";
 import * as moment from "moment";
 import {Oil} from "../../../models/oil.model";
 import {Subscription} from "rxjs";
+import {ModalService} from "../../../shared/modal.service";
+import {ImportCsvModalComponent} from "../../../shared/import-csv-modal/import-csv-modal.component";
 
 @Component({
   selector: 'app-grid-layout',
@@ -28,7 +30,8 @@ export class GridLayoutComponent implements OnInit, OnDestroy {
 
   constructor(
     private oilService: OilService,
-    private crudService: CrudService
+    private crudService: CrudService,
+    private modalService: ModalService<ImportCsvModalComponent>
   ) {
     this.columnDefs = [
       {
@@ -70,7 +73,7 @@ export class GridLayoutComponent implements OnInit, OnDestroy {
         sortable: true,
         filterParams: this.filterParams,
         valueFormatter: (data: any) => {
-          return moment(data.createdAt).format('MM/DD/YYYY HH:mm')
+          return moment.unix(data.value.seconds).format('MM/DD/YYYY HH:mm')
         }
       },
       {
@@ -81,7 +84,7 @@ export class GridLayoutComponent implements OnInit, OnDestroy {
         maxWidth: 200,
         sortable: true,
         valueFormatter: (data: any) => {
-          return moment(data.createdAt).format('MM/DD/YYYY HH:mm')
+          return moment.unix(data.value.seconds).format('MM/DD/YYYY HH:mm')
         }
       },
 
@@ -97,7 +100,6 @@ export class GridLayoutComponent implements OnInit, OnDestroy {
       paginationAutoPageSize: true,
     };
   }
-
 
   ngOnInit(): void {
     this.isExpandedSubscription = this.crudService.isDetailsExpandedSubject.subscribe((isExpanded: boolean) => {
@@ -137,7 +139,6 @@ export class GridLayoutComponent implements OnInit, OnDestroy {
       const filterDate = moment(moment(filterLocalDateAtMidnight).format('L'))
       const
         date = moment(moment.unix(cellValue.seconds).format('L'));
-      debugger
       if (date == null) return -1;
 
       if (filterDate.isSame(date)) {
@@ -176,8 +177,12 @@ export class GridLayoutComponent implements OnInit, OnDestroy {
   }
 
   //onClick Export Button
-  onImport(): void {
-    console.log('Import');
+  async onImport(): Promise<void> {
+    const {ImportCsvModalComponent} = await import(
+      '../../../shared/import-csv-modal/import-csv-modal.component'
+      );
+
+    await this.modalService.open(ImportCsvModalComponent);
   }
 
   onSelectionChanged(params: any) {

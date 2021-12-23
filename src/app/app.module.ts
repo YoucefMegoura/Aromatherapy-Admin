@@ -16,6 +16,8 @@ import { DropdownDirective } from './shared/dropdown.directive';
 import { environment } from '../environments/environment';
 import {AngularFireModule} from "@angular/fire/compat";
 import {AngularFireDatabaseModule} from "@angular/fire/compat/database";
+import { ModalComponent } from './shared/modal/modal.component';
+import { ImportCsvModalComponent } from './shared/import-csv-modal/import-csv-modal.component';
 
 @NgModule({
     declarations: [
@@ -27,6 +29,8 @@ import {AngularFireDatabaseModule} from "@angular/fire/compat/database";
         StatsLayoutComponent,
         SigninComponent,
         DropdownDirective,
+        ModalComponent,
+      ImportCsvModalComponent,
     ],
   imports: [
     BrowserModule,
