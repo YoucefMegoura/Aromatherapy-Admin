@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import {Subject} from "rxjs";
+import {AngularFireAuth} from "@angular/fire/compat/auth";
+import firebase from "firebase/compat";
+import UserCredential = firebase.auth.UserCredential;
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor() {
+  constructor(private fireAuth: AngularFireAuth,) {
   }
 
   private isAuth = false;
@@ -15,22 +18,22 @@ export class AuthService {
     this.authSubject.next(this.isAuth);
   }
 
-  signIn(email: string, password: string): any {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (email == 'superuser@email.com' && password == 'testtest') {
-          this.isAuth = true;
-          this.emiAuthSubject();
-          resolve(true);
-        } else {
-          reject('Incorrect Email/password, try again');
-        }
-      }, 1000);
+  signIn(email: string, password: string): Promise<UserCredential> {
+    return this.fireAuth.signInWithEmailAndPassword(email, password).then((userCredential: UserCredential) => {
+      if (userCredential.user != null) {
+        this.isAuth = true;
+        this.emiAuthSubject();
+        return userCredential;
+      } else {
+        return userCredential;
+      }
     });
   }
 
-  signOut(): void {
+  signOut(): Promise<void> {
     this.isAuth = false;
     this.emiAuthSubject();
+    return this.fireAuth.signOut()
+
   }
 }
