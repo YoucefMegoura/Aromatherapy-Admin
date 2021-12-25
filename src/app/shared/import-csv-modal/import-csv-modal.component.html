@@ -9,7 +9,7 @@
       id="file"
       type="file"
       name="file"
-      formControlName="username"
+      formControlName="file"
       class="form-control
             block
             w-full
@@ -26,6 +26,8 @@
             m-0
             focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
       required
+      accept=".csv"
+      (change)="importFile($event)"
     >
 
     <ng-container *ngTemplateOutlet="toolbar"></ng-container>
@@ -39,14 +41,14 @@
       type="button"
       class="rounded-md sm:tracking-wider mx-2 border border-gray-300 px-4 py-2 bg-white text-gray-700 hover:bg-gray-50 focus:outline-none sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
     >
-      Close
+      Fermer
     </button>
 
     <button
       type="submit"
       class="bg-green-600 hover:bg-green-700 text-white rounded-md sm:tracking-wider py-2 px-4"
       [disabled]="importForm.invalid"
-    >Submit
+    >Importer
     </button
     >
   </div>

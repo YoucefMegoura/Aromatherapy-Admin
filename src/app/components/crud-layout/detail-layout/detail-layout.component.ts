@@ -148,7 +148,7 @@ export class DetailLayoutComponent implements OnInit, OnDestroy {
     let oil: Oil = this.formToOil();
     let oilDomains: OilDomain[] = this.formToOilDomain();
     console.log(oilDomains);
-    this.oilService.createOil(oil, oilDomains).then((data) => {
+    this.oilService.createOilAndDomains(oil, oilDomains).then((data) => {
       console.log(data);
     }, (error => {
       console.log(error);
@@ -187,7 +187,7 @@ export class DetailLayoutComponent implements OnInit, OnDestroy {
       let currentOil: Oil = this.formToOil();
       let currentOilDomains: OilDomain[] = []
       currentOilDomains.push(...this.formToOilDomain());
-      this.oilService.createOil(currentOil, currentOilDomains).then(r =>
+      this.oilService.createOilAndDomains(currentOil, currentOilDomains).then(r =>
       console.log(r));
     }
   }

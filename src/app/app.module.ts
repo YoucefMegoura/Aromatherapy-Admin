@@ -18,6 +18,7 @@ import {AngularFireModule} from "@angular/fire/compat";
 import {AngularFireDatabaseModule} from "@angular/fire/compat/database";
 import { ModalComponent } from './shared/modal/modal.component';
 import { ImportCsvModalComponent } from './shared/import-csv-modal/import-csv-modal.component';
+import {NgxCsvParserModule} from "ngx-csv-parser";
 
 @NgModule({
     declarations: [
@@ -41,6 +42,7 @@ import { ImportCsvModalComponent } from './shared/import-csv-modal/import-csv-mo
     AgGridModule.withComponents([]),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
+    NgxCsvParserModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

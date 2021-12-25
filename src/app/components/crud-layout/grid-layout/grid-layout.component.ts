@@ -176,12 +176,12 @@ export class GridLayoutComponent implements OnInit, OnDestroy {
     console.log('Export');
   }
 
+  file:any;
   //onClick Export Button
-  async onImport(): Promise<void> {
+  async onImport(e: any): Promise<void> {
     const {ImportCsvModalComponent} = await import(
       '../../../shared/import-csv-modal/import-csv-modal.component'
       );
-
     await this.modalService.open(ImportCsvModalComponent);
   }
 

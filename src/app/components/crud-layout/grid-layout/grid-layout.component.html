@@ -41,7 +41,7 @@
       <button
         *ngIf="!isExpanded"
         class="p-1.5 bg-gray-100 rounded-md hover:bg-gray-200"
-        (click)="onImport()"
+        (click)="onImport($event)"
         title="Importer CSV"
       >
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
