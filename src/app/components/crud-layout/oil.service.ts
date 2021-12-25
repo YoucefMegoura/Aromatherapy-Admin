@@ -5,7 +5,7 @@ import {AngularFirestore, DocumentReference} from "@angular/fire/compat/firestor
 import {DomainType, OilDomain} from "../../models/domain.model";
 import firebase from "firebase/compat";
 import {Organoleptics} from "../../models/organoleptic.model";
-import {collection, doc, getDoc, getDocs} from "@angular/fire/firestore";
+import {collection, getDocs} from "@angular/fire/firestore";
 import QuerySnapshot = firebase.firestore.QuerySnapshot;
 
 @Injectable({
@@ -136,7 +136,6 @@ export class OilService {
       });
       for (let oilDomain of oilsDomains) {
         this.createOilDetail(oilDomain, data.id).then(data2 => {
-          console.log(data2)
         })
       }
     });
@@ -160,7 +159,6 @@ export class OilService {
     await this.updateOilById(oil);
     for (let oilDomain of oilDomains) {
       this.updateOilDomainById(oilDomain).then(data => {
-        console.log(data)
       })
     }
     for (let oilDomain of oilDomains) {
@@ -181,7 +179,6 @@ export class OilService {
     await this.deleteOilById(oil);
     for (let oilDomain of oilDomains) {
       this.deleteOilDomainById(oilDomain).then(data => {
-        console.log(data)
       })
     }
   }
@@ -197,7 +194,6 @@ export class OilService {
         let oilDomains: OilDomain[] = this.dataToOilDomain(oil);
         if (!oilsNames.includes(oilTmp.name)) {
           this.createOilAndDomains(oilTmp, oilDomains).then(data => {
-            console.log(data)
           })
         }
       }

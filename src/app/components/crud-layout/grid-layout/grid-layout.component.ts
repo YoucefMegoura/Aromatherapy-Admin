@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {OilService} from '../oil.service';
 import {CrudService} from "../crud.service";
 import * as moment from "moment";
@@ -199,7 +199,6 @@ export class GridLayoutComponent implements OnInit, OnDestroy {
     const selectedRows: Oil = this.gridApi.getSelectedRows()[0];
     if (selectedRows != null) {
       this.crudService.expandDetailEdition(selectedRows.id!);
-      console.log(selectedRows);
     }
 
   }

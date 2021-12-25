@@ -1,16 +1,12 @@
-import {Component, NgModule, ViewChild} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {
   FormGroup,
   FormBuilder,
   Validators,
-  FormsModule,
-  ReactiveFormsModule,
 } from '@angular/forms';
-import {CommonModule} from '@angular/common';
 
 import {ModalComponent} from '../modal/modal.component';
 import {NgxCsvParser, NgxCSVParserError} from "ngx-csv-parser";
-import {List} from "postcss/lib/list";
 import {OilService} from "../../components/crud-layout/oil.service";
 @Component({
   selector: 'app-importcsvmodal',
@@ -35,8 +31,6 @@ export class ImportCsvModalComponent {
   }
 
   async createRecord(): Promise<void> {
-    console.log(this.importForm.value);
-
     await this.close();
   }
 
@@ -47,7 +41,6 @@ export class ImportCsvModalComponent {
   importFile(e: any) {
     let csvFile = e.target.files[0];
 
-    // Parse the file you want to select for the operation along with the configuration
     this.ngxCsvParser.parse(csvFile, { header: true, delimiter: ',' })
       .pipe().subscribe((result: any) => {
 
@@ -61,10 +54,5 @@ export class ImportCsvModalComponent {
       console.log('Error', error);
     });
 
-    // let fileReader = new FileReader();
-    // fileReader.onload = (e) => {
-    //   console.log(fileReader.result);
-    // }
-    // fileReader.readAsText(this.file);
   }
 }
