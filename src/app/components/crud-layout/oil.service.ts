@@ -74,8 +74,14 @@ export class OilService {
 
     const oilRef = collection(this.firestore.firestore, "oils");
     const oilSnap = await getDocs(oilRef);
+
+    const oilDomainRef = collection(this.firestore.firestore, "oilsDomains");
+    const oilDomainSnap = await getDocs(oilDomainRef);
+
+
     oilSnap.forEach((oil) => {
-        let tmpOilsDomains = {
+        let tmp: any;
+        tmp = {
           'name': oil.data()['name'] ?? '',
           'sciName': oil.data()['sciName'] ?? '',
           'otherNames': oil.data()['otherNames'] ?? '',
@@ -85,8 +91,37 @@ export class OilService {
           'organoleptics.aspect': oil.data()['organoleptics.aspect'] ?? '',
           'organoleptics.smell': oil.data()['organoleptics.smell'] ?? '',
           'organoleptics.color': oil.data()['organoleptics.color'] ?? '',
-        }
-        oilsDomains.push(tmpOilsDomains)
+        };
+        oilDomainSnap.forEach((oilDomain) => {
+          if (oilDomain.data()['oilId'] == oil.id) {
+            if (oilDomain.data()['type'] == 'health') {
+              Object.assign(tmp, {
+                'oilDomain.health.properties': oilDomain.data()['properties'] ?? '',
+                'oilDomain.health.precautionOfUse': oilDomain.data()['precautionOfUse'] ?? '',
+                'oilDomain.health.areaOfUse': oilDomain.data()['areaOfUse'] ?? '',
+                'oilDomain.health.practicalUse': oilDomain.data()['practicalUse'] ?? '',
+                'oilDomain.health.synergy': oilDomain.data()['synergy'] ?? '',
+              })
+            } else if (oilDomain.data()['type'] == 'beauty') {
+              Object.assign(tmp, {
+                'oilDomain.beauty.properties': oilDomain.data()['properties'] ?? '',
+                'oilDomain.beauty.precautionOfUse': oilDomain.data()['precautionOfUse'] ?? '',
+                'oilDomain.beauty.areaOfUse': oilDomain.data()['areaOfUse'] ?? '',
+                'oilDomain.beauty.practicalUse': oilDomain.data()['practicalUse'] ?? '',
+                'oilDomain.beauty.synergy': oilDomain.data()['synergy'] ?? '',
+              })
+            } else if (oilDomain.data()['type'] == 'wellBeing') {
+              Object.assign(tmp, {
+                'oilDomain.wellBeing.properties': oilDomain.data()['properties'] ?? '',
+                'oilDomain.wellBeing.precautionOfUse': oilDomain.data()['precautionOfUse'] ?? '',
+                'oilDomain.wellBeing.areaOfUse': oilDomain.data()['areaOfUse'] ?? '',
+                'oilDomain.wellBeing.practicalUse': oilDomain.data()['practicalUse'] ?? '',
+                'oilDomain.wellBeing.synergy': oilDomain.data()['synergy'] ?? '',
+              })
+            }
+          }
+        });
+        oilsDomains.push(tmp)
       }
     )
     this.downloadCsvFile(oilsDomains);
@@ -243,7 +278,7 @@ export class OilService {
       let line = '';
       for (let index in headerList) {
         let head = headerList[index];
-        line +=  (array[i][head] ?? '').toString().replace(/(\r\n|\n|\r)/gm, "") + ',' ;
+        line += (array[i][head] ?? '').toString().replace(/,/g, '-').replace(/(\r\n|\n|\r)/gm, ' ') + ',';
       }
       str += line + '\r\n';
     }
@@ -251,11 +286,7 @@ export class OilService {
   }
 
   downloadCsvFile(data: any, filename: string = 'data') {
-    console.log('==================================')
-    console.log('data : ', data)
     let csvData = this.convertToCSV(data, this.headerList);
-    console.log('==================================')
-    console.log('data : ', csvData)
 
     let blob = new Blob(['\ufeff' + csvData], {type: 'text/csv;charset=utf-8;'});
     let dwldLink = document.createElement("a");
