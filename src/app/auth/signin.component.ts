@@ -25,8 +25,6 @@ export class SigninComponent implements OnInit{
   }
 
   ngOnInit() {
-    this.onSignIn(); //TODO:: REMOVE
-
   }
 
   onSignIn() {
