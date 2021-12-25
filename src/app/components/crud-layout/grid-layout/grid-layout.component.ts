@@ -173,7 +173,9 @@ export class GridLayoutComponent implements OnInit, OnDestroy {
 
   //onClick Export Button
   onExport(): void {
-    console.log('Export');
+    this.oilService.getOilAndDomainsToJson().then(data => {
+      console.log(data)
+    })
   }
 
   file:any;
