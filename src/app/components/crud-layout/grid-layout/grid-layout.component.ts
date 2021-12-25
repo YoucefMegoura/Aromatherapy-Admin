@@ -66,6 +66,13 @@ export class GridLayoutComponent implements OnInit, OnDestroy {
         sortable: true
       },
       {
+        headerName: 'Extraction Process',
+        field: 'extractionProcess',
+        filter: 'agTextColumnFilter',
+        maxWidth: 200,
+        sortable: true
+      },
+      {
         headerName: 'Created At',
         field: 'createdAt',
         filter: 'agDateColumnFilter',
