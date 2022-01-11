@@ -11,14 +11,14 @@
         title="Exporter CSV"
       >
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+          <path stroke-linecap= "round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
         </svg>
       </button><!--Add-->
       <button
         *ngIf="!isExpanded"
         class="p-1.5 bg-gray-100 rounded-md hover:bg-gray-200"
         (click)="onRefresh()"
-        title="Importer CSV"
+        title="Rafraichir"
 
       >
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -87,7 +87,8 @@
       [rowData]="rowData | async"
       [columnDefs]="columnDefs"
       [defaultColDef]="defaultColDef"
-      rowSelection="single"
+      [immutableData]="false"
+      [rowSelection]="'single'"
       (gridReady)="onGridReady($event)"
       [gridOptions]="gridOptions"
       (selectionChanged)="onSelectionChanged($event)"

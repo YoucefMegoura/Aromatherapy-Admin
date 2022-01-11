@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {Oil} from "../../models/oil.model";
 import {AngularFirestore, DocumentReference} from "@angular/fire/compat/firestore";
 import {DomainType, OilDomain} from "../../models/domain.model";
@@ -12,7 +12,7 @@ import QuerySnapshot = firebase.firestore.QuerySnapshot;
   providedIn: 'root'
 })
 export class OilService {
-
+  detailsChanged = new Subject<any>();
 
   private headerList: string[] = [
     'name',
@@ -138,6 +138,8 @@ export class OilService {
         this.createOilDetail(oilDomain, data.id).then(data2 => {
         })
       }
+      this.detailsChanged.next();
+
     });
   }
 
@@ -145,7 +147,6 @@ export class OilService {
     oilDetail.oilId = oilId;
     return await this.firestore.collection('oilsDomains').add(oilDetail);
   }
-
 
   async updateOilById(oil: Oil): Promise<void> {
     return await this.firestore.doc('oils/' + oil.id).update({...oil});
@@ -164,8 +165,8 @@ export class OilService {
     for (let oilDomain of oilDomains) {
       await this.updateOilDomainById(oilDomain);
     }
+    this.detailsChanged.next();
   }
-
 
   async deleteOilById(oil: Oil): Promise<void> {
     return await this.firestore.doc('oils/' + oil.id).delete();
@@ -181,6 +182,7 @@ export class OilService {
       this.deleteOilDomainById(oilDomain).then(data => {
       })
     }
+    this.detailsChanged.next();
   }
 
   importOilsArray(oils: Array<Map<string, string>>): void {
@@ -199,6 +201,7 @@ export class OilService {
       }
 
     })
+    this.detailsChanged.next();
 
   }
 
@@ -207,10 +210,10 @@ export class OilService {
       null,
       data['name'].trim()!,
       data['sciName'].trim() ?? null,
-      [data['otherNames'].trim()!] ?? null,
+      data['otherNames'].trim() ?? null,
       data['distilledOrgan'].trim() ?? null,
       data['extractionProcess'].trim() ?? null,
-      [data['allergies'].trim()!] ?? null,
+      data['allergies'].trim() ?? null,
 
       {
         ...new Organoleptics(
@@ -262,6 +265,7 @@ export class OilService {
   }
 
 
+  //CSV
   convertToCSV(objArray: Object, headerList: string[]) {
     let array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
     let str = '';

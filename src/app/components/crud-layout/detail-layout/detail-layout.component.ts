@@ -50,7 +50,6 @@ export class DetailLayoutComponent implements OnInit, OnDestroy {
           'areaOfUse': new FormControl(null),
           'practicalUse': new FormControl(null),
           'synergy': new FormControl(null),
-
         }),
         'beauty': new FormGroup({
           'beautyId': new FormControl(null),
@@ -59,7 +58,6 @@ export class DetailLayoutComponent implements OnInit, OnDestroy {
           'areaOfUse': new FormControl(null),
           'practicalUse': new FormControl(null),
           'synergy': new FormControl(null),
-
         }),
         'wellBeing': new FormGroup({
           'wellBeingId': new FormControl(null),
@@ -68,7 +66,6 @@ export class DetailLayoutComponent implements OnInit, OnDestroy {
           'areaOfUse': new FormControl(null),
           'practicalUse': new FormControl(null),
           'synergy': new FormControl(null),
-
         }),
       }),
     });
@@ -79,66 +76,65 @@ export class DetailLayoutComponent implements OnInit, OnDestroy {
     }
 
   ngOnInit(): void {
-    if (this.crudService.detailMethod == DetailsMethod.Edit) {
-      let id = this.crudService.selectedModelID;
-      //TODO:: check if id exists
+        if (this.crudService.detailMethod == DetailsMethod.Edit) {
+          let id = this.crudService.selectedModelID;
+          //TODO:: check if id exists
+          this.oilService.getOilById(id!).subscribe(data => {
+            this.currentOil = data.data();
+            this.currentOil!.id = data.id;
+          });
+          this.oilService.getOilDetailByID(id!).subscribe((data) => {
+            data.forEach(result => {
+              let s = result.data();
+              s.id = result.id;
+              this.currentOilDomains.push(s);
+            })
+            this.oilDetailForm.patchValue({
+              'oilId': this.currentOil?.id,
+              'name': this.currentOil!.name,
+              'sciName': this.currentOil!.sciName,
+              'otherNames': this.currentOil!.otherNames,
+              'distilledOrgan': this.currentOil!.distilledOrgan,
+              'extractionProcess': this.currentOil!.extractionProcess,
+              'allergies': this.currentOil!.allergies,
 
-      this.oilService.getOilById(id!).subscribe(data => {
-        this.currentOil = data.data();
-        this.currentOil!.id = data.id;
-      });
-      this.oilService.getOilDetailByID(id!).subscribe((data) => {
-        data.forEach(result => {
-          let s = result.data();
-          s.id = result.id;
-          this.currentOilDomains.push(s);
-        })
-        this.oilDetailForm.patchValue({
-          'oilId': this.currentOil?.id,
-          'name': this.currentOil!.name,
-          'sciName': this.currentOil!.sciName,
-          'otherNames': this.currentOil!.otherNames,
-          'distilledOrgan': this.currentOil!.distilledOrgan,
-          'extractionProcess': this.currentOil!.extractionProcess,
-          'allergies': this.currentOil!.allergies,
+              'organoleptics': {
+                'color': this.currentOil!.organoleptics.color,
+                'aspect': this.currentOil!.organoleptics.aspect,
+                'smell': this.currentOil!.organoleptics.smell,
+              },
+              'domains': {
+                'health': {
+                  'healthId': this.currentOilDomains.filter(domain => domain.type == DomainType.health)[0].id,
+                  'areaOfUse': this.currentOilDomains.filter(domain => domain.type == DomainType.health)[0].areaOfUse,
+                  'practicalUse': this.currentOilDomains.filter(domain => domain.type == DomainType.health)[0].practicalUse,
+                  'precautionOfUse': this.currentOilDomains.filter(domain => domain.type == DomainType.health)[0].precautionOfUse,
+                  'properties': this.currentOilDomains.filter(domain => domain.type == DomainType.health)[0].properties,
+                  'synergy': this.currentOilDomains.filter(domain => domain.type == DomainType.health)[0].synergy,
+                },
+                'beauty': {
+                  'beautyId': this.currentOilDomains.filter(domain => domain.type == DomainType.beauty)[0].id,
+                  'areaOfUse': this.currentOilDomains.filter(domain => domain.type == DomainType.beauty)[0].areaOfUse,
+                  'practicalUse': this.currentOilDomains.filter(domain => domain.type == DomainType.beauty)[0].practicalUse,
+                  'precautionOfUse': this.currentOilDomains.filter(domain => domain.type == DomainType.beauty)[0].precautionOfUse,
+                  'properties': this.currentOilDomains.filter(domain => domain.type == DomainType.beauty)[0].properties,
+                  'synergy': this.currentOilDomains.filter(domain => domain.type == DomainType.beauty)[0].synergy,
+                },
+                'wellBeing': {
+                  'wellBeingId': this.currentOilDomains.filter(domain => domain.type == DomainType.wellBeing)[0].id,
+                  'areaOfUse': this.currentOilDomains.filter(domain => domain.type == DomainType.wellBeing)[0].areaOfUse,
+                  'practicalUse': this.currentOilDomains.filter(domain => domain.type == DomainType.wellBeing)[0].practicalUse,
+                  'precautionOfUse': this.currentOilDomains.filter(domain => domain.type == DomainType.wellBeing)[0].precautionOfUse,
+                  'properties': this.currentOilDomains.filter(domain => domain.type == DomainType.wellBeing)[0].properties,
+                  'synergy': this.currentOilDomains.filter(domain => domain.type == DomainType.wellBeing)[0].synergy,
+                },
 
-          'organoleptics': {
-            'color': this.currentOil!.organoleptics.color,
-            'aspect': this.currentOil!.organoleptics.aspect,
-            'smell': this.currentOil!.organoleptics.smell,
-          },
-          'domains': {
-            'health': {
-              'healthId': this.currentOilDomains.filter(domain => domain.type == DomainType.health)[0].id,
-              'areaOfUse': this.currentOilDomains.filter(domain => domain.type == DomainType.health)[0].areaOfUse,
-              'practicalUse': this.currentOilDomains.filter(domain => domain.type == DomainType.health)[0].practicalUse,
-              'precautionOfUse': this.currentOilDomains.filter(domain => domain.type == DomainType.health)[0].precautionOfUse,
-              'properties': this.currentOilDomains.filter(domain => domain.type == DomainType.health)[0].properties,
-              'synergy': this.currentOilDomains.filter(domain => domain.type == DomainType.health)[0].synergy,
-            },
-            'beauty': {
-              'beautyId': this.currentOilDomains.filter(domain => domain.type == DomainType.beauty)[0].id,
-              'areaOfUse': this.currentOilDomains.filter(domain => domain.type == DomainType.beauty)[0].areaOfUse,
-              'practicalUse': this.currentOilDomains.filter(domain => domain.type == DomainType.beauty)[0].practicalUse,
-              'precautionOfUse': this.currentOilDomains.filter(domain => domain.type == DomainType.beauty)[0].precautionOfUse,
-              'properties': this.currentOilDomains.filter(domain => domain.type == DomainType.beauty)[0].properties,
-              'synergy': this.currentOilDomains.filter(domain => domain.type == DomainType.beauty)[0].synergy,
-            },
-            'wellBeing': {
-              'wellBeingId': this.currentOilDomains.filter(domain => domain.type == DomainType.wellBeing)[0].id,
-              'areaOfUse': this.currentOilDomains.filter(domain => domain.type == DomainType.wellBeing)[0].areaOfUse,
-              'practicalUse': this.currentOilDomains.filter(domain => domain.type == DomainType.wellBeing)[0].practicalUse,
-              'precautionOfUse': this.currentOilDomains.filter(domain => domain.type == DomainType.wellBeing)[0].precautionOfUse,
-              'properties': this.currentOilDomains.filter(domain => domain.type == DomainType.wellBeing)[0].properties,
-              'synergy': this.currentOilDomains.filter(domain => domain.type == DomainType.wellBeing)[0].synergy,
-            },
-
-          }
-        });
-      });
+              }
+            });
+          });
 
 
-    }
+        }
 
   }
 
@@ -166,6 +162,7 @@ export class DetailLayoutComponent implements OnInit, OnDestroy {
         //TODO:: dialog to confirm
         // and close details
       )
+      this.crudService.closeDetail();
     } else if (this.crudService.detailMethod == DetailsMethod.Add) {
       this.oilDetailForm.reset();
     }
