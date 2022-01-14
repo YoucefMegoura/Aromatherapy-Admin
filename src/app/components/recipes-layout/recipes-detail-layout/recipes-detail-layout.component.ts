@@ -5,6 +5,8 @@ import {Oil} from "../../../models/oil.model";
 import {OilDomain, DomainType} from "../../../models/domain.model";
 import {FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Recipe} from "../../../models/recipes.model";
+import {Subscription} from "rxjs";
+import {update} from "@angular/fire/database";
 
 export enum DetailsMethod {//TODO:: find a other name
   Add = 'add',
@@ -17,19 +19,25 @@ export enum DetailsMethod {//TODO:: find a other name
   styleUrls: ['./recipes-detail-layout.component.scss']
 })
 
-export class RecipesDetailLayoutComponent /*implements OnInit, OnDestroy*/ {
+export class RecipesDetailLayoutComponent implements OnInit, OnDestroy {
 
-  public recipeDetailForm: FormGroup;
+  public recipeDetailForm!: FormGroup;
   public saveInfos: string = '';
   public currentRecipe: Recipe | undefined;
+
+  private recipeSubscription: Subscription = new Subscription();
 
   constructor(
     private crudService: RecipesCrudService,
     private recipeService: RecipeService
-  ) {
-    //TODO:: implements form Validation
-    //TODO:: Implements FormArray (211)
+  ) {}
 
+
+  ngOnInit(): void {
+    this.initForm();
+  }
+
+  private initForm() {
     let recipeId = '';
     let recipeName = '';
     let recipeReference = '';
@@ -40,7 +48,7 @@ export class RecipesDetailLayoutComponent /*implements OnInit, OnDestroy*/ {
 
     if (this.crudService.detailMethod == DetailsMethod.Edit) {
       let idRecipe = this.crudService.selectedModelID;
-      const recipe = this.recipeService.getRecipeById(idRecipe!).subscribe(data => {
+      this.recipeSubscription = this.recipeService.getRecipeById(idRecipe!).subscribe(data => {
         this.currentRecipe = data.data();
         this.currentRecipe!.id = data.id;
 
@@ -86,7 +94,7 @@ export class RecipesDetailLayoutComponent /*implements OnInit, OnDestroy*/ {
       'usage': new FormControl(recipeUsage),
       'ingredients': recipeIngredients,
     });
-  }
+}
 
 
   get ingredientsControls() {
@@ -95,13 +103,9 @@ export class RecipesDetailLayoutComponent /*implements OnInit, OnDestroy*/ {
 
 
   ngOnDestroy(): void {
-
+    this.recipeSubscription.unsubscribe();
   }
 
-  ngOnInit(): void {
-
-
-  }
 
   //onClick Export Button
   onAdd(): void {
@@ -138,19 +142,20 @@ export class RecipesDetailLayoutComponent /*implements OnInit, OnDestroy*/ {
   //onClick Export Button
   onSave(): void {
     if (this.crudService.detailMethod == DetailsMethod.Edit) {
-      let currentRecipe: Recipe = this.recipeDetailForm.value;
-      currentRecipe.id = this.currentRecipe!.id;
-      this.recipeService.updateRecipeById(currentRecipe).then(r =>
+      let updatedRecipe: Recipe = this.recipeDetailForm.value;
+      updatedRecipe.id = this.currentRecipe!.id;
+      updatedRecipe.updatedAt = new Date();
+      this.recipeService.updateRecipeById(updatedRecipe).then(() =>
         console.log('Successfully updated')
       ).catch(error => {
         console.log(error);
       })
     } else if (this.crudService.detailMethod == DetailsMethod.Add) {
-      let currentRecipe: Recipe = this.recipeDetailForm.value;
-      currentRecipe.createdAt = new Date();
-      currentRecipe.updatedAt = new Date();
-      console.log(currentRecipe);
-      this.recipeService.createRecipe(currentRecipe).then(r => {
+      let newRecipe: Recipe = this.recipeDetailForm.value;
+      newRecipe.createdAt = new Date();
+      newRecipe.updatedAt = new Date();
+      console.log(newRecipe);
+      this.recipeService.createRecipe(newRecipe).then(() => {
         console.log('Successfully created');
       }).catch(error => {
         console.log(error);
