@@ -7,7 +7,7 @@ import {
 
 import {ModalComponent} from '../modal/modal.component';
 import {NgxCsvParser, NgxCSVParserError} from "ngx-csv-parser";
-import {OilService} from "../../components/crud-layout/oil.service";
+import {OilService} from "../../components/oils-layout/oil.service";
 @Component({
   selector: 'app-importcsvmodal',
   templateUrl: './import-csv-modal.component.html',

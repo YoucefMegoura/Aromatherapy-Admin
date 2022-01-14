@@ -3,7 +3,7 @@ import {Subscription} from "rxjs";
 import {CrudService} from "./crud.service";
 
 @Component({
-  selector: 'app-crud-layout',
+  selector: 'app-oils-layout',
   templateUrl: './crud-layout.component.html',
   styleUrls: ['./crud-layout.component.scss']
 })
