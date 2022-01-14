@@ -34,6 +34,8 @@ export class RecipesDetailLayoutComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
+    this.recipeService.isExpandedSubject.next(true);
+
     this.route.params.subscribe((params: Params) => {
       this.currentRecipeId = params['id'];
       this.detailMethod  = params['id'] != null ? DetailsMethod.Edit : DetailsMethod.Add;
@@ -107,7 +109,11 @@ export class RecipesDetailLayoutComponent implements OnInit, OnDestroy {
 
 
   ngOnDestroy(): void {
+    this.recipeService.isExpandedSubject.next(false);
+
     this.recipeSubscription.unsubscribe();
+    //this.recipeService.isExpandedSubject.unsubscribe();
+
   }
 
 
@@ -128,11 +134,13 @@ export class RecipesDetailLayoutComponent implements OnInit, OnDestroy {
   //onClick Button
   onDelete(): void {
     if (this.detailMethod == DetailsMethod.Edit) {
-      const currentRecipe: string = this.currentRecipeId!;
-      this.recipeService.deleteRecipeById(currentRecipe).then(r => {
+      const currentRecipeId: string = this.currentRecipeId!;
+      this.recipeService.deleteRecipeById(currentRecipeId).then(r => {
           console.log(r)
           //TODO:: dialog to confirm
-          this.router.navigate(['recipes']);
+        this.recipeService.refreshSubject.next(currentRecipeId);
+
+        this.router.navigate(['recipes']);
         }
       ).catch(error => {
         console.log(error)
@@ -149,9 +157,11 @@ export class RecipesDetailLayoutComponent implements OnInit, OnDestroy {
       let updatedRecipe: Recipe = this.recipeDetailForm.value;
       updatedRecipe.id = this.currentRecipeId!;
       updatedRecipe.updatedAt = new Date();
-      this.recipeService.updateRecipeById(updatedRecipe).then(() =>
-        console.log('Successfully updated')
-      ).catch(error => {
+      this.recipeService.updateRecipeById(this.currentRecipeId!, updatedRecipe).then(() => {
+        console.log('Successfully updated');
+        this.recipeService.refreshSubject.next();
+      }
+    ).catch(error => {
         console.log(error);
       })
     } else if (this.detailMethod == DetailsMethod.Add) {
@@ -161,6 +171,7 @@ export class RecipesDetailLayoutComponent implements OnInit, OnDestroy {
       console.log(newRecipe);
       this.recipeService.createRecipe(newRecipe).then(() => {
         console.log('Successfully created');
+        this.recipeService.refreshSubject.next();
       }).catch(error => {
         console.log(error);
       });
@@ -169,6 +180,7 @@ export class RecipesDetailLayoutComponent implements OnInit, OnDestroy {
 
   //onClick Export Button
   onClose() {
+    this.recipeService.refreshSubject.unsubscribe();
     this.router.navigate(['recipes'],);
     this.ngOnDestroy();
   }

@@ -120,10 +120,12 @@
         type="text"
       ></textarea>
     </div><!--Usage-->
+
     <br>
-    <hr>
+
     <div formArrayName="ingredients">
       <div class="">Ingredients</div>
+      <hr>
       <div class="flex flex-col">
         <div *ngFor="let ingredientCtrl of ingredientsControls; let i = index"
              [formGroupName]="i"

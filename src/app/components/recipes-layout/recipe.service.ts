@@ -1,50 +1,46 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {Oil} from "../../models/oil.model";
-import {AngularFirestore, DocumentReference} from "@angular/fire/compat/firestore";
-import {DomainType, OilDomain} from "../../models/domain.model";
+import {Observable, Subject} from 'rxjs';
+import {AngularFirestore} from "@angular/fire/compat/firestore";
 import firebase from "firebase/compat";
-import {Organoleptics} from "../../models/organoleptic.model";
-import {collection, getDocs} from "@angular/fire/firestore";
 import QuerySnapshot = firebase.firestore.QuerySnapshot;
 import {Recipe} from "../../models/recipes.model";
+import {RecipePaths} from "./recipes-grid-layout/recipe.paths";
 
 @Injectable({
   providedIn: 'root'
 })
 export class RecipeService {
 
-
+  public refreshSubject: Subject<any> = new Subject<any>();
+  public isExpandedSubject: Subject<boolean> = new Subject<boolean>();
 
   constructor(private firestore: AngularFirestore) {
   }
 
 
   getRecipes(): Observable<QuerySnapshot<any>> {
-    return this.firestore.collection('recipes').get();
+    return this.firestore.collection(RecipePaths.recipes()).get();
   }
 
 
   getRecipeById(recipeId: string): Observable<firebase.firestore.DocumentSnapshot<any>> {
     return this.firestore.collection(
-      'recipes').doc(`${recipeId}`)
+      RecipePaths.recipes()).doc(`${recipeId}`)
       .get();
   }
 
 
-
   async createRecipe(recipe: Recipe): Promise<firebase.firestore.DocumentReference<unknown>> {
-    return await this.firestore.collection('recipes').add({...recipe});
+    return await this.firestore.collection(RecipePaths.recipes()).add({...recipe});
   }
 
 
-
-  async updateRecipeById(recipe: Recipe): Promise<void> {
-    return await this.firestore.doc('recipes/' + recipe.id).update({...recipe});
+  async updateRecipeById(recipeId: string, recipe: Recipe): Promise<void> {
+    return await this.firestore.doc(RecipePaths.recipe(recipeId)).update({...recipe});
   }
 
   async deleteRecipeById(recipeId: string): Promise<void> {
-    return await this.firestore.doc('recipes/' + recipeId).delete();
+    return await this.firestore.doc(RecipePaths.recipe(recipeId)).delete();
   }
 
 
