@@ -89,8 +89,6 @@ export class RecipesDetailLayoutComponent /*implements OnInit, OnDestroy*/ {
   }
 
 
-
-
   get ingredientsControls() {
     return (this.recipeDetailForm.get('ingredients') as FormArray).controls;
   }
@@ -119,15 +117,18 @@ export class RecipesDetailLayoutComponent /*implements OnInit, OnDestroy*/ {
 
   }
 
-  //onClick Export Button
+  //onClick Button
   onDelete(): void {
     if (this.crudService.detailMethod == DetailsMethod.Edit) {
       let currentRecipe: Recipe = this.currentRecipe!;
-      this.recipeService.deleteRecipeById(currentRecipe).then(r =>
+      this.recipeService.deleteRecipeById(currentRecipe).then(r => {
           console.log(r)
-        //TODO:: dialog to confirm
-        // and close details
-      )
+          //TODO:: dialog to confirm
+          this.crudService.closeDetail();
+        }
+      ).catch(error => {
+        console.log(error)
+      })
     } else if (this.crudService.detailMethod == DetailsMethod.Add) {
       this.recipeDetailForm.reset();
     }
@@ -140,19 +141,20 @@ export class RecipesDetailLayoutComponent /*implements OnInit, OnDestroy*/ {
       let currentRecipe: Recipe = this.recipeDetailForm.value;
       currentRecipe.id = this.currentRecipe!.id;
       this.recipeService.updateRecipeById(currentRecipe).then(r =>
-        console.log(r, ' ++++ ')
+        console.log('Successfully updated')
       ).catch(error => {
         console.log(error);
       })
-
-
     } else if (this.crudService.detailMethod == DetailsMethod.Add) {
       let currentRecipe: Recipe = this.recipeDetailForm.value;
       currentRecipe.createdAt = new Date();
       currentRecipe.updatedAt = new Date();
       console.log(currentRecipe);
-      this.recipeService.createRecipe(currentRecipe).then(r =>
-        console.log(r));
+      this.recipeService.createRecipe(currentRecipe).then(r => {
+        console.log('Successfully created');
+      }).catch(error => {
+        console.log(error);
+      });
     }
   }
 
