@@ -1,12 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {RecipesCrudService} from "../recipes-crud.service";
 import {RecipeService} from "../recipe.service";
-import {Oil} from "../../../models/oil.model";
-import {OilDomain, DomainType} from "../../../models/domain.model";
 import {FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Recipe} from "../../../models/recipes.model";
 import {Subscription} from "rxjs";
-import {update} from "@angular/fire/database";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 
 export enum DetailsMethod {//TODO:: find a other name

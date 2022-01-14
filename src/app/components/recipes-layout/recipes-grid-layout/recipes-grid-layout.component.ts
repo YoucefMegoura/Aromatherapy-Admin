@@ -1,8 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {RecipeService} from '../recipe.service';
-import {RecipesCrudService} from "../recipes-crud.service";
 import * as moment from "moment";
-import {Oil} from "../../../models/oil.model";
 import {Subscription} from "rxjs";
 import {ModalService} from "../../../shared/modal.service";
 import {ImportCsvModalComponent} from "../../../shared/import-csv-modal/import-csv-modal.component";
@@ -34,7 +32,6 @@ export class RecipesGridLayoutComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private recipeService: RecipeService,
-    private crudService: RecipesCrudService,
     private modalService: ModalService<ImportCsvModalComponent>
   ) {
     this.columnDefs = [
@@ -86,9 +83,6 @@ export class RecipesGridLayoutComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.isExpandedSubscription = this.crudService.isDetailsExpandedSubject.subscribe((isExpanded: boolean) => {
-      this.isExpanded = isExpanded;
-    })
   }
 
   ngOnDestroy(): void {
