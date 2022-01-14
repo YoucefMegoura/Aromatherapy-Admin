@@ -70,7 +70,7 @@ export class RecipesDetailLayoutComponent /*implements OnInit, OnDestroy*/ {
           'usage': new FormControl(recipeUsage),
           'ingredients': recipeIngredients,
         });
-
+        return;
       }, error => {
         console.log(error)
       });
@@ -137,10 +137,13 @@ export class RecipesDetailLayoutComponent /*implements OnInit, OnDestroy*/ {
   //onClick Export Button
   onSave(): void {
     if (this.crudService.detailMethod == DetailsMethod.Edit) {
-      let currentRecipe: Recipe = this.currentRecipe!;
+      let currentRecipe: Recipe = this.recipeDetailForm.value;
+      currentRecipe.id = this.currentRecipe!.id;
       this.recipeService.updateRecipeById(currentRecipe).then(r =>
-        console.log(r)
-      )
+        console.log(r, ' ++++ ')
+      ).catch(error => {
+        console.log(error);
+      })
 
 
     } else if (this.crudService.detailMethod == DetailsMethod.Add) {
