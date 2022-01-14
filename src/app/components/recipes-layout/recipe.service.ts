@@ -4,7 +4,7 @@ import {AngularFirestore} from "@angular/fire/compat/firestore";
 import firebase from "firebase/compat";
 import QuerySnapshot = firebase.firestore.QuerySnapshot;
 import {Recipe} from "../../models/recipes.model";
-import {RecipePaths} from "./recipes-grid-layout/recipe.paths";
+import {RecipePaths} from "./recipe.paths";
 
 @Injectable({
   providedIn: 'root'

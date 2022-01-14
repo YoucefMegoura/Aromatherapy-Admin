@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppRoutingModule} from './app-routing.module';
@@ -26,6 +26,8 @@ import {
 import {
   RecipesDetailLayoutComponent
 } from "./components/recipes-layout/recipes-detail-layout/recipes-detail-layout.component";
+import {NgxSpinnerModule} from "ngx-spinner";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -56,7 +58,11 @@ import {
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     NgxCsvParserModule,
+    BrowserAnimationsModule,
+    NgxSpinnerModule,
+
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [],
   bootstrap: [AppComponent],
 })

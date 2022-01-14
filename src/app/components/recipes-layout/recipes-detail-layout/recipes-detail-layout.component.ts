@@ -4,6 +4,7 @@ import {FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Recipe} from "../../../models/recipes.model";
 import {Subscription} from "rxjs";
 import {ActivatedRoute, Params, Router} from "@angular/router";
+import {NgxSpinnerService} from "ngx-spinner";
 
 export enum DetailsMethod {//TODO:: find a other name
   Add = 'add',
@@ -29,7 +30,8 @@ export class RecipesDetailLayoutComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private recipeService: RecipeService
+    private recipeService: RecipeService,
+    private spinner: NgxSpinnerService,
   ) {}
 
 
@@ -133,6 +135,7 @@ export class RecipesDetailLayoutComponent implements OnInit, OnDestroy {
 
   //onClick Button
   onDelete(): void {
+    this.spinner.show();
     if (this.detailMethod == DetailsMethod.Edit) {
       const currentRecipeId: string = this.currentRecipeId!;
       this.recipeService.deleteRecipeById(currentRecipeId).then(r => {
@@ -141,18 +144,25 @@ export class RecipesDetailLayoutComponent implements OnInit, OnDestroy {
         this.recipeService.refreshSubject.next(currentRecipeId);
 
         this.router.navigate(['recipes']);
+        this.spinner.hide();
         }
       ).catch(error => {
-        console.log(error)
+        console.log(error);
+        this.spinner.hide();
       })
     } else if (this.detailMethod == DetailsMethod.Add) {
+      this.spinner.show();
+
       this.recipeDetailForm.reset();
+      this.spinner.hide();
     }
 
   }
 
   //onClick Export Button
   onSave(): void {
+    this.spinner.show();
+
     if (this.detailMethod == DetailsMethod.Edit) {
       let updatedRecipe: Recipe = this.recipeDetailForm.value;
       updatedRecipe.id = this.currentRecipeId!;
@@ -160,9 +170,11 @@ export class RecipesDetailLayoutComponent implements OnInit, OnDestroy {
       this.recipeService.updateRecipeById(this.currentRecipeId!, updatedRecipe).then(() => {
         console.log('Successfully updated');
         this.recipeService.refreshSubject.next();
+        this.spinner.hide();
       }
     ).catch(error => {
         console.log(error);
+        this.spinner.hide();
       })
     } else if (this.detailMethod == DetailsMethod.Add) {
       let newRecipe: Recipe = this.recipeDetailForm.value;
@@ -172,8 +184,10 @@ export class RecipesDetailLayoutComponent implements OnInit, OnDestroy {
       this.recipeService.createRecipe(newRecipe).then(() => {
         console.log('Successfully created');
         this.recipeService.refreshSubject.next();
+        this.spinner.hide();
       }).catch(error => {
         console.log(error);
+        this.spinner.hide();
       });
     }
   }
