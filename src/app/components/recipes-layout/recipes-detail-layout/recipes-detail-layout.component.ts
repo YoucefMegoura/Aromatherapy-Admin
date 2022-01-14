@@ -7,6 +7,7 @@ import {FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Recipe} from "../../../models/recipes.model";
 import {Subscription} from "rxjs";
 import {update} from "@angular/fire/database";
+import {ActivatedRoute, Params, Router} from "@angular/router";
 
 export enum DetailsMethod {//TODO:: find a other name
   Add = 'add',
@@ -21,20 +22,27 @@ export enum DetailsMethod {//TODO:: find a other name
 
 export class RecipesDetailLayoutComponent implements OnInit, OnDestroy {
 
+  private detailMethod : DetailsMethod = DetailsMethod.Add;
+  private currentRecipeId : string | undefined;
+
   public recipeDetailForm!: FormGroup;
-  public saveInfos: string = '';
   public currentRecipe: Recipe | undefined;
 
   private recipeSubscription: Subscription = new Subscription();
 
   constructor(
-    private crudService: RecipesCrudService,
+    private route: ActivatedRoute,
+    private router: Router,
     private recipeService: RecipeService
   ) {}
 
 
   ngOnInit(): void {
-    this.initForm();
+    this.route.params.subscribe((params: Params) => {
+      this.currentRecipeId = params['id'];
+      this.detailMethod  = params['id'] != null ? DetailsMethod.Edit : DetailsMethod.Add;
+      this.initForm();
+    });
   }
 
   private initForm() {
@@ -46,8 +54,8 @@ export class RecipesDetailLayoutComponent implements OnInit, OnDestroy {
     let recipeUsage = '';
     let recipeIngredients = new FormArray([]);
 
-    if (this.crudService.detailMethod == DetailsMethod.Edit) {
-      let idRecipe = this.crudService.selectedModelID;
+    if (this.detailMethod == DetailsMethod.Edit) {
+      let idRecipe = this.currentRecipeId;
       this.recipeSubscription = this.recipeService.getRecipeById(idRecipe!).subscribe(data => {
         this.currentRecipe = data.data();
         this.currentRecipe!.id = data.id;
@@ -109,7 +117,7 @@ export class RecipesDetailLayoutComponent implements OnInit, OnDestroy {
 
   //onClick Export Button
   onAdd(): void {
-    if (this.crudService.detailMethod == DetailsMethod.Add) {
+    if (this.detailMethod == DetailsMethod.Add) {
       let recipe: Recipe = this.recipeDetailForm.value;
       console.log(recipe);
       this.recipeService.createRecipe(recipe).then((data) => {
@@ -123,17 +131,17 @@ export class RecipesDetailLayoutComponent implements OnInit, OnDestroy {
 
   //onClick Button
   onDelete(): void {
-    if (this.crudService.detailMethod == DetailsMethod.Edit) {
-      let currentRecipe: Recipe = this.currentRecipe!;
+    if (this.detailMethod == DetailsMethod.Edit) {
+      const currentRecipe: string = this.currentRecipeId!;
       this.recipeService.deleteRecipeById(currentRecipe).then(r => {
           console.log(r)
           //TODO:: dialog to confirm
-          this.crudService.closeDetail();
+          this.router.navigate(['../'], {relativeTo: this.route});
         }
       ).catch(error => {
         console.log(error)
       })
-    } else if (this.crudService.detailMethod == DetailsMethod.Add) {
+    } else if (this.detailMethod == DetailsMethod.Add) {
       this.recipeDetailForm.reset();
     }
 
@@ -141,16 +149,16 @@ export class RecipesDetailLayoutComponent implements OnInit, OnDestroy {
 
   //onClick Export Button
   onSave(): void {
-    if (this.crudService.detailMethod == DetailsMethod.Edit) {
+    if (this.detailMethod == DetailsMethod.Edit) {
       let updatedRecipe: Recipe = this.recipeDetailForm.value;
-      updatedRecipe.id = this.currentRecipe!.id;
+      updatedRecipe.id = this.currentRecipeId!;
       updatedRecipe.updatedAt = new Date();
       this.recipeService.updateRecipeById(updatedRecipe).then(() =>
         console.log('Successfully updated')
       ).catch(error => {
         console.log(error);
       })
-    } else if (this.crudService.detailMethod == DetailsMethod.Add) {
+    } else if (this.detailMethod == DetailsMethod.Add) {
       let newRecipe: Recipe = this.recipeDetailForm.value;
       newRecipe.createdAt = new Date();
       newRecipe.updatedAt = new Date();
@@ -165,7 +173,7 @@ export class RecipesDetailLayoutComponent implements OnInit, OnDestroy {
 
   //onClick Export Button
   onClose() {
-    this.crudService.closeDetail();
+    this.router.navigate(['recipes'],);
     this.ngOnDestroy();
   }
 

@@ -7,6 +7,7 @@ import {Subscription} from "rxjs";
 import {ModalService} from "../../../shared/modal.service";
 import {ImportCsvModalComponent} from "../../../shared/import-csv-modal/import-csv-modal.component";
 import {Recipe} from "../../../models/recipes.model";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-recipes-grid-layout',
@@ -30,6 +31,8 @@ export class RecipesGridLayoutComponent implements OnInit, OnDestroy {
   public gridOptions: any;
 
   constructor(
+    private router: Router,
+    private route: ActivatedRoute,
     private recipeService: RecipeService,
     private crudService: RecipesCrudService,
     private modalService: ModalService<ImportCsvModalComponent>
@@ -136,7 +139,7 @@ export class RecipesGridLayoutComponent implements OnInit, OnDestroy {
 
   //onClick Export Button
   onAdd(): void {
-    this.crudService.expandDetailAdding();
+    this.router.navigate(['new'], {relativeTo: this.route});
   }
 
   //onClick Export Button
@@ -163,10 +166,10 @@ export class RecipesGridLayoutComponent implements OnInit, OnDestroy {
   }
 
   onSelectionChanged(params: any) {
-
     const selectedRows: Recipe = this.gridApi.getSelectedRows()[0];
     if (selectedRows != null) {
-      this.crudService.expandDetailEdition(selectedRows.id!);
+      this.router.navigate(['edit', selectedRows.id!], {relativeTo: this.route});
+      // this.crudService.expandDetailEdition(selectedRows.id!);
     }
 
   }

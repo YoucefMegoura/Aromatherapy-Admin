@@ -43,8 +43,8 @@ export class RecipeService {
     return await this.firestore.doc('recipes/' + recipe.id).update({...recipe});
   }
 
-  async deleteRecipeById(recipe: Recipe): Promise<void> {
-    return await this.firestore.doc('recipes/' + recipe.id).delete();
+  async deleteRecipeById(recipeId: string): Promise<void> {
+    return await this.firestore.doc('recipes/' + recipeId).delete();
   }
 
 

@@ -1,10 +1,13 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { AuthGuardService } from './auth/auth-guard.service';
-import { SigninComponent } from './auth/signin.component';
-import { CrudLayoutComponent } from './components/oils-layout/crud-layout.component';
-import { StatsLayoutComponent } from './components/stats-layout/stats-layout.component';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {AuthGuardService} from './auth/auth-guard.service';
+import {SigninComponent} from './auth/signin.component';
+import {CrudLayoutComponent} from './components/oils-layout/crud-layout.component';
+import {StatsLayoutComponent} from './components/stats-layout/stats-layout.component';
 import {RecipesCrudLayoutComponent} from "./components/recipes-layout/recipes-crud-layout.component";
+import {
+  RecipesDetailLayoutComponent
+} from "./components/recipes-layout/recipes-detail-layout/recipes-detail-layout.component";
 
 const routes: Routes = [
 
@@ -23,8 +26,11 @@ const routes: Routes = [
     path: 'recipes',
     canActivate: [AuthGuardService],
     component: RecipesCrudLayoutComponent,
+    children: [
+      {path: 'edit/:id', component: RecipesDetailLayoutComponent},
+      {path: 'new', component: RecipesDetailLayoutComponent},
+    ]
   },
-  //TODO:: recipeID path
 
   {
     path: 'auth',
@@ -34,7 +40,7 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'oils', //TODO :: stats
+    redirectTo: 'stats', //TODO :: stats
   },
   {
     path: '**',
@@ -46,4 +52,5 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}
