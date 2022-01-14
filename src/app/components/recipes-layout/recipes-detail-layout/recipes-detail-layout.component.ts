@@ -136,7 +136,7 @@ export class RecipesDetailLayoutComponent implements OnInit, OnDestroy {
       this.recipeService.deleteRecipeById(currentRecipe).then(r => {
           console.log(r)
           //TODO:: dialog to confirm
-          this.router.navigate(['../'], {relativeTo: this.route});
+          this.router.navigate(['recipes']);
         }
       ).catch(error => {
         console.log(error)

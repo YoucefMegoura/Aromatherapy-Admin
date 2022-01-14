@@ -27,8 +27,8 @@ const routes: Routes = [
     canActivate: [AuthGuardService],
     component: RecipesCrudLayoutComponent,
     children: [
-      {path: 'edit/:id', component: RecipesDetailLayoutComponent},
-      {path: 'new', component: RecipesDetailLayoutComponent},
+      {path: 'edit/:id', component: RecipesDetailLayoutComponent, pathMatch: 'full',},
+      {path: 'new', component: RecipesDetailLayoutComponent, pathMatch: 'full',},
     ]
   },
 
