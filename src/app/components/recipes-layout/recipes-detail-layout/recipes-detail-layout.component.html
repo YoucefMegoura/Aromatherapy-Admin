@@ -63,13 +63,12 @@
   </div>
   <form
     class="flex flex-col gap-1 px-4 overflow-y-scroll"
-    [formGroup]="oilDetailForm"
-    (ngSubmit)="onSave()"
+    [formGroup]="recipeDetailForm"
   >
     <div>
       <input
-        formControlName="oilId"
-        id="oilId"
+        formControlName="recipeId"
+        id="recipeId"
         hidden
       >
     </div><!--oilId-->
@@ -83,260 +82,60 @@
       >
     </div><!--Name-->
     <div class="flex flex-col">
-      <label for="sciName" class="mx-2">Scientific name</label>
+      <label for="reference" class="mx-2">Reference</label>
       <input
-        formControlName="sciName"
-        id="sciName"
+        formControlName="reference"
+        id="reference"
         class="primary-input"
         type="text"
       >
-    </div><!--Scientific name-->
-    <div class="flex flex-col">
-      <label for="otherNames" class="mx-2">Other names</label>
-      <input
-        formControlName="otherNames"
-        id="otherNames"
-        class="primary-input"
-        type="text"
-      >
-    </div><!--Other names-->
-    <div class="flex flex-col">
-      <label for="distilledOrgan" class="mx-2">distilled organ</label>
-      <input
-        formControlName="distilledOrgan"
-        id="distilledOrgan"
-        class="primary-input"
-        type="text"
-      >
-    </div><!--distilled organ-->
-    <div class="flex flex-col">
-      <label for="extractionProcess" class="mx-2">Extraction process</label>
-      <input
-        formControlName="extractionProcess"
-        id="extractionProcess"
-        class="primary-input"
-        type="text"
-      >
-    </div><!--Extraction process-->
-    <div class="flex flex-col">
-        <label for="allergies" class="mx-2">Allergies</label>
-        <input
-          formControlName="allergies"
-          id="allergies"
-          class="primary-input"
-          type="text"
-        >
-      </div><!--Allergies-->
+    </div><!--reference-->
 
+    <div class="flex flex-col">
+      <label for="description" class="mx-2">Description</label>
+      <textarea
+        formControlName="description"
+        id="description"
+        class="primary-input"
+        type="text"
+      ></textarea>
+    </div><!--Description-->
 
-    <!-- Organoleptic properties -->
-    <div formGroupName="organoleptics" class="grid grid-col-2">
-      <div class="flex flex-col">
-        <label for="aspect" class="mx-2">Aspect</label>
-        <input
-          formControlName="aspect"
-          id="aspect"
-          class="primary-input"
-          type="text"
-        >
-      </div><!--Aspect-->
-      <div class="flex flex-col">
-        <label for="color" class="mx-2">Color</label>
-        <input
-          formControlName="color"
-          id="color"
-          class="primary-input"
-          type="text"
-        >
-      </div><!--Color-->
-      <div class="flex flex-col">
-        <label for="smell" class="mx-2">Smell</label>
-        <input
-          formControlName="smell"
-          id="smell"
-          class="primary-input"
-          type="text"
-        >
-      </div><!--Smell-->
+    <div class="flex flex-col">
+      <label for="notes" class="mx-2">Notes</label>
+      <textarea
+        formControlName="notes"
+        id="notes"
+        class="primary-input"
+        type="text"
+      ></textarea>
+    </div><!--Notes-->
 
+    <div class="flex flex-col">
+      <label for="usage" class="mx-2">Usage</label>
+      <textarea
+        formControlName="usage"
+        id="usage"
+        class="primary-input"
+        type="text"
+      ></textarea>
+    </div><!--Usage-->
+
+    <div class="" formArrayName="ingredients">
+      <div class="flex flex-col">
+        <div *ngFor="let ingredientCtrl of ingredientsControls; let i = index"
+             [formGroupName]="i"
+        >
+          <div class="flex flex-row">
+            <input type="text" class="primary-input" formControlName="name">
+            <button type="button" (click)="onDeleteIngredient(i)">X</button>
+          </div>
+        </div>
+        <button (click)="onAddIngredient()">Add ingredient</button>
+      </div><!--Ingredients-->
     </div>
 
 
-    <div formGroupName="domains">
-      <div formGroupName="health">
-        <div>
-          <input formControlName="healthId"
-                 id="healthId"
-                 hidden
-          >
-        </div><!--healthId-->
-        <div class="flex flex-col">
-          <label for="health-properties"
-                 class="mx-2">health-properties
-
-          </label>
-          <input formControlName="properties"
-                 id="health-properties"
-                 class="primary-input"
-                 type="text"
-          >
-        </div><!--properties-->
-        <div class="flex flex-col">
-          <label for="health-areaOfUse" class="mx-2"
-          >health-areaOfUse</label
-          >
-          <input formControlName="areaOfUse"
-                 id="health-areaOfUse"
-                 class="primary-input"
-                 type="text"
-          >
-        </div><!--areaOfUse-->
-        <div class="flex flex-col">
-          <label for="health-precautionOfUse" class="mx-2"
-          >health-precautionOfUse</label
-          >
-          <input formControlName="precautionOfUse"
-                 id="health-precautionOfUse"
-                 class="primary-input"
-                 type="text"
-          >
-        </div><!--precautionOfUse-->
-        <div class="flex flex-col">
-          <label for="health-practicalUse" class="mx-2"
-          >health-practicalUse</label
-          >
-          <input formControlName="practicalUse"
-                 id="health-practicalUse"
-                 class="primary-input"
-                 type="text"
-          >
-        </div><!--practicalUse-->
-        <div class="flex flex-col">
-          <label for="health-synergy" class="mx-2">health-synergy</label>
-          <input formControlName="synergy"
-                 id="health-synergy"
-                 class="primary-input"
-                 type="text"
-          >
-        </div><!--synergy-->
-
-      </div>
-      <div formGroupName="beauty">
-        <div >
-          <input formControlName="beautyId"
-                 id="beautyId"
-                 hidden
-          >
-        </div><!--beautyId-->
-        <div class="flex flex-col">
-          <label for="beauty-properties" class="mx-2">beauty-properties
-
-          </label>
-          <input formControlName="properties"
-                 id="beauty-properties"
-                 class="primary-input"
-                 type="text"
-          >
-        </div><!--properties-->
-        <div class="flex flex-col">
-          <label for="beauty-areaOfUse" class="mx-2"
-          >beauty-areaOfUse</label
-          >
-          <input formControlName="areaOfUse"
-                 id="beauty-areaOfUse"
-                 class="primary-input"
-                 type="text"
-          >
-        </div><!--areaOfUse-->
-        <div class="flex flex-col">
-          <label for="beauty-precautionOfUse" class="mx-2"
-          >beauty-precautionOfUse</label
-          >
-          <input formControlName="precautionOfUse"
-                 id="beauty-precautionOfUse"
-                 class="primary-input"
-                 type="text"
-          >
-        </div><!--precautionOfUse-->
-        <div class="flex flex-col">
-          <label for="beauty-practicalUse" class="mx-2"
-          >beauty-practicalUse</label
-          >
-          <input formControlName="practicalUse"
-                 id="beauty-practicalUse"
-                 class="primary-input"
-                 type="text"
-          >
-        </div><!--practicalUse-->
-        <div class="flex flex-col">
-          <label for="beauty-synergy" class="mx-2">beauty-synergy</label>
-          <input formControlName="synergy"
-                 id="beauty-synergy"
-                 class="primary-input"
-                 type="text"
-          >
-        </div><!--synergy-->
-
-      </div>
-      <div formGroupName="wellBeing">
-        <div >
-          <input formControlName="wellBeingId"
-                 id="wellBeingId"
-                 hidden
-          >
-        </div><!--wellBeingId-->
-        <div class="flex flex-col">
-          <label for="wellBeing-properties" class="mx-2">wellBeing-properties
-
-          </label>
-          <input formControlName="properties"
-                 id="wellBeing-properties"
-                 class="primary-input"
-                 type="text"
-          >
-        </div><!--properties-->
-        <div class="flex flex-col">
-          <label for="wellBeing-areaOfUse" class="mx-2"
-          >wellBeing-areaOfUse</label
-          >
-          <input formControlName="areaOfUse"
-                 id="wellBeing-areaOfUse"
-                 class="primary-input"
-                 type="text"
-          >
-        </div><!--areaOfUse-->
-        <div class="flex flex-col">
-          <label for="wellBeing-precautionOfUse" class="mx-2"
-          >wellBeing-precautionOfUse</label
-          >
-          <input formControlName="precautionOfUse"
-                 id="wellBeing-precautionOfUse"
-                 class="primary-input"
-                 type="text"
-          >
-        </div><!--precautionOfUse-->
-        <div class="flex flex-col">
-          <label for="wellBeing-practicalUse" class="mx-2"
-          >wellBeing-practicalUse</label
-          >
-          <input formControlName="practicalUse"
-                 id="wellBeing-practicalUse"
-                 class="primary-input"
-                 type="text"
-          >
-        </div><!--practicalUse-->
-        <div class="flex flex-col">
-          <label for="wellBeing-synergy" class="mx-2">wellBeing-synergy</label>
-          <input formControlName="synergy"
-                 id="wellBeing-synergy"
-                 class="primary-input"
-                 type="text"
-          >
-        </div><!--synergy-->
-
-      </div>
-
-    </div>
 
   </form>
 </div>

@@ -6,6 +6,7 @@ import {Oil} from "../../../models/oil.model";
 import {Subscription} from "rxjs";
 import {ModalService} from "../../../shared/modal.service";
 import {ImportCsvModalComponent} from "../../../shared/import-csv-modal/import-csv-modal.component";
+import {Recipe} from "../../../models/recipes.model";
 
 @Component({
   selector: 'app-recipes-grid-layout',
@@ -14,7 +15,7 @@ import {ImportCsvModalComponent} from "../../../shared/import-csv-modal/import-c
 })
 export class RecipesGridLayoutComponent implements OnInit, OnDestroy {
 
-  public oilList: Oil[] = [];
+  public recipesList: Recipe[] = [];
   public isExpanded: boolean | undefined;
   private isExpandedSubscription: Subscription | undefined;
 
@@ -29,7 +30,7 @@ export class RecipesGridLayoutComponent implements OnInit, OnDestroy {
   public gridOptions: any;
 
   constructor(
-    private oilService: RecipeService,
+    private recipeService: RecipeService,
     private crudService: RecipesCrudService,
     private modalService: ModalService<ImportCsvModalComponent>
   ) {
@@ -40,36 +41,9 @@ export class RecipesGridLayoutComponent implements OnInit, OnDestroy {
         maxWidth: 300,
       },
       {
-        headerName: 'Scientific Name',
-        field: 'sciName',
+        field: 'reference',
         filter: 'agTextColumnFilter',
         maxWidth: 300,
-        sortable: true
-      },
-      {
-        field: 'otherNames',
-        filter: 'agTextColumnFilter',
-        maxWidth: 300,
-        sortable: true
-      },
-      {
-        field: 'distilledOrgan',
-        filter: 'agTextColumnFilter',
-        maxWidth: 300,
-        sortable: true
-      },
-
-      {
-        field: 'allergies',
-        filter: 'agTextColumnFilter',
-        maxWidth: 200,
-        sortable: true
-      },
-      {
-        headerName: 'Extraction Process',
-        field: 'extractionProcess',
-        filter: 'agTextColumnFilter',
-        maxWidth: 200,
         sortable: true
       },
       {
@@ -120,14 +94,14 @@ export class RecipesGridLayoutComponent implements OnInit, OnDestroy {
 
 
   getData(params: any): void {
-    this.oilList = [];
-    this.oilService.getOils().subscribe(querySnapshot => {
+    this.recipesList = [];
+    this.recipeService.getRecipes().subscribe(querySnapshot => {
       querySnapshot.forEach((doc) => {
-        let data: Oil = doc.data();
+        let data: Recipe = doc.data();
         data.id = doc.id;
-        this.oilList.push(data);
+        this.recipesList.push(data);
       });
-      params.api.setRowData(this.oilList);
+      params.api.setRowData(this.recipesList);
     });
   }
   public params: any;
@@ -138,7 +112,6 @@ export class RecipesGridLayoutComponent implements OnInit, OnDestroy {
     this.getData(params);
 
   }
-
 
   private filterParams = {
     comparator: function (filterLocalDateAtMidnight: any, cellValue: any): any {
@@ -180,23 +153,18 @@ export class RecipesGridLayoutComponent implements OnInit, OnDestroy {
 
   //onClick Export Button
   onExport(): void {
-    this.oilService.getOilAndDomainsToJson().then(data => {
-      console.log(data)
-    })
+
   }
 
   file:any;
   //onClick Export Button
   async onImport(e: any): Promise<void> {
-    const {ImportCsvModalComponent} = await import(
-      '../../../shared/import-csv-modal/import-csv-modal.component'
-      );
-    await this.modalService.open(ImportCsvModalComponent);
+
   }
 
   onSelectionChanged(params: any) {
 
-    const selectedRows: Oil = this.gridApi.getSelectedRows()[0];
+    const selectedRows: Recipe = this.gridApi.getSelectedRows()[0];
     if (selectedRows != null) {
       this.crudService.expandDetailEdition(selectedRows.id!);
     }
