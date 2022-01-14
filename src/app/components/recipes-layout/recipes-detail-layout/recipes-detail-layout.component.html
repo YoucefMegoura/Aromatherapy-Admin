@@ -96,7 +96,7 @@
       <textarea
         formControlName="description"
         id="description"
-        class="primary-input"
+        class="primary-textarea"
         type="text"
       ></textarea>
     </div><!--Description-->
@@ -106,7 +106,7 @@
       <textarea
         formControlName="notes"
         id="notes"
-        class="primary-input"
+        class="primary-textarea"
         type="text"
       ></textarea>
     </div><!--Notes-->
@@ -116,26 +116,40 @@
       <textarea
         formControlName="usage"
         id="usage"
-        class="primary-input"
+        class="primary-textarea"
         type="text"
       ></textarea>
     </div><!--Usage-->
-
-    <div class="" formArrayName="ingredients">
+    <br>
+    <hr>
+    <div formArrayName="ingredients">
+      <div class="">Ingredients</div>
       <div class="flex flex-col">
         <div *ngFor="let ingredientCtrl of ingredientsControls; let i = index"
              [formGroupName]="i"
         >
-          <div class="flex flex-row">
-            <input type="text" class="primary-input" formControlName="name">
-            <button type="button" (click)="onDeleteIngredient(i)">X</button>
+          <div class="flex flex-row space-x-2">
+            <input type="text" class="primary-input" formControlName="name" placeholder="Add new ingredient ...">
+            <button
+              type="button"
+              class="flex items-center justify-center bg-green-600 rounded-md text-whitespace-x-2 p-1"
+              (click)="onDeleteIngredient(i)">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="white">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+              </svg>
+            </button>
           </div>
         </div>
-        <button (click)="onAddIngredient()">Add ingredient</button>
+        <button
+          (click)="onAddIngredient()"
+          class="m-4 flex items-center justify-center bg-green-600 rounded-md text-white px-3 py-1.5 space-x-2 "
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="white">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" />
+          </svg>
+        </button>
       </div><!--Ingredients-->
     </div>
-
-
 
   </form>
 </div>
