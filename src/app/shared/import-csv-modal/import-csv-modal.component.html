@@ -1,3 +1,8 @@
+<ngx-spinner
+  [bdColor]="'rgba(0, 43, 29, 0.4)'"
+  [color]="'rgba(255, 255, 255, 1)'"
+>
+</ngx-spinner>
 <app-modal #modalComponent>
   <form [formGroup]="importForm" (ngSubmit)="createRecord()">
     <label
@@ -26,7 +31,7 @@
             m-0
             focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
       required
-      accept=".csv"
+      accept=".json"
       (change)="importFile($event)"
     >
 
@@ -48,6 +53,7 @@
       type="submit"
       class="bg-green-600 hover:bg-green-700 text-white rounded-md sm:tracking-wider py-2 px-4"
       [disabled]="importForm.invalid"
+      (click)="importData()"
     >Importer
     </button
     >
