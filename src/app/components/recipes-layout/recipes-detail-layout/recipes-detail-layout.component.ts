@@ -120,27 +120,31 @@ export class RecipesDetailLayoutComponent implements OnInit, OnDestroy {
 
   //onClick Button
   onDelete(): void {
-    this.spinner.show();
-    if (this.detailMethod == DetailsMethod.Edit) {
-      const currentRecipeId: string = this.currentRecipeId!;
-      this.recipeService.deleteRecipeById(currentRecipeId).then(r => {
-          console.log(r)
-          //TODO:: dialog to confirm
-          this.recipeService.refreshSubject.next(currentRecipeId);
-
-          this.router.navigate(['recipes']);
-          this.spinner.hide();
-        }
-      ).catch(error => {
-        console.log(error);
-        this.spinner.hide();
-      })
-    } else if (this.detailMethod == DetailsMethod.Add) {
+    if (confirm('Do you want to remove this row ?')){
       this.spinner.show();
+      if (this.detailMethod == DetailsMethod.Edit) {
+        const currentRecipeId: string = this.currentRecipeId!;
+        this.recipeService.deleteRecipeById(currentRecipeId).then(r => {
+            console.log(r)
+            //TODO:: dialog to confirm
+            this.recipeService.refreshSubject.next(currentRecipeId);
 
-      this.recipeDetailForm.reset();
-      this.spinner.hide();
+            this.router.navigate(['recipes']);
+            this.spinner.hide();
+            alert(`Successfully removed`);
+          }
+        ).catch(error => {
+          console.log(error);
+          alert(`Error with removing data`);
+          this.spinner.hide();
+        })
+      } else if (this.detailMethod == DetailsMethod.Add) {
+        this.spinner.show();
+        this.recipeDetailForm.reset();
+        this.spinner.hide();
+      }
     }
+
 
   }
 
@@ -153,12 +157,13 @@ export class RecipesDetailLayoutComponent implements OnInit, OnDestroy {
         updatedRecipe.id = this.currentRecipeId!;
         updatedRecipe.updatedAt = new Date();
         this.recipeService.updateRecipeById(this.currentRecipeId!, updatedRecipe).then(() => {
-            console.log('Successfully updated');
-            this.recipeService.refreshSubject.next();
+          alert(`${updatedRecipe.name} : Successfully updated`);
+          this.recipeService.refreshSubject.next();
             this.spinner.hide();
           }
         ).catch(error => {
-          console.log(error);
+          alert(`Error with saving data`);
+          console.log(`Error with saving data : ${error}`);
           this.spinner.hide();
         })
       } else if (this.detailMethod == DetailsMethod.Add) {
@@ -167,11 +172,12 @@ export class RecipesDetailLayoutComponent implements OnInit, OnDestroy {
         newRecipe.updatedAt = new Date();
         console.log(newRecipe);
         this.recipeService.createRecipe(newRecipe).then(() => {
-          console.log('Successfully created');
+          alert(`${newRecipe.name} : Successfully created`);
           this.recipeService.refreshSubject.next();
           this.spinner.hide();
         }).catch(error => {
-          console.log(error);
+          alert(`Error with saving data`);
+          console.log(`Error with saving data : ${error}`);
           this.spinner.hide();
         });
       }
@@ -183,8 +189,10 @@ export class RecipesDetailLayoutComponent implements OnInit, OnDestroy {
 
   //onClick Button
   onClose() {
-    this.router.navigate(['recipes'],);
-    this.ngOnDestroy();
+    if (confirm('Do you want to exit without saving your data ?')) {
+      this.router.navigate(['recipes'],);
+      this.ngOnDestroy();
+    }
   }
 
   //onClick Button
