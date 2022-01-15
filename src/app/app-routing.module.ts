@@ -2,12 +2,13 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {AuthGuardService} from './auth/auth-guard.service';
 import {SigninComponent} from './auth/signin.component';
-import {CrudLayoutComponent} from './components/oils-layout/crud-layout.component';
+import {OilsCrudLayoutComponent} from './components/oils-layout/oils-crud-layout.component';
 import {StatsLayoutComponent} from './components/stats-layout/stats-layout.component';
 import {RecipesCrudLayoutComponent} from "./components/recipes-layout/recipes-crud-layout.component";
 import {
   RecipesDetailLayoutComponent
 } from "./components/recipes-layout/recipes-detail-layout/recipes-detail-layout.component";
+import {OilsDetailLayoutComponent} from "./components/oils-layout/oils-detail-layout/oils-detail-layout.component";
 
 const routes: Routes = [
   {
@@ -23,7 +24,11 @@ const routes: Routes = [
   {
     path: 'oils',
     canActivate: [AuthGuardService],
-    component: CrudLayoutComponent,
+    component: OilsCrudLayoutComponent,
+    children: [
+      {path: 'edit/:id', component: OilsDetailLayoutComponent, pathMatch: 'full',},
+      {path: 'new', component: OilsDetailLayoutComponent, pathMatch: 'full',},
+    ]
   },
   //TODO:: oilID path
   {

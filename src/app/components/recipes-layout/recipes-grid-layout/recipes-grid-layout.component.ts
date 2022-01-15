@@ -2,13 +2,13 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {RecipeService} from '../recipe.service';
 import * as moment from "moment";
 import {ModalService} from "../../../shared/modal.service";
-import {ImportCsvModalComponent} from "../../../shared/import-csv-modal/import-csv-modal.component";
+import {ImportJsonModalComponent} from "../../../shared/import-csv-modal/import-json-modal.component";
 import {Recipe} from "../../../models/recipes.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Functions} from "../../../shared/functions";
 
 @Component({
-  selector: 'app-recipes-grid-layout',
+  selector: 'app-recipes-oils-grid-layout',
   templateUrl: './recipes-grid-layout.component.html',
   styleUrls: ['./recipes-grid-layout.component.scss'],
 })
@@ -53,7 +53,7 @@ export class RecipesGridLayoutComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private recipeService: RecipeService,
-    private modalService: ModalService<ImportCsvModalComponent>
+    private modalService: ModalService<ImportJsonModalComponent>
   ) {
     this.columnDefs = [
       {
@@ -180,10 +180,10 @@ export class RecipesGridLayoutComponent implements OnInit, OnDestroy {
 
   //onClick Import Button
   async onImport(e: any): Promise<void> {
-    const {ImportCsvModalComponent} = await import(
-      '../../../shared/import-csv-modal/import-csv-modal.component'
+    const {ImportJsonModalComponent} = await import(
+      '../../../shared/import-csv-modal/import-json-modal.component'
       );
-    await this.modalService.open(ImportCsvModalComponent);
+    await this.modalService.open(ImportJsonModalComponent);
   }
 
 

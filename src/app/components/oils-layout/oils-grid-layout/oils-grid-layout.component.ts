@@ -1,37 +1,63 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {OilService} from '../oil.service';
-import {CrudService} from "../crud.service";
 import * as moment from "moment";
 import {Oil} from "../../../models/oil.model";
 import {Subscription} from "rxjs";
 import {ModalService} from "../../../shared/modal.service";
-import {ImportCsvModalComponent} from "../../../shared/import-csv-modal/import-csv-modal.component";
+import {ImportJsonModalComponent} from "../../../shared/import-csv-modal/import-json-modal.component";
+import {ActivatedRoute, Router} from "@angular/router";
+import firebase from "firebase/compat";
+import {Functions} from "../../../shared/functions";
 
 @Component({
-  selector: 'app-grid-layout',
-  templateUrl: './grid-layout.component.html',
-  styleUrls: ['./grid-layout.component.scss'],
+  selector: 'app-oils-grid-layout',
+  templateUrl: './oils-grid-layout.component.html',
+  styleUrls: ['./oils-grid-layout.component.scss'],
 })
-export class GridLayoutComponent implements OnInit, OnDestroy {
+export class OilsGridLayoutComponent implements OnInit, OnDestroy {
 
-  public oilList: Oil[] = [];
-  public isExpanded: boolean | undefined;
+
+  public isExpanded: boolean = false;
+  public oilsList: Oil[] = [];
+
   private isExpandedSubscription: Subscription | undefined;
 
+  // Grid vars
   public searchValue: string | undefined;
   public gridApi: any;
   public gridColumnApi: any;
-
   public columnDefs: any;
   public defaultColDef: any;
   public rowData: any;
-
   public gridOptions: any;
+  public gridParams: any;
+  private filterParams = {
+    comparator: function (filterLocalDateAtMidnight: any, cellValue: any): any {
+      //TODO:: Extract this method
+      const filterDate = moment(moment(filterLocalDateAtMidnight).format('L'))
+      const
+        date = moment(moment.unix(cellValue.seconds).format('L'));
+      if (date == null) return -1;
+
+      if (filterDate.isSame(date)) {
+        return 0;
+      }
+      if (date.isBefore(filterDate)) {
+        return -1;
+      }
+      if (date.isAfter(filterDate)) {
+        return 1;
+      }
+    },
+    browserDatePicker: true,
+  }
+
 
   constructor(
+    private router: Router,
+    private route: ActivatedRoute,
     private oilService: OilService,
-    private crudService: CrudService,
-    private modalService: ModalService<ImportCsvModalComponent>
+    private modalService: ModalService<ImportJsonModalComponent>
   ) {
     this.columnDefs = [
       {
@@ -109,100 +135,90 @@ export class GridLayoutComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.oilService.detailsChanged.subscribe(() => {
-      this.onRefresh();
-    })
-    this.isExpandedSubscription = this.crudService.isDetailsExpandedSubject.subscribe((isExpanded: boolean) => {
+    this.oilService.isExpandedSubject.subscribe(isExpanded => {
       this.isExpanded = isExpanded;
     })
+    this.oilService.refreshSubject.subscribe(() => {
+      this.onRefresh();
+    })
+
   }
 
   ngOnDestroy(): void {
-    this.isExpandedSubscription?.unsubscribe();
+    this.oilService.isExpandedSubject.unsubscribe();
+    this.oilService.refreshSubject.unsubscribe();
   }
 
 
   getData(params: any): void {
-    this.oilList = [];
+    this.oilsList = [];
     this.oilService.getOils().subscribe(querySnapshot => {
       querySnapshot.forEach((doc) => {
         let data: Oil = doc.data();
         data.id = doc.id;
-        this.oilList.push(data);
+        this.oilsList.push(data);
       });
-      params.api.setRowData(this.oilList);
+      params.api.setRowData(this.oilsList);
     });
   }
-  public params: any;
+
   onGridReady(params: any) {
-    this.params = params;
+    this.gridParams = params;
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
     this.getData(params);
 
-  }
-
-
-  private filterParams = {
-    comparator: function (filterLocalDateAtMidnight: any, cellValue: any): any {
-      //TODO:: Extract this method
-      const filterDate = moment(moment(filterLocalDateAtMidnight).format('L'))
-      const
-        date = moment(moment.unix(cellValue.seconds).format('L'));
-      if (date == null) return -1;
-
-      if (filterDate.isSame(date)) {
-        return 0;
-      }
-      if (date.isBefore(filterDate)) {
-        return -1;
-      }
-      if (date.isAfter(filterDate)) {
-        return 1;
-      }
-    },
-    browserDatePicker: true,
   };
 
-  //onClick Export Button
+  //onClick Button
   onAdd(): void {
-    this.crudService.expandDetailAdding();
+    this.router.navigate(['new'], {relativeTo: this.route});
   }
 
-  //onClick Export Button
+  //onClick Button
   onRefresh(): void {
-    this.getData(this.params);
-
+    this.gridOptions.api.deselectAll();
+    this.getData(this.gridParams);
   }
 
-  //onClick Export Button
+  //onClick Button
   onSearch(): void {
     this.gridApi.setQuickFilter(this.searchValue);
   }
 
-  //onClick Export Button
-  onExport(): void {
-    this.oilService.getOilAndDomainsToJson().then(data => {
-      console.log(data)
-    })
-  }
-
-  file:any;
-  //onClick Export Button
-  async onImport(e: any): Promise<void> {
-    const {ImportCsvModalComponent} = await import(
-      '../../../shared/import-csv-modal/import-csv-modal.component'
-      );
-    await this.modalService.open(ImportCsvModalComponent);
-  }
-
   onSelectionChanged(params: any) {
-
     const selectedRows: Oil = this.gridApi.getSelectedRows()[0];
     if (selectedRows != null) {
-      this.crudService.expandDetailEdition(selectedRows.id!);
+      this.router.navigate(['edit', selectedRows.id!], {relativeTo: this.route});
+    }
+  }
+
+  //onClick Export Button
+  onExport(): void {
+    if (confirm('Do you want to export all recipes ?')) {
+      let oilsModelList: any[] = [];
+      this.oilsList.forEach((oil: Oil) => {
+        const oilModel: any = oil;
+        delete oilModel['id'];
+        delete oilModel['updatedAt'];
+        delete oilModel['createdAt'];
+        oilsModelList.push(oilModel);
+      });
+
+      Functions.exportJsonFile(oilsModelList, 'oils');
     }
 
+
   }
+
+  //onClick Import Button
+  async onImport(e: any): Promise<void> {
+    const {ImportJsonModalComponent} = await import(
+      '../../../shared/import-csv-modal/import-json-modal.component'
+      );
+    await this.modalService.open(ImportJsonModalComponent);
+  }
+
+
 
 }

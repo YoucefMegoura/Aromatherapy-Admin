@@ -12,7 +12,7 @@ export enum DetailsMethod {//TODO:: find a other name
 }
 
 @Component({
-  selector: 'app-recipes-detail-layout',
+  selector: 'app-recipes-oils-detail-layout',
   templateUrl: './recipes-detail-layout.component.html',
   styleUrls: ['./recipes-detail-layout.component.scss']
 })
