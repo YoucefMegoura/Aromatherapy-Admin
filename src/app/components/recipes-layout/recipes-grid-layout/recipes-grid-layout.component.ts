@@ -2,13 +2,13 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {RecipeService} from '../recipe.service';
 import * as moment from "moment";
 import {ModalService} from "../../../shared/modal.service";
-import {ImportJsonModalComponent} from "../../../shared/import-csv-modal/import-json-modal.component";
 import {Recipe} from "../../../models/recipes.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Functions} from "../../../shared/functions";
+import {ImportJsonModalComponent} from "../../../shared/import-csv-modal/import-json-modal.component";
 
 @Component({
-  selector: 'app-recipes-oils-grid-layout',
+  selector: 'app-recipes-grid-layout',
   templateUrl: './recipes-grid-layout.component.html',
   styleUrls: ['./recipes-grid-layout.component.scss'],
 })
