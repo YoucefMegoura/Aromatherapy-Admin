@@ -10,7 +10,11 @@ import {
 } from "./components/recipes-layout/recipes-detail-layout/recipes-detail-layout.component";
 
 const routes: Routes = [
-
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'stats', //TODO :: stats
+  },
   {
     path: 'stats',
     canActivate: [AuthGuardService],
@@ -31,21 +35,11 @@ const routes: Routes = [
       {path: 'new', component: RecipesDetailLayoutComponent, pathMatch: 'full',},
     ]
   },
-
   {
     path: 'auth',
     component: SigninComponent,
   },
-
-  {
-    path: '',
-    pathMatch: 'full',
-    redirectTo: 'stats', //TODO :: stats
-  },
-  {
-    path: '**',
-    component: StatsLayoutComponent,
-  },
+  { path: '**', redirectTo: '/auth', pathMatch: 'full' },
 ];
 
 @NgModule({
