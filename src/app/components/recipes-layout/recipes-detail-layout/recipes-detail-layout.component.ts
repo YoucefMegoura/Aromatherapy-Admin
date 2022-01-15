@@ -19,8 +19,8 @@ export enum DetailsMethod {//TODO:: find a other name
 
 export class RecipesDetailLayoutComponent implements OnInit, OnDestroy {
 
-  private detailMethod : DetailsMethod = DetailsMethod.Add;
-  private currentRecipeId : string | undefined;
+  private detailMethod: DetailsMethod = DetailsMethod.Add;
+  private currentRecipeId: string | undefined;
 
   public recipeDetailForm!: FormGroup;
   public currentRecipe: Recipe | undefined;
@@ -32,7 +32,8 @@ export class RecipesDetailLayoutComponent implements OnInit, OnDestroy {
     private router: Router,
     private recipeService: RecipeService,
     private spinner: NgxSpinnerService,
-  ) {}
+  ) {
+  }
 
   private initForm() {
     this.spinner.show();
@@ -67,22 +68,21 @@ export class RecipesDetailLayoutComponent implements OnInit, OnDestroy {
             );
           }
         }
-        this.recipeDetailForm = new FormGroup({
-          'recipeId': new FormControl(recipeId),
-          'name': new FormControl(recipeName),
-          'reference': new FormControl(recipeReference),
-          'description': new FormControl(recipeDescription),
-          'notes': new FormControl(recipeNotes),
-          'usage': new FormControl(recipeUsage),
-          'ingredients': recipeIngredients,
-        });
+        this.getData(recipeId, recipeName, recipeReference, recipeDescription, recipeNotes, recipeUsage, recipeIngredients);
         this.spinner.hide();
-        return;
       }, error => {
         this.spinner.hide();
         console.log(error)
       });
+      this.getData(recipeId, recipeName, recipeReference, recipeDescription, recipeNotes, recipeUsage, recipeIngredients);
+    } else if (this.detailMethod == DetailsMethod.Add) {
+      this.getData(recipeId, recipeName, recipeReference, recipeDescription, recipeNotes, recipeUsage, recipeIngredients);
+      this.spinner.hide();
     }
+
+  }
+
+  private getData(recipeId: string, recipeName: string, recipeReference: string, recipeDescription: string, recipeNotes: string, recipeUsage: string, recipeIngredients: FormArray): void {
     this.recipeDetailForm = new FormGroup({
       'recipeId': new FormControl(recipeId),
       'name': new FormControl(recipeName),
@@ -98,7 +98,7 @@ export class RecipesDetailLayoutComponent implements OnInit, OnDestroy {
     this.recipeService.isExpandedSubject.next(true);
     this.route.params.subscribe((params: Params) => {
       this.currentRecipeId = params['id'];
-      this.detailMethod  = params['id'] != null ? DetailsMethod.Edit : DetailsMethod.Add;
+      this.detailMethod = params['id'] != null ? DetailsMethod.Edit : DetailsMethod.Add;
       this.initForm();
     });
   }
@@ -111,15 +111,11 @@ export class RecipesDetailLayoutComponent implements OnInit, OnDestroy {
   //onClick Button
   onAdd(): void {
     if (this.detailMethod == DetailsMethod.Add) {
-      let recipe: Recipe = this.recipeDetailForm.value;
-      console.log(recipe);
-      this.recipeService.createRecipe(recipe).then((data) => {
-        console.log(data);
-      }, (error => {
-        console.log(error);
-      }))
-    }
 
+    } else if (this.detailMethod == DetailsMethod.Edit) {
+      this.recipeDetailForm.reset()
+      this.detailMethod = DetailsMethod.Add;
+    }
   }
 
   //onClick Button
@@ -130,10 +126,10 @@ export class RecipesDetailLayoutComponent implements OnInit, OnDestroy {
       this.recipeService.deleteRecipeById(currentRecipeId).then(r => {
           console.log(r)
           //TODO:: dialog to confirm
-        this.recipeService.refreshSubject.next(currentRecipeId);
+          this.recipeService.refreshSubject.next(currentRecipeId);
 
-        this.router.navigate(['recipes']);
-        this.spinner.hide();
+          this.router.navigate(['recipes']);
+          this.spinner.hide();
         }
       ).catch(error => {
         console.log(error);
@@ -150,35 +146,39 @@ export class RecipesDetailLayoutComponent implements OnInit, OnDestroy {
 
   //onClick Button
   onSave(): void {
-    this.spinner.show();
-
-    if (this.detailMethod == DetailsMethod.Edit) {
-      let updatedRecipe: Recipe = this.recipeDetailForm.value;
-      updatedRecipe.id = this.currentRecipeId!;
-      updatedRecipe.updatedAt = new Date();
-      this.recipeService.updateRecipeById(this.currentRecipeId!, updatedRecipe).then(() => {
-        console.log('Successfully updated');
-        this.recipeService.refreshSubject.next();
-        this.spinner.hide();
+    if(this.recipeDetailForm.dirty && this.recipeDetailForm.touched) {
+      this.spinner.show();
+      if (this.detailMethod == DetailsMethod.Edit) {
+        let updatedRecipe: Recipe = this.recipeDetailForm.value;
+        updatedRecipe.id = this.currentRecipeId!;
+        updatedRecipe.updatedAt = new Date();
+        this.recipeService.updateRecipeById(this.currentRecipeId!, updatedRecipe).then(() => {
+            console.log('Successfully updated');
+            this.recipeService.refreshSubject.next();
+            this.spinner.hide();
+          }
+        ).catch(error => {
+          console.log(error);
+          this.spinner.hide();
+        })
+      } else if (this.detailMethod == DetailsMethod.Add) {
+        let newRecipe: Recipe = this.recipeDetailForm.value;
+        newRecipe.createdAt = new Date();
+        newRecipe.updatedAt = new Date();
+        console.log(newRecipe);
+        this.recipeService.createRecipe(newRecipe).then(() => {
+          console.log('Successfully created');
+          this.recipeService.refreshSubject.next();
+          this.spinner.hide();
+        }).catch(error => {
+          console.log(error);
+          this.spinner.hide();
+        });
       }
-    ).catch(error => {
-        console.log(error);
-        this.spinner.hide();
-      })
-    } else if (this.detailMethod == DetailsMethod.Add) {
-      let newRecipe: Recipe = this.recipeDetailForm.value;
-      newRecipe.createdAt = new Date();
-      newRecipe.updatedAt = new Date();
-      console.log(newRecipe);
-      this.recipeService.createRecipe(newRecipe).then(() => {
-        console.log('Successfully created');
-        this.recipeService.refreshSubject.next();
-        this.spinner.hide();
-      }).catch(error => {
-        console.log(error);
-        this.spinner.hide();
-      });
+    } else {
+      alert('There is nothing to save');
     }
+
   }
 
   //onClick Button
