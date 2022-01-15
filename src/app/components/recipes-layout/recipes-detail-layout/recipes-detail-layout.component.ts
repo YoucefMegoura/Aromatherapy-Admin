@@ -34,18 +34,8 @@ export class RecipesDetailLayoutComponent implements OnInit, OnDestroy {
     private spinner: NgxSpinnerService,
   ) {}
 
-
-  ngOnInit(): void {
-    this.recipeService.isExpandedSubject.next(true);
-
-    this.route.params.subscribe((params: Params) => {
-      this.currentRecipeId = params['id'];
-      this.detailMethod  = params['id'] != null ? DetailsMethod.Edit : DetailsMethod.Add;
-      this.initForm();
-    });
-  }
-
   private initForm() {
+    this.spinner.show();
     let recipeId = '';
     let recipeName = '';
     let recipeReference = '';
@@ -86,12 +76,12 @@ export class RecipesDetailLayoutComponent implements OnInit, OnDestroy {
           'usage': new FormControl(recipeUsage),
           'ingredients': recipeIngredients,
         });
+        this.spinner.hide();
         return;
       }, error => {
+        this.spinner.hide();
         console.log(error)
       });
-
-
     }
     this.recipeDetailForm = new FormGroup({
       'recipeId': new FormControl(recipeId),
@@ -102,24 +92,23 @@ export class RecipesDetailLayoutComponent implements OnInit, OnDestroy {
       'usage': new FormControl(recipeUsage),
       'ingredients': recipeIngredients,
     });
-}
-
-
-  get ingredientsControls() {
-    return (this.recipeDetailForm.get('ingredients') as FormArray).controls;
   }
 
+  ngOnInit(): void {
+    this.recipeService.isExpandedSubject.next(true);
+    this.route.params.subscribe((params: Params) => {
+      this.currentRecipeId = params['id'];
+      this.detailMethod  = params['id'] != null ? DetailsMethod.Edit : DetailsMethod.Add;
+      this.initForm();
+    });
+  }
 
   ngOnDestroy(): void {
     this.recipeService.isExpandedSubject.next(false);
-
     this.recipeSubscription.unsubscribe();
-    //this.recipeService.isExpandedSubject.unsubscribe();
-
   }
 
-
-  //onClick Export Button
+  //onClick Button
   onAdd(): void {
     if (this.detailMethod == DetailsMethod.Add) {
       let recipe: Recipe = this.recipeDetailForm.value;
@@ -159,7 +148,7 @@ export class RecipesDetailLayoutComponent implements OnInit, OnDestroy {
 
   }
 
-  //onClick Export Button
+  //onClick Button
   onSave(): void {
     this.spinner.show();
 
@@ -192,13 +181,13 @@ export class RecipesDetailLayoutComponent implements OnInit, OnDestroy {
     }
   }
 
-  //onClick Export Button
+  //onClick Button
   onClose() {
-    this.recipeService.refreshSubject.unsubscribe();
     this.router.navigate(['recipes'],);
     this.ngOnDestroy();
   }
 
+  //onClick Button
   onAddIngredient() {
     (<FormArray>this.recipeDetailForm.get('ingredients')).push(
       new FormGroup({
@@ -207,8 +196,12 @@ export class RecipesDetailLayoutComponent implements OnInit, OnDestroy {
     );
   }
 
+  //onClick Button
   onDeleteIngredient(i: number) {
     (<FormArray>this.recipeDetailForm.get('ingredients')).removeAt(i);
+  }
 
+  get ingredientsControls() {
+    return (this.recipeDetailForm.get('ingredients') as FormArray).controls;
   }
 }
