@@ -43,4 +43,25 @@ export class RecipeService {
     return await this.firestore.doc(RecipePaths.recipe(id)).delete();
   }
 
+  async importData(recipes: Recipe[]): Promise<void> {
+    let recipesName: string[] = [];
+    let importedLineCounter: number = 0;
+    this.getRecipes().subscribe(data => {
+      data.forEach((data: any) => {
+        const recipe: Recipe = Recipe.fromMap(data.data());
+        recipesName.push(recipe.name);
+      });
+      for (let recipe of recipes) {
+        let recipeTmp: Recipe = Recipe.fromMap(recipe);
+        if (!recipesName.includes(recipeTmp.name)) {
+          importedLineCounter++;
+          this.createRecipe(recipeTmp).then(() => {
+            alert(`${importedLineCounter} : Recipes successfully imported.`)
+          });
+        }
+      }
+    });
+
+  }
+
 }

@@ -5,6 +5,7 @@ import {ModalService} from "../../../shared/modal.service";
 import {ImportCsvModalComponent} from "../../../shared/import-csv-modal/import-csv-modal.component";
 import {Recipe} from "../../../models/recipes.model";
 import {ActivatedRoute, Router} from "@angular/router";
+import {Functions} from "../../../shared/functions";
 
 @Component({
   selector: 'app-recipes-grid-layout',
@@ -161,12 +162,28 @@ export class RecipesGridLayoutComponent implements OnInit, OnDestroy {
 
   //onClick Export Button
   onExport(): void {
-    //TODO::
+    if (confirm('Do you want to export all recipes ?')) {
+      let recipesModelList: any[] = [];
+      this.recipesList.forEach(recipe => {
+        const recipeModel: any = recipe;
+        delete recipeModel['id'];
+        delete recipeModel['updatedAt'];
+        delete recipeModel['createdAt'];
+        recipesModelList.push(recipeModel);
+      });
+
+      Functions.exportJsonFile(recipesModelList, 'recipes');
+    }
+
+
   }
 
   //onClick Import Button
   async onImport(e: any): Promise<void> {
-    //TODO::
+    const {ImportCsvModalComponent} = await import(
+      '../../../shared/import-csv-modal/import-csv-modal.component'
+      );
+    await this.modalService.open(ImportCsvModalComponent);
   }
 
 

@@ -6,10 +6,11 @@ import {
 } from '@angular/forms';
 
 import {ModalComponent} from '../modal/modal.component';
-import {NgxCsvParser, NgxCSVParserError} from "ngx-csv-parser";
-import {OilService} from "../../components/oils-layout/oil.service";
+import {RecipeService} from "../../components/recipes-layout/recipe.service";
+import {NgxSpinnerService} from "ngx-spinner";
+
 @Component({
-  selector: 'app-importcsvmodal',
+  selector: 'app-importjsonmodal',
   templateUrl: './import-csv-modal.component.html',
   styleUrls: ['./import-csv-modal.component.scss'],
 })
@@ -19,14 +20,16 @@ export class ImportCsvModalComponent {
     | undefined;
 
   public importForm: FormGroup;
+  public file: Blob | undefined;
+  private jsonData: any;
 
   constructor(
-    private ngxCsvParser: NgxCsvParser,
-    public fb: FormBuilder,
-    private oilService: OilService
+    public formBuilder: FormBuilder,
+    private recipeService: RecipeService,
+    private spinner: NgxSpinnerService,
   ) {
-    this.importForm = this.fb.group({
-      file: ['', [Validators.required]]
+    this.importForm = this.formBuilder.group({
+      file: [null , [Validators.required]]
     });
   }
 
@@ -39,20 +42,28 @@ export class ImportCsvModalComponent {
   }
 
   importFile(e: any) {
-    let csvFile = e.target.files[0];
+    this.file = e.target.files[0];
+    let fileReader = new FileReader();
+    fileReader.onload = (e) => {
+      let text = fileReader.result as string;
+      this.jsonData = JSON.parse(text);
+    }
+    if (this.file != null) {
+      fileReader.readAsText(this.file);
+    }
+  }
 
-    this.ngxCsvParser.parse(csvFile, { header: true, delimiter: ',' })
-      .pipe().subscribe((result: any) => {
 
-        let oilsArray: Array<any> = result;
-
-        if (oilsArray.length > 0) {
-          this.oilService.importOilsArray(oilsArray);
-        }
-
-    }, (error: NgxCSVParserError) => {
-      console.log('Error', error);
-    });
+  //onClick Button
+  importData() {
+    this.spinner.show();
+    if (this.importForm.valid && this.jsonData != null) {
+      if (this.jsonData.length > 0) {
+        this.recipeService.importData(this.jsonData).then(() => {
+          this.spinner.hide();
+        });
+      }
+    }
 
   }
 }
