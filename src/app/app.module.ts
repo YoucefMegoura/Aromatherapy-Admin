@@ -28,6 +28,8 @@ import {
 } from "./components/recipes-layout/recipes-detail-layout/recipes-detail-layout.component";
 import {NgxSpinnerModule} from "ngx-spinner";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { TermOfUseComponent } from './components/term-of-use/term-of-use.component';
+import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +49,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     DropdownDirective,
     ModalComponent,
     ImportCsvModalComponent,
+    TermOfUseComponent,
+    PrivacyPolicyComponent,
   ],
   imports: [
     BrowserModule,

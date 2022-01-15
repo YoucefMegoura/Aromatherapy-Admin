@@ -117,7 +117,15 @@
             <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
             <button
               class="text-gray-700 block w-full text-left px-4 py-2 text-sm  hover:bg-gray-100 hover:text-gray-900"
-              role="menuitem">Settings
+              role="menuitem"
+              routerLink="terms-of-use"
+            >Term of use
+            </button>
+            <button
+              class="text-gray-700 block w-full text-left px-4 py-2 text-sm  hover:bg-gray-100 hover:text-gray-900"
+              role="menuitem"
+              routerLink="privacy-policy"
+            >Policy
             </button>
             <button
               (click)="signOut()"

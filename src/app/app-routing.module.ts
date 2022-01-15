@@ -8,6 +8,8 @@ import {RecipesCrudLayoutComponent} from "./components/recipes-layout/recipes-cr
 import {
   RecipesDetailLayoutComponent
 } from "./components/recipes-layout/recipes-detail-layout/recipes-detail-layout.component";
+import {TermOfUseComponent} from "./components/term-of-use/term-of-use.component";
+import {PrivacyPolicyComponent} from "./components/privacy-policy/privacy-policy.component";
 
 const routes: Routes = [
 
@@ -36,6 +38,17 @@ const routes: Routes = [
     path: 'auth',
     component: SigninComponent,
   },
+  {
+    path: 'terms-of-use',
+    component: TermOfUseComponent,
+  },
+  {
+    path: 'privacy-policy',
+    component: PrivacyPolicyComponent,
+  },
+
+
+
 
   {
     path: '',
