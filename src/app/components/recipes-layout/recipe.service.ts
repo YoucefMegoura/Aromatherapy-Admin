@@ -23,9 +23,9 @@ export class RecipeService {
   }
 
 
-  getRecipeById(recipeId: string): Observable<firebase.firestore.DocumentSnapshot<any>> {
+  getRecipeById(id: string): Observable<firebase.firestore.DocumentSnapshot<any>> {
     return this.firestore.collection(
-      RecipePaths.recipes()).doc(`${recipeId}`)
+      RecipePaths.recipes()).doc(`${id}`)
       .get();
   }
 
@@ -35,13 +35,12 @@ export class RecipeService {
   }
 
 
-  async updateRecipeById(recipeId: string, recipe: Recipe): Promise<void> {
-    return await this.firestore.doc(RecipePaths.recipe(recipeId)).update({...recipe});
+  async updateRecipeById(id: string, recipe: Recipe): Promise<void> {
+    return await this.firestore.doc(RecipePaths.recipe(id)).update({...recipe});
   }
 
-  async deleteRecipeById(recipeId: string): Promise<void> {
-    return await this.firestore.doc(RecipePaths.recipe(recipeId)).delete();
+  async deleteRecipeById(id: string): Promise<void> {
+    return await this.firestore.doc(RecipePaths.recipe(id)).delete();
   }
-
 
 }

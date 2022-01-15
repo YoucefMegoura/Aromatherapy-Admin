@@ -37,7 +37,7 @@ export class RecipesDetailLayoutComponent implements OnInit, OnDestroy {
 
   private initForm() {
     this.spinner.show();
-    let recipeId = '';
+    let id = '';
     let recipeName = '';
     let recipeReference = '';
     let recipeDescription = '';
@@ -52,7 +52,7 @@ export class RecipesDetailLayoutComponent implements OnInit, OnDestroy {
         this.currentRecipe!.id = data.id;
 
 
-        recipeId = this.currentRecipe?.id ?? '';
+        id = this.currentRecipe?.id ?? '';
         recipeName = this.currentRecipe!.name ?? '';
         recipeReference = this.currentRecipe!.reference ?? '';
         recipeDescription = this.currentRecipe!.description ?? '';
@@ -68,23 +68,23 @@ export class RecipesDetailLayoutComponent implements OnInit, OnDestroy {
             );
           }
         }
-        this.getData(recipeId, recipeName, recipeReference, recipeDescription, recipeNotes, recipeUsage, recipeIngredients);
+        this.getData(id, recipeName, recipeReference, recipeDescription, recipeNotes, recipeUsage, recipeIngredients);
         this.spinner.hide();
       }, error => {
         this.spinner.hide();
         console.log(error)
       });
-      this.getData(recipeId, recipeName, recipeReference, recipeDescription, recipeNotes, recipeUsage, recipeIngredients);
+      this.getData(id, recipeName, recipeReference, recipeDescription, recipeNotes, recipeUsage, recipeIngredients);
     } else if (this.detailMethod == DetailsMethod.Add) {
-      this.getData(recipeId, recipeName, recipeReference, recipeDescription, recipeNotes, recipeUsage, recipeIngredients);
+      this.getData(id, recipeName, recipeReference, recipeDescription, recipeNotes, recipeUsage, recipeIngredients);
       this.spinner.hide();
     }
 
   }
 
-  private getData(recipeId: string, recipeName: string, recipeReference: string, recipeDescription: string, recipeNotes: string, recipeUsage: string, recipeIngredients: FormArray): void {
+  private getData(id: string, recipeName: string, recipeReference: string, recipeDescription: string, recipeNotes: string, recipeUsage: string, recipeIngredients: FormArray): void {
     this.recipeDetailForm = new FormGroup({
-      'recipeId': new FormControl(recipeId),
+      'id': new FormControl(id),
       'name': new FormControl(recipeName),
       'reference': new FormControl(recipeReference),
       'description': new FormControl(recipeDescription),
