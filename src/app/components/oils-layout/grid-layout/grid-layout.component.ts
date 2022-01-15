@@ -109,6 +109,9 @@ export class GridLayoutComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.oilService.detailsChanged.subscribe(() => {
+      this.onRefresh();
+    })
     this.isExpandedSubscription = this.crudService.isDetailsExpandedSubject.subscribe((isExpanded: boolean) => {
       this.isExpanded = isExpanded;
     })
@@ -168,7 +171,6 @@ export class GridLayoutComponent implements OnInit, OnDestroy {
 
   //onClick Export Button
   onRefresh(): void {
-    this.gridOptions.api.deselectAll();
     this.getData(this.params);
 
   }

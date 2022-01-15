@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
 import {Subscription} from "rxjs";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import firebase from "firebase/compat";
+import UserCredential = firebase.auth.UserCredential;
 
 @Component({
   selector: 'app-signin',
@@ -25,16 +27,14 @@ export class SigninComponent implements OnInit{
   }
 
   ngOnInit() {
-    this.onSignIn(); //TODO:: REMOVE
-
   }
 
   onSignIn() {
     const email: string = this.authForm.value['email'];
     const password: string = this.authForm.value['password'];
     this.authService.signIn(email, password).then(
-      () => {
-        console.log('Sign in successful!');
+      (userCredential: UserCredential) => {
+        console.log(userCredential);
         this.router.navigate(['oils']);
       }
     ).catch((error : any) => {
@@ -44,7 +44,11 @@ export class SigninComponent implements OnInit{
   }
 
   onSignOut() {
-    this.authService.signOut();
+    this.authService.signOut().then(() => {
+      console.log('SignOut Successful');
+    }).catch(e => {
+      console.log(e)
+    });
   }
 
 }
