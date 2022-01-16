@@ -11,12 +11,12 @@ import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
   selector: 'app-importjsonmodal',
-  templateUrl: './import-csv-modal.component.html',
-  styleUrls: ['./import-csv-modal.component.scss'],
+  templateUrl: './import-json-modal.component.html',
+  styleUrls: ['./import-json-modal.component.scss'],
 })
-export class ImportCsvModalComponent {
+export class ImportJsonModalComponent {
   @ViewChild('modalComponent') modal:
-    | ModalComponent<ImportCsvModalComponent>
+    | ModalComponent<ImportJsonModalComponent>
     | undefined;
 
   public importForm: FormGroup;

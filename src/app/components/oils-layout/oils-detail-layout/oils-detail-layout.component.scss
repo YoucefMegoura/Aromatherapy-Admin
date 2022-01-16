@@ -24,6 +24,11 @@
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.25);
 }
 
+
 .primary-input {
   @apply border border-gray-200 px-5 pr-16 h-8 rounded-lg text-sm focus:outline-none;
+}
+
+.primary-textarea {
+  @apply block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
 }

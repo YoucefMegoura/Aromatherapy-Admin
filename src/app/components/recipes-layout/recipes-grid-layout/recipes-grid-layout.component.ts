@@ -2,10 +2,11 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {RecipeService} from '../recipe.service';
 import * as moment from "moment";
 import {ModalService} from "../../../shared/modal.service";
-import {ImportCsvModalComponent} from "../../../shared/import-csv-modal/import-csv-modal.component";
 import {Recipe} from "../../../models/recipes.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Functions} from "../../../shared/functions";
+import {ImportJsonModalComponent} from "../../../shared/import-csv-modal/import-json-modal.component";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-recipes-grid-layout',
@@ -13,6 +14,10 @@ import {Functions} from "../../../shared/functions";
   styleUrls: ['./recipes-grid-layout.component.scss'],
 })
 export class RecipesGridLayoutComponent implements OnInit, OnDestroy {
+
+  private isExpandedSubscription: Subscription | undefined;
+  private refreshSubscription: Subscription | undefined;
+
 
   public recipesList: Recipe[] = [];
   public isExpanded: boolean = false;
@@ -53,7 +58,7 @@ export class RecipesGridLayoutComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private recipeService: RecipeService,
-    private modalService: ModalService<ImportCsvModalComponent>
+    private modalService: ModalService<ImportJsonModalComponent>
   ) {
     this.columnDefs = [
       {
@@ -113,8 +118,8 @@ export class RecipesGridLayoutComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.recipeService.isExpandedSubject.unsubscribe();
-    this.recipeService.refreshSubject.unsubscribe();
+    this.isExpandedSubscription?.unsubscribe();
+    this.refreshSubscription?.unsubscribe();
   }
 
   getData(params: any): void {
@@ -180,10 +185,10 @@ export class RecipesGridLayoutComponent implements OnInit, OnDestroy {
 
   //onClick Import Button
   async onImport(e: any): Promise<void> {
-    const {ImportCsvModalComponent} = await import(
-      '../../../shared/import-csv-modal/import-csv-modal.component'
+    const {ImportJsonModalComponent} = await import(
+      '../../../shared/import-csv-modal/import-json-modal.component'
       );
-    await this.modalService.open(ImportCsvModalComponent);
+    await this.modalService.open(ImportJsonModalComponent);
   }
 
 
