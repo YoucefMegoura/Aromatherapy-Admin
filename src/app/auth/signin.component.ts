@@ -5,6 +5,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import firebase from "firebase/compat";
 import UserCredential = firebase.auth.UserCredential;
 import {NgxSpinnerService} from "ngx-spinner";
+import packageInfo from '../../../package.json';
 
 @Component({
   selector: 'app-signin',
@@ -12,7 +13,7 @@ import {NgxSpinnerService} from "ngx-spinner";
   styleUrls: ['./signin.component.scss']
 })
 export class SigninComponent implements OnInit{
-
+  public appVersion: string = packageInfo.version;
   public authStatus: boolean | undefined;
   public authError: string | undefined;
 
