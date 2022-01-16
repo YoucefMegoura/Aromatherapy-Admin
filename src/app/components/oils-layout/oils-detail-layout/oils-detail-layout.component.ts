@@ -462,40 +462,4 @@ export class OilsDetailLayoutComponent implements OnInit, OnDestroy {
     )
   }
 
- /* formToOilDomain(): Domain[] {
-    let oilDomains: Domain[] = [];
-    oilDomains.push(
-      new Domain(
-        (this.crudService.detailMethod == DetailsMethod.Edit) ? this.currentOilDomains.filter(domain => domain.type == DomainType.beauty)[0].id : null,
-        DomainType.beauty,
-        this.oilDetailForm.value.domains.beauty.properties,
-        this.oilDetailForm.value.domains.beauty.precautionOfUse,
-        this.oilDetailForm.value.domains.beauty.areaOfUse,
-        this.oilDetailForm.value.domains.beauty.practicalUse,
-        this.oilDetailForm.value.domains.beauty.synergy,
-        this.crudService.selectedModelID == null ? null : this.crudService.selectedModelID
-      ),
-      new Domain(
-        (this.crudService.detailMethod == DetailsMethod.Edit) ? this.currentOilDomains.filter(domain => domain.type == DomainType.health)[0].id : null,
-        DomainType.health,
-        this.oilDetailForm.value.domains.health.properties,
-        this.oilDetailForm.value.domains.health.precautionOfUse,
-        this.oilDetailForm.value.domains.health.areaOfUse,
-        this.oilDetailForm.value.domains.health.practicalUse,
-        this.oilDetailForm.value.domains.health.synergy,
-        this.crudService.selectedModelID == null ? null : this.crudService.selectedModelID
-      ),
-      new Domain(
-        (this.detailMethod == DetailsMethod.Edit) ? this.currentOilDomains.filter(domain => domain.type == DomainType.wellBeing)[0].id : null,
-        DomainType.wellBeing,
-        this.oilDetailForm.value.domains.wellBeing.properties,
-        this.oilDetailForm.value.domains.wellBeing.precautionOfUse,
-        this.oilDetailForm.value.domains.wellBeing.areaOfUse,
-        this.oilDetailForm.value.domains.wellBeing.practicalUse,
-        this.oilDetailForm.value.domains.wellBeing.synergy,
-        this.crudService.selectedModelID == null ? null : this.crudService.selectedModelID
-      ),
-    );
-    return oilDomains;
-  }*/
 }
