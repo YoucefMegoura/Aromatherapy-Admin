@@ -50,6 +50,28 @@ export class OilsDetailLayoutComponent implements OnInit, OnDestroy {
     let oilAspect = new FormArray([]);
     let oilSmell = new FormArray([]);
 
+    let healthId = '';
+    let healthProperties = '';
+    let healthPrecautionOfUse = '';
+    let healthAreaOfUse = '';
+    let healthPracticalUse = '';
+    let healthSynergy = '';
+
+    let beautyId = '';
+    let beautyProperties = '';
+    let beautyPrecautionOfUse = '';
+    let beautyAreaOfUse = '';
+    let beautyPracticalUse = '';
+    let beautySynergy = '';
+
+    let wellBeingId = '';
+    let wellBeingProperties = '';
+    let wellBeingPrecautionOfUse = '';
+    let wellBeingAreaOfUse = '';
+    let wellBeingPracticalUse = '';
+    let wellBeingSynergy = '';
+
+
 
     if (this.detailMethod == DetailsMethod.Edit) {
       let currentOilId = this.currentOilId;
@@ -73,6 +95,7 @@ export class OilsDetailLayoutComponent implements OnInit, OnDestroy {
             );
           }
         }
+
         oilDistilledOrgan = this.currentOil.distilledOrgan ?? '';
         oilExtractionProcess = this.currentOil.extractionProcess ?? '';
         if (this.currentOil!.allergies) {
@@ -106,16 +129,36 @@ export class OilsDetailLayoutComponent implements OnInit, OnDestroy {
             );
           }
         }
-        this.getData(oilId, oilName, oilSciName, oilOtherNames, oilDistilledOrgan, oilExtractionProcess, oilAllergies, oilColor, oilSmell, oilAspect);
+
+        healthId = this.currentOil.name ?? '';
+
+
+        this.getData(
+          oilId, oilName, oilSciName, oilOtherNames, oilDistilledOrgan,
+          oilExtractionProcess, oilAllergies, oilColor, oilSmell, oilAspect,
+          healthId, healthProperties, healthPrecautionOfUse, healthAreaOfUse, healthPracticalUse, healthSynergy,
+          beautyId, beautyProperties, beautyPrecautionOfUse, beautyAreaOfUse, beautyPracticalUse, beautySynergy,
+          wellBeingId, wellBeingProperties, wellBeingPrecautionOfUse, wellBeingAreaOfUse, wellBeingPracticalUse, wellBeingSynergy
+        );
 
       }, error => {
         this.spinner.hide();
         console.log(error)
       })
-      this.getData(oilId, oilName, oilSciName, oilOtherNames, oilDistilledOrgan, oilExtractionProcess, oilAllergies, oilColor, oilSmell, oilAspect);
-    } else if (this.detailMethod == DetailsMethod.Add) {
-      this.getData(oilId, oilName, oilSciName, oilOtherNames, oilDistilledOrgan, oilExtractionProcess, oilAllergies, oilColor, oilSmell, oilAspect);
-      this.spinner.hide();
+      this.getData(
+        oilId, oilName, oilSciName, oilOtherNames, oilDistilledOrgan,
+        oilExtractionProcess, oilAllergies, oilColor, oilSmell, oilAspect,
+        healthId, healthProperties, healthPrecautionOfUse, healthAreaOfUse, healthPracticalUse, healthSynergy,
+        beautyId, beautyProperties, beautyPrecautionOfUse, beautyAreaOfUse, beautyPracticalUse, beautySynergy,
+        wellBeingId, wellBeingProperties, wellBeingPrecautionOfUse, wellBeingAreaOfUse, wellBeingPracticalUse, wellBeingSynergy
+      );    } else if (this.detailMethod == DetailsMethod.Add) {
+      this.getData(
+        oilId, oilName, oilSciName, oilOtherNames, oilDistilledOrgan,
+        oilExtractionProcess, oilAllergies, oilColor, oilSmell, oilAspect,
+        healthId, healthProperties, healthPrecautionOfUse, healthAreaOfUse, healthPracticalUse, healthSynergy,
+        beautyId, beautyProperties, beautyPrecautionOfUse, beautyAreaOfUse, beautyPracticalUse, beautySynergy,
+        wellBeingId, wellBeingProperties, wellBeingPrecautionOfUse, wellBeingAreaOfUse, wellBeingPracticalUse, wellBeingSynergy
+      );      this.spinner.hide();
     }
 
 
@@ -133,7 +176,27 @@ export class OilsDetailLayoutComponent implements OnInit, OnDestroy {
     oilColor: FormArray,
     oilSmell: FormArray,
     oilAspect: FormArray,
-    //TODO:: complete
+
+    healthId: string,
+    healthProperties: string,
+    healthPrecautionOfUse: string,
+    healthAreaOfUse: string,
+    healthPracticalUse: string,
+    healthSynergy: string,
+
+    beautyId: string,
+    beautyProperties: string,
+    beautyPrecautionOfUse: string,
+    beautyAreaOfUse: string,
+    beautyPracticalUse: string,
+    beautySynergy: string,
+
+    wellBeingId: string,
+    wellBeingProperties: string,
+    wellBeingPrecautionOfUse: string,
+    wellBeingAreaOfUse: string,
+    wellBeingPracticalUse: string,
+    wellBeingSynergy: string,
 
   ): void {
     this.oilDetailForm = new FormGroup({
@@ -149,6 +212,37 @@ export class OilsDetailLayoutComponent implements OnInit, OnDestroy {
       'aspect': oilAspect,
 
       //TODO:: complete
+
+      'domains': new FormGroup({
+        'health': new FormGroup({
+          'healthId': new FormControl(healthId),
+          'properties': new FormControl(healthProperties),
+          'precautionOfUse': new FormControl(healthPrecautionOfUse),
+          'areaOfUse': new FormControl(healthAreaOfUse),
+          'practicalUse': new FormControl(healthPracticalUse),
+          'synergy': new FormControl(healthSynergy),
+
+        }),
+        'beauty': new FormGroup({
+          'beautyId': new FormControl(beautyId),
+          'properties': new FormControl(beautyProperties),
+          'precautionOfUse': new FormControl(beautyPrecautionOfUse),
+          'areaOfUse': new FormControl(beautyAreaOfUse),
+          'practicalUse': new FormControl(beautyPracticalUse),
+          'synergy': new FormControl(beautySynergy),
+
+        }),
+        'wellBeing': new FormGroup({
+          'wellBeingId': new FormControl(wellBeingId),
+          'properties': new FormControl(wellBeingProperties),
+          'precautionOfUse': new FormControl(wellBeingPrecautionOfUse),
+          'areaOfUse': new FormControl(wellBeingAreaOfUse),
+          'practicalUse': new FormControl(wellBeingPracticalUse),
+          'synergy': new FormControl(wellBeingSynergy),
+
+        }),
+      }),
+
     });
   }
 

@@ -3,11 +3,11 @@
   <div class="flex flex-row justify-between">
     <div class="flex flex-row justify-end gap-2 mx-2 my-2">
       <button
-        class="p-1.5 bg-gray-100 rounded-md hover:bg-gray-200"
+        class="p-1.5 bg-green-600 rounded-md hover:bg-green-700"
         (click)="onSave()"
         title="Enregistrer"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="white">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/>
         </svg>
@@ -42,6 +42,12 @@
     class="flex flex-col gap-1 px-4 overflow-y-scroll"
     [formGroup]="oilDetailForm"
   >
+
+    <!--  ***           ***   -->
+    <!--  ***  Details  ***   -->
+    <!--  ***           ***   -->
+
+
     <div>
       <input
         formControlName="id"
@@ -272,7 +278,186 @@
     </div><!--otherNames-->
 
 
+    <!--  ***           ***   -->
+    <!--  ***  Domains  ***   -->
+    <!--  ***           ***   -->
 
+    <div formGroupName="domains">
+      <div formGroupName="health">
+        <div>
+          <input formControlName="healthId"
+                 id="healthId"
+                 hidden
+          >
+        </div><!--healthId-->
+        <div class="flex flex-col">
+          <label for="health-properties"
+                 class="mx-2">health-properties
+
+          </label>
+          <textarea formControlName="properties"
+                    id="health-properties"
+                    class="primary-textarea"
+                    type="text"
+          ></textarea>
+        </div><!--properties-->
+        <div class="flex flex-col">
+          <label for="health-areaOfUse" class="mx-2"
+          >health-areaOfUse</label
+          >
+          <textarea formControlName="areaOfUse"
+                    id="health-areaOfUse"
+                    class="primary-textarea"
+                    type="text"
+          ></textarea>
+        </div><!--areaOfUse-->
+        <div class="flex flex-col">
+          <label for="health-precautionOfUse" class="mx-2"
+          >health-precautionOfUse</label
+          >
+          <textarea formControlName="precautionOfUse"
+                    id="health-precautionOfUse"
+                    class="primary-textarea"
+                    type="text"
+          ></textarea>
+        </div><!--precautionOfUse-->
+        <div class="flex flex-col">
+          <label for="health-practicalUse" class="mx-2"
+          >health-practicalUse</label
+          >
+          <textarea formControlName="practicalUse"
+                    id="health-practicalUse"
+                    class="primary-textarea"
+                    type="text"
+          ></textarea>
+        </div><!--practicalUse-->
+        <div class="flex flex-col">
+          <label for="health-synergy" class="mx-2">health-synergy</label>
+          <textarea formControlName="synergy"
+                    id="health-synergy"
+                    class="primary-textarea"
+                    type="text"
+          ></textarea>
+        </div><!--synergy-->
+
+      </div>
+      <div formGroupName="beauty">
+        <div>
+          <input formControlName="beautyId"
+                 id="beautyId"
+                 hidden
+          >
+        </div><!--beautyId-->
+        <div class="flex flex-col">
+          <label for="beauty-properties" class="mx-2">beauty-properties
+
+          </label>
+          <textarea formControlName="properties"
+                    id="beauty-properties"
+                    class="primary-textarea"
+                    type="text"
+          ></textarea>
+        </div><!--properties-->
+        <div class="flex flex-col">
+          <label for="beauty-areaOfUse" class="mx-2"
+          >beauty-areaOfUse</label
+          >
+          <textarea formControlName="areaOfUse"
+                    id="beauty-areaOfUse"
+                    class="primary-textarea"
+                    type="text"
+          ></textarea>
+        </div><!--areaOfUse-->
+        <div class="flex flex-col">
+          <label for="beauty-precautionOfUse" class="mx-2"
+          >beauty-precautionOfUse</label
+          >
+          <textarea formControlName="precautionOfUse"
+                    id="beauty-precautionOfUse"
+                    class="primary-textarea"
+                    type="text"
+          ></textarea>
+        </div><!--precautionOfUse-->
+        <div class="flex flex-col">
+          <label for="beauty-practicalUse" class="mx-2"
+          >beauty-practicalUse</label
+          >
+          <textarea formControlName="practicalUse"
+                    id="beauty-practicalUse"
+                    class="primary-textarea"
+                    type="text"
+          ></textarea>
+        </div><!--practicalUse-->
+        <div class="flex flex-col">
+          <label for="beauty-synergy" class="mx-2">beauty-synergy</label>
+          <textarea formControlName="synergy"
+                    id="beauty-synergy"
+                    class="primary-textarea"
+                    type="text"
+          ></textarea>
+        </div><!--synergy-->
+
+      </div>
+      <div formGroupName="wellBeing">
+        <div>
+          <input formControlName="wellBeingId"
+                 id="wellBeingId"
+                 hidden
+          >
+        </div><!--wellBeingId-->
+        <div class="flex flex-col">
+          <label for="wellBeing-properties" class="mx-2">wellBeing-properties
+
+          </label>
+          <textarea formControlName="properties"
+                    id="wellBeing-properties"
+                    class="primary-textarea"
+                    type="text"
+          ></textarea>
+        </div><!--properties-->
+        <div class="flex flex-col">
+          <label for="wellBeing-areaOfUse" class="mx-2"
+          >wellBeing-areaOfUse</label
+          >
+
+          <textarea formControlName="areaOfUse"
+                    id="wellBeing-areaOfUse"
+                    class="primary-textarea"
+                    type="text"
+          ></textarea>
+        </div><!--areaOfUse-->
+        <div class="flex flex-col">
+          <label for="wellBeing-precautionOfUse" class="mx-2"
+          >wellBeing-precautionOfUse</label
+          >
+          <textarea formControlName="precautionOfUse"
+                    id="wellBeing-precautionOfUse"
+                    class="primary-textarea"
+                    type="text"
+          ></textarea>
+        </div><!--precautionOfUse-->
+        <div class="flex flex-col">
+          <label for="wellBeing-practicalUse" class="mx-2"
+          >wellBeing-practicalUse</label
+          >
+          <textarea formControlName="practicalUse"
+                    id="wellBeing-practicalUse"
+                    class="primary-textarea"
+                    type="text"
+          ></textarea>
+        </div><!--practicalUse-->
+        <div class="flex flex-col">
+          <label for="wellBeing-synergy" class="mx-2">wellBeing-synergy</label>
+          <textarea formControlName="synergy"
+                    id="wellBeing-synergy"
+                    class="primary-textarea"
+                    type="text"
+          ></textarea>
+        </div><!--synergy-->
+
+      </div>
+
+    </div>
 
   </form>
 </div>
