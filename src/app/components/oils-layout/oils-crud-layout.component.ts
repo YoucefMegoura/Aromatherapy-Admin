@@ -18,7 +18,6 @@ export class OilsCrudLayoutComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.isDetailsExpadedSubscription?.unsubscribe();
   }
 
 }

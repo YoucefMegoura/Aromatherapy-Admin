@@ -21,6 +21,7 @@ export class OilsGridLayoutComponent implements OnInit, OnDestroy {
   public oilsList: Oil[] = [];
 
   private isExpandedSubscription: Subscription | undefined;
+  private refreshSubscription: Subscription | undefined;
 
   // Grid vars
   public searchValue: string | undefined;
@@ -135,18 +136,18 @@ export class OilsGridLayoutComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.oilService.isExpandedSubject.subscribe(isExpanded => {
+    this.isExpandedSubscription = this.oilService.isExpandedSubject.subscribe(isExpanded => {
       this.isExpanded = isExpanded;
     })
-    this.oilService.refreshSubject.subscribe(() => {
+    this.refreshSubscription = this.oilService.refreshSubject.subscribe(() => {
       this.onRefresh();
     })
 
   }
 
   ngOnDestroy(): void {
-    this.oilService.isExpandedSubject.unsubscribe();
-    this.oilService.refreshSubject.unsubscribe();
+    this.isExpandedSubscription?.unsubscribe();
+    this.refreshSubscription?.unsubscribe();
   }
 
 

@@ -6,6 +6,7 @@ import {Recipe} from "../../../models/recipes.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Functions} from "../../../shared/functions";
 import {ImportJsonModalComponent} from "../../../shared/import-csv-modal/import-json-modal.component";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-recipes-grid-layout',
@@ -13,6 +14,10 @@ import {ImportJsonModalComponent} from "../../../shared/import-csv-modal/import-
   styleUrls: ['./recipes-grid-layout.component.scss'],
 })
 export class RecipesGridLayoutComponent implements OnInit, OnDestroy {
+
+  private isExpandedSubscription: Subscription | undefined;
+  private refreshSubscription: Subscription | undefined;
+
 
   public recipesList: Recipe[] = [];
   public isExpanded: boolean = false;
@@ -113,8 +118,8 @@ export class RecipesGridLayoutComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.recipeService.isExpandedSubject.unsubscribe();
-    this.recipeService.refreshSubject.unsubscribe();
+    this.isExpandedSubscription?.unsubscribe();
+    this.refreshSubscription?.unsubscribe();
   }
 
   getData(params: any): void {
