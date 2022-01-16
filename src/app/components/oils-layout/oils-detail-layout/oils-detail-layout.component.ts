@@ -50,45 +50,75 @@ export class OilsDetailLayoutComponent implements OnInit, OnDestroy {
     let oilAspect = new FormArray([]);
     let oilSmell = new FormArray([]);
 
-    let healthId = '';
-    let healthProperties = '';
-    let healthPrecautionOfUse = '';
-    let healthAreaOfUse = '';
-    let healthPracticalUse = '';
-    let healthSynergy = '';
-
-    let beautyId = '';
-    let beautyProperties = '';
-    let beautyPrecautionOfUse = '';
-    let beautyAreaOfUse = '';
-    let beautyPracticalUse = '';
-    let beautySynergy = '';
-
-    let wellBeingId = '';
-    let wellBeingProperties = '';
-    let wellBeingPrecautionOfUse = '';
-    let wellBeingAreaOfUse = '';
-    let wellBeingPracticalUse = '';
-    let wellBeingSynergy = '';
-
 
     if (this.detailMethod == DetailsMethod.Edit) {
-      oilId = this.currentOil?.id ?? '';
-      oilName = this.currentOil!.name ?? '';
-      oilSciName = this.currentOil!.sciName ?? '';
+      let currentOilId = this.currentOilId;
+      if (currentOilId == null)
+        return;
+      this.oilSubscription = this.oilService.getOilById(currentOilId).subscribe((oilData) => {
+        this.currentOil = oilData.data();
+        this.currentOil!.id = oilData.id;
 
-      if (this.currentOil!['otherNames']) {
-        for (let name of this.currentOil!.otherNames) {
-          oilOtherNames.push(
-            new FormGroup({
-              otherNames: new FormControl(name, Validators.required),
-            })
-          );
+        if (this.currentOil == null)
+          return;
+
+        oilId = this.currentOil.id ?? '';
+        oilName = this.currentOil.name ?? '';
+        oilSciName = this.currentOil.sciName ?? '';
+
+        if (this.currentOil!.otherNames) {
+          for (let name of this.currentOil.otherNames) {
+            oilOtherNames.push(
+              new FormControl(name, Validators.required),
+            );
+          }
         }
-      }
-      oilDistilledOrgan = this.currentOil!.distilledOrgan ?? '';
-      oilExtractionProcess = this.currentOil!.extractionProcess ?? '';
+        oilDistilledOrgan = this.currentOil.distilledOrgan ?? '';
+        oilExtractionProcess = this.currentOil.extractionProcess ?? '';
+        if (this.currentOil!.allergies) {
+          for (let name of this.currentOil.allergies) {
+            oilOtherNames.push(
+              new FormControl(name, Validators.required),
+            );
+          }
+        }
+
+        if (this.currentOil!.color) {
+          for (let name of this.currentOil.color) {
+            oilOtherNames.push(
+              new FormControl(name, Validators.required),
+            );
+          }
+        }
+
+        if (this.currentOil!.smell) {
+          for (let name of this.currentOil.smell) {
+            oilOtherNames.push(
+              new FormControl(name, Validators.required),
+            );
+          }
+        }
+
+        if (this.currentOil!.aspect) {
+          for (let name of this.currentOil.aspect) {
+            oilOtherNames.push(
+              new FormControl(name, Validators.required),
+            );
+          }
+        }
+        this.getData(oilId, oilName, oilSciName, oilOtherNames, oilDistilledOrgan, oilExtractionProcess, oilAllergies, oilColor, oilSmell, oilAspect);
+
+      }, error => {
+        this.spinner.hide();
+        console.log(error)
+      })
+      this.getData(oilId, oilName, oilSciName, oilOtherNames, oilDistilledOrgan, oilExtractionProcess, oilAllergies, oilColor, oilSmell, oilAspect);
+    } else if (this.detailMethod == DetailsMethod.Add) {
+      this.getData(oilId, oilName, oilSciName, oilOtherNames, oilDistilledOrgan, oilExtractionProcess, oilAllergies, oilColor, oilSmell, oilAspect);
+      this.spinner.hide();
     }
+
+
   }
 
 
@@ -99,6 +129,10 @@ export class OilsDetailLayoutComponent implements OnInit, OnDestroy {
     oilOtherNames: FormArray,
     oilDistilledOrgan: string,
     oilExtractionProcess: string,
+    oilAllergies: FormArray,
+    oilColor: FormArray,
+    oilSmell: FormArray,
+    oilAspect: FormArray,
     //TODO:: complete
 
   ): void {
@@ -109,14 +143,13 @@ export class OilsDetailLayoutComponent implements OnInit, OnDestroy {
       'otherNames': oilOtherNames,
       'distilledOrgan': new FormControl(oilDistilledOrgan),
       'extractionProcess': new FormControl(oilExtractionProcess),
+      'allergies': oilAllergies,
+      'color': oilColor,
+      'smell': oilSmell,
+      'aspect': oilAspect,
+
       //TODO:: complete
     });
-  }
-
-  ngOnDestroy(): void {
-    this.oilService.isExpandedSubject.next(false);
-    this.oilSubscription.unsubscribe();
-
   }
 
   ngOnInit(): void {
@@ -128,6 +161,13 @@ export class OilsDetailLayoutComponent implements OnInit, OnDestroy {
     });
 
   }
+
+  ngOnDestroy(): void {
+    this.oilService.isExpandedSubject.next(false);
+    this.oilSubscription.unsubscribe();
+
+  }
+
 
   //onClick Export Button
   onAdd(): void {
@@ -141,7 +181,7 @@ export class OilsDetailLayoutComponent implements OnInit, OnDestroy {
 
   //onClick Export Button
   onDelete(): void {
-    if (confirm('Do you want to remove this row ?')){
+    if (confirm('Do you want to remove this row ?')) {
       this.spinner.show();
       if (this.detailMethod == DetailsMethod.Edit) {
         const currentOilId: string = this.currentOilId!;
@@ -168,7 +208,7 @@ export class OilsDetailLayoutComponent implements OnInit, OnDestroy {
 
   //onClick Export Button
   onSave(): void {
-    if(this.oilDetailForm.dirty && this.oilDetailForm.touched) {
+    if (this.oilDetailForm.dirty && this.oilDetailForm.touched) {
       this.spinner.show();
       if (this.detailMethod == DetailsMethod.Edit) {
         let updatedOil: Oil = this.oilDetailForm.value;
@@ -216,19 +256,33 @@ export class OilsDetailLayoutComponent implements OnInit, OnDestroy {
   //onClick Button
   onAddFormArrayItem(attribute: string) {
     (<FormArray>this.oilDetailForm.get(attribute)).push(
-      new FormGroup({
-        name: new FormControl(null, Validators.required),
-      })
+      new FormControl(name, Validators.required),
     );
   }
 
   //onClick Button
-  onDeleteIngredient(i: number, attribute: string) {
+  onDeleteItem(i: number, attribute: string) {
     (<FormArray>this.oilDetailForm.get(attribute)).removeAt(i);
   }
 
-  get ingredientsControls() {
-    return (this.oilDetailForm.get('ingredients') as FormArray).controls;
+  get otherNamesControls() {
+    return (this.oilDetailForm.get('otherNames') as FormArray).controls;
+  }
+
+  get allergiesControls() {
+    return (this.oilDetailForm.get('allergies') as FormArray).controls;
+  }
+
+  get colorControls() {
+    return (this.oilDetailForm.get('color') as FormArray).controls;
+  }
+
+  get aspectControls() {
+    return (this.oilDetailForm.get('aspect') as FormArray).controls;
+  }
+
+  get smellControls() {
+    return (this.oilDetailForm.get('smell') as FormArray).controls;
   }
 
 

@@ -41,12 +41,11 @@
   <form
     class="flex flex-col gap-1 px-4 overflow-y-scroll"
     [formGroup]="oilDetailForm"
-    (ngSubmit)="onSave()"
   >
     <div>
       <input
-        formControlName="oilId"
-        id="oilId"
+        formControlName="id"
+        id="id"
         hidden
       >
     </div><!--oilId-->
@@ -68,15 +67,44 @@
         type="text"
       >
     </div><!--Scientific name-->
-    <div class="flex flex-col">
-      <label for="otherNames" class="mx-2">Other names</label>
-      <input
-        formControlName="otherNames"
-        id="otherNames"
-        class="primary-input"
-        type="text"
-      >
-    </div><!--Other names-->
+
+    <br>
+
+    <div formArrayName="otherNames">
+      <div class="">Other Names</div>
+      <hr>
+      <br>
+      <div class="flex flex-col">
+        <div *ngFor="let otherNamesCtrl of otherNamesControls; let i = index"
+        >
+          <div class="flex flex-row space-x-2">
+            <input type="text" class="primary-input" [formControlName]="i" placeholder="Add new name ...">
+            <button
+              type="button"
+              class="flex items-center justify-center bg-green-600 rounded-md text-whitespace-x-2 p-1"
+              (click)="onDeleteItem(i, 'otherNames')">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="white">
+                <path fill-rule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                      clip-rule="evenodd"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <button
+          (click)="onAddFormArrayItem('otherNames')"
+          class="m-4 flex items-center justify-center bg-green-600 rounded-md text-white px-3 py-1.5 space-x-2 "
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="white">
+            <path fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
+                  clip-rule="evenodd"/>
+          </svg>
+        </button>
+      </div>
+    </div><!--otherNames-->
+
+
     <div class="flex flex-col">
       <label for="distilledOrgan" class="mx-2">distilled organ</label>
       <textarea
@@ -95,220 +123,156 @@
         type="text"
       ></textarea>
     </div><!--Extraction process-->
-    <div class="flex flex-col">
-      <label for="allergies" class="mx-2">Allergies</label>
-      <input
-        formControlName="allergies"
-        id="allergies"
-        class="primary-input"
-        type="text"
-      >
-    </div><!--Allergies-->
 
-    <div class="flex flex-col">
-      <label for="aspect" class="mx-2">Aspect</label>
-      <input
-        formControlName="aspect"
-        id="aspect"
-        class="primary-input"
-        type="text"
-      >
-    </div><!--Aspect-->
-    <div class="flex flex-col">
-      <label for="color" class="mx-2">Color</label>
-      <input
-        formControlName="color"
-        id="color"
-        class="primary-input"
-        type="text"
-      >
-    </div><!--Color-->
-    <div class="flex flex-col">
-      <label for="smell" class="mx-2">Smell</label>
-      <input
-        formControlName="smell"
-        id="smell"
-        class="primary-input"
-        type="text"
-      >
-    </div><!--Smell-->
 
-    <div formGroupName="domains">
-      <div formGroupName="health">
-        <div>
-          <input formControlName="healthId"
-                 id="healthId"
-                 hidden
-          >
-        </div><!--healthId-->
-        <div class="flex flex-col">
-          <label for="health-properties"
-                 class="mx-2">health-properties
+    <br>
 
-          </label>
-          <textarea formControlName="properties"
-                    id="health-properties"
-                    class="primary-textarea"
-                    type="text"
-          ></textarea>
-        </div><!--properties-->
-        <div class="flex flex-col">
-          <label for="health-areaOfUse" class="mx-2"
-          >health-areaOfUse</label
-          >
-          <textarea formControlName="areaOfUse"
-                    id="health-areaOfUse"
-                    class="primary-textarea"
-                    type="text"
-          ></textarea>
-        </div><!--areaOfUse-->
-        <div class="flex flex-col">
-          <label for="health-precautionOfUse" class="mx-2"
-          >health-precautionOfUse</label
-          >
-          <textarea formControlName="precautionOfUse"
-                    id="health-precautionOfUse"
-                    class="primary-textarea"
-                    type="text"
-          ></textarea>
-        </div><!--precautionOfUse-->
-        <div class="flex flex-col">
-          <label for="health-practicalUse" class="mx-2"
-          >health-practicalUse</label
-          >
-          <textarea formControlName="practicalUse"
-                    id="health-practicalUse"
-                    class="primary-textarea"
-                    type="text"
-          ></textarea>
-        </div><!--practicalUse-->
-        <div class="flex flex-col">
-          <label for="health-synergy" class="mx-2">health-synergy</label>
-          <textarea formControlName="synergy"
-                 id="health-synergy"
-                 class="primary-textarea"
-                 type="text"
-          ></textarea>
-        </div><!--synergy-->
-
+    <div formArrayName="allergies">
+      <div class="">Allergies</div>
+      <hr>
+      <br>
+      <div class="flex flex-col">
+        <div *ngFor="let ctrl of allergiesControls; let i = index"
+        >
+          <div class="flex flex-row space-x-2">
+            <input type="text" class="primary-input" [formControlName]="i" placeholder="Add new allergie ...">
+            <button
+              type="button"
+              class="flex items-center justify-center bg-green-600 rounded-md text-whitespace-x-2 p-1"
+              (click)="onDeleteItem(i, 'allergies')">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="white">
+                <path fill-rule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                      clip-rule="evenodd"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <button
+          (click)="onAddFormArrayItem('allergies')"
+          class="m-4 flex items-center justify-center bg-green-600 rounded-md text-white px-3 py-1.5 space-x-2 "
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="white">
+            <path fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
+                  clip-rule="evenodd"/>
+          </svg>
+        </button>
       </div>
-      <div formGroupName="beauty">
-        <div>
-          <input formControlName="beautyId"
-                 id="beautyId"
-                 hidden
-          >
-        </div><!--beautyId-->
-        <div class="flex flex-col">
-          <label for="beauty-properties" class="mx-2">beauty-properties
+    </div><!--otherNames-->
 
-          </label>
-          <textarea formControlName="properties"
-                 id="beauty-properties"
-                 class="primary-textarea"
-                 type="text"
-          ></textarea>
-        </div><!--properties-->
-        <div class="flex flex-col">
-          <label for="beauty-areaOfUse" class="mx-2"
-          >beauty-areaOfUse</label
-          >
-          <textarea formControlName="areaOfUse"
-                 id="beauty-areaOfUse"
-                 class="primary-textarea"
-                 type="text"
-          ></textarea>
-        </div><!--areaOfUse-->
-        <div class="flex flex-col">
-          <label for="beauty-precautionOfUse" class="mx-2"
-          >beauty-precautionOfUse</label
-          >
-          <textarea formControlName="precautionOfUse"
-                 id="beauty-precautionOfUse"
-                 class="primary-textarea"
-                 type="text"
-          ></textarea>
-        </div><!--precautionOfUse-->
-        <div class="flex flex-col">
-          <label for="beauty-practicalUse" class="mx-2"
-          >beauty-practicalUse</label
-          >
-          <textarea formControlName="practicalUse"
-                 id="beauty-practicalUse"
-                 class="primary-textarea"
-                 type="text"
-          ></textarea>
-        </div><!--practicalUse-->
-        <div class="flex flex-col">
-          <label for="beauty-synergy" class="mx-2">beauty-synergy</label>
-          <textarea formControlName="synergy"
-                 id="beauty-synergy"
-                 class="primary-textarea"
-                 type="text"
-          ></textarea>
-        </div><!--synergy-->
+    <br>
 
+    <div formArrayName="color">
+      <div class="">Colors</div>
+      <hr>
+      <br>
+      <div class="flex flex-col">
+        <div *ngFor="let ctrl of colorControls; let i = index"
+        >
+          <div class="flex flex-row space-x-2">
+            <input type="text" class="primary-input" [formControlName]="i" placeholder="Add new color ...">
+            <button
+              type="button"
+              class="flex items-center justify-center bg-green-600 rounded-md text-whitespace-x-2 p-1"
+              (click)="onDeleteItem(i, 'color')">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="white">
+                <path fill-rule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                      clip-rule="evenodd"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <button
+          (click)="onAddFormArrayItem('color')"
+          class="m-4 flex items-center justify-center bg-green-600 rounded-md text-white px-3 py-1.5 space-x-2 "
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="white">
+            <path fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
+                  clip-rule="evenodd"/>
+          </svg>
+        </button>
       </div>
-      <div formGroupName="wellBeing">
-        <div>
-          <input formControlName="wellBeingId"
-                 id="wellBeingId"
-                 hidden
-          >
-        </div><!--wellBeingId-->
-        <div class="flex flex-col">
-          <label for="wellBeing-properties" class="mx-2">wellBeing-properties
+    </div><!--otherNames-->
 
-          </label>
-          <textarea formControlName="properties"
-                    id="wellBeing-properties"
-                    class="primary-textarea"
-                    type="text"
-          ></textarea>
-        </div><!--properties-->
-        <div class="flex flex-col">
-          <label for="wellBeing-areaOfUse" class="mx-2"
-          >wellBeing-areaOfUse</label
-          >
 
-          <textarea formControlName="areaOfUse"
-                    id="wellBeing-areaOfUse"
-                    class="primary-textarea"
-                    type="text"
-          ></textarea>
-        </div><!--areaOfUse-->
-        <div class="flex flex-col">
-          <label for="wellBeing-precautionOfUse" class="mx-2"
-          >wellBeing-precautionOfUse</label
-          >
-          <textarea formControlName="precautionOfUse"
-                    id="wellBeing-precautionOfUse"
-                    class="primary-textarea"
-                    type="text"
-          ></textarea>
-        </div><!--precautionOfUse-->
-        <div class="flex flex-col">
-          <label for="wellBeing-practicalUse" class="mx-2"
-          >wellBeing-practicalUse</label
-          >
-          <textarea formControlName="practicalUse"
-                    id="wellBeing-practicalUse"
-                    class="primary-textarea"
-                    type="text"
-          ></textarea>
-        </div><!--practicalUse-->
-        <div class="flex flex-col">
-          <label for="wellBeing-synergy" class="mx-2">wellBeing-synergy</label>
-          <textarea formControlName="synergy"
-                    id="wellBeing-synergy"
-                    class="primary-textarea"
-                    type="text"
-          ></textarea>
-        </div><!--synergy-->
+    <br>
 
+    <div formArrayName="smell">
+      <div class="">Smells</div>
+      <hr>
+      <br>
+      <div class="flex flex-col">
+        <div *ngFor="let ctrl of smellControls; let i = index"
+        >
+          <div class="flex flex-row space-x-2">
+            <input type="text" class="primary-input" [formControlName]="i" placeholder="Add new smell ...">
+            <button
+              type="button"
+              class="flex items-center justify-center bg-green-600 rounded-md text-whitespace-x-2 p-1"
+              (click)="onDeleteItem(i, 'smell')">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="white">
+                <path fill-rule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                      clip-rule="evenodd"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <button
+          (click)="onAddFormArrayItem('smell')"
+          class="m-4 flex items-center justify-center bg-green-600 rounded-md text-white px-3 py-1.5 space-x-2 "
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="white">
+            <path fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
+                  clip-rule="evenodd"/>
+          </svg>
+        </button>
       </div>
+    </div><!--otherNames-->
 
-    </div>
+
+    <br>
+
+    <div formArrayName="aspect">
+      <div class="">Aspects</div>
+      <hr>
+      <br>
+      <div class="flex flex-col">
+        <div *ngFor="let ctrl of aspectControls; let i = index"
+        >
+          <div class="flex flex-row space-x-2">
+            <input type="text" class="primary-input" [formControlName]="i" placeholder="Add new aspect ...">
+            <button
+              type="button"
+              class="flex items-center justify-center bg-green-600 rounded-md text-whitespace-x-2 p-1"
+              (click)="onDeleteItem(i, 'aspect')">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="white">
+                <path fill-rule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                      clip-rule="evenodd"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <button
+          (click)="onAddFormArrayItem('aspect')"
+          class="m-4 flex items-center justify-center bg-green-600 rounded-md text-white px-3 py-1.5 space-x-2 "
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="white">
+            <path fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
+                  clip-rule="evenodd"/>
+          </svg>
+        </button>
+      </div>
+    </div><!--otherNames-->
+
+
+
 
   </form>
 </div>

@@ -5,7 +5,7 @@ import {AngularFirestore, DocumentReference} from "@angular/fire/compat/firestor
 import {Domain} from "../../models/domain.model";
 import firebase from "firebase/compat";
 import QuerySnapshot = firebase.firestore.QuerySnapshot;
-import {OilPaths} from "./oilPaths";
+import {OilPaths} from "./oil.paths";
 
 @Injectable({
   providedIn: 'root'
