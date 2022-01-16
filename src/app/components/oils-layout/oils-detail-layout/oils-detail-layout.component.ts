@@ -30,9 +30,6 @@ export class OilsDetailLayoutComponent implements OnInit, OnDestroy {
 
 
   public currentOil: Oil | undefined;
-
-  private oilSubscription: Subscription = new Subscription();
-
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -358,8 +355,8 @@ export class OilsDetailLayoutComponent implements OnInit, OnDestroy {
 
         this.oilService.updateOilAndDomains(this.currentOilId!, Oil.fromMap(updatedOil, this.currentOilId), [updatedBeauty, updatedHealth, updatedWellBeing]).then(() => {
             alert(`${updatedOil.name} : Successfully updated`);
-            this.oilService.refreshSubject.next();
-            this.spinner.hide();
+          this.spinner.hide();
+          this.oilService.refreshSubject.next();
           }
         ).catch(error => {
           alert(`Error with saving data`);
@@ -377,8 +374,8 @@ export class OilsDetailLayoutComponent implements OnInit, OnDestroy {
 
         this.oilService.createOilAndDomains(this.formToOil(newOil), [newHealth, newBeauty, newWellBeing]).then(() => {
           alert(`${newOil.name} : Successfully created`);
-          this.oilService.refreshSubject.next();
           this.spinner.hide();
+          this.oilService.refreshSubject.next();
         }).catch(error => {
           alert(`Error with saving data`);
           console.log(`Error with saving data : ${error}`);
