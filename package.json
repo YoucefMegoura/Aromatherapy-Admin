@@ -26,7 +26,6 @@
     "autoprefixer": "^10.4.0",
     "firebase": "^9.6.1",
     "moment": "^2.29.1",
-    "ngx-csv-parser": "^0.0.7",
     "ngx-spinner": "^13.0.0",
     "postcss": "^8.4.4",
     "rxfire": "^6.0.0",
