@@ -71,46 +71,39 @@ export class OilsGridLayoutComponent implements OnInit, OnDestroy {
       {
         field: 'name',
         filter: 'agTextColumnFilter',
-        maxWidth: 300,
       },
       {
         headerName: 'Scientific Name',
         field: 'sciName',
         filter: 'agTextColumnFilter',
-        maxWidth: 300,
         sortable: true
       },
       {
         field: 'otherNames',
         filter: 'agTextColumnFilter',
-        maxWidth: 300,
         sortable: true
       },
       {
         field: 'distilledOrgan',
         filter: 'agTextColumnFilter',
-        maxWidth: 300,
         sortable: true
       },
 
       {
         field: 'allergies',
         filter: 'agTextColumnFilter',
-        maxWidth: 200,
         sortable: true
       },
       {
         headerName: 'Extraction Process',
         field: 'extractionProcess',
         filter: 'agTextColumnFilter',
-        maxWidth: 200,
         sortable: true
       },
       {
         headerName: 'Created At',
         field: 'createdAt',
         filter: 'agDateColumnFilter',
-        maxWidth: 200,
         sortable: true,
         filterParams: this.filterParams,
         valueFormatter: (data: any) => {
@@ -122,7 +115,6 @@ export class OilsGridLayoutComponent implements OnInit, OnDestroy {
         field: 'updatedAt',
         filter: 'agDateColumnFilter',
         filterParams: this.filterParams,
-        maxWidth: 200,
         sortable: true,
         valueFormatter: (data: any) => {
           return moment.unix(data.value.seconds).format('MM/DD/YYYY HH:mm')
@@ -132,7 +124,6 @@ export class OilsGridLayoutComponent implements OnInit, OnDestroy {
     ];
     this.defaultColDef = {
       flex: 1,
-      minWidth: 150,
       filter: true,
       pagination: true
     };

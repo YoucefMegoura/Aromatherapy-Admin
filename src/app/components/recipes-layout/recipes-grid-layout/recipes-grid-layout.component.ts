@@ -64,19 +64,24 @@ export class RecipesGridLayoutComponent implements OnInit, OnDestroy {
       {
         field: 'name',
         filter: 'agTextColumnFilter',
-        maxWidth: 300,
       },
       {
         field: 'reference',
         filter: 'agTextColumnFilter',
-        maxWidth: 300,
         sortable: true
+      },
+      {
+        field: 'notes',
+        filter: 'agTextColumnFilter',
+      },
+      {
+        field: 'usage',
+        filter: 'agTextColumnFilter',
       },
       {
         headerName: 'Created At',
         field: 'createdAt',
         filter: 'agDateColumnFilter',
-        maxWidth: 200,
         sortable: true,
         filterParams: this.filterParams,
         valueFormatter: (data: any) => {
@@ -88,7 +93,6 @@ export class RecipesGridLayoutComponent implements OnInit, OnDestroy {
         field: 'updatedAt',
         filter: 'agDateColumnFilter',
         filterParams: this.filterParams,
-        maxWidth: 200,
         sortable: true,
         valueFormatter: (data: any) => {
           return moment.unix(data.value.seconds).format('MM/DD/YYYY HH:mm')
@@ -98,7 +102,6 @@ export class RecipesGridLayoutComponent implements OnInit, OnDestroy {
     ];
     this.defaultColDef = {
       flex: 1,
-      minWidth: 150,
       filter: true,
       pagination: true
     };
