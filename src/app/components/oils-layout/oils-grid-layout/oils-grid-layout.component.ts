@@ -6,8 +6,10 @@ import {Subscription} from "rxjs";
 import {ModalService} from "../../../shared/modal.service";
 import {ImportJsonModalComponent} from "../../../shared/import-csv-modal/import-json-modal.component";
 import {ActivatedRoute, Router} from "@angular/router";
-import firebase from "firebase/compat";
 import {Functions} from "../../../shared/functions";
+
+
+
 
 @Component({
   selector: 'app-oils-grid-layout',
@@ -18,7 +20,7 @@ export class OilsGridLayoutComponent implements OnInit, OnDestroy {
 
 
   public isExpanded: boolean = false;
-  public oilsList: Oil[] = [];
+  public oilsList: Object[] = [];
 
   private isExpandedSubscription: Subscription | undefined;
   private refreshSubscription: Subscription | undefined;
@@ -61,6 +63,11 @@ export class OilsGridLayoutComponent implements OnInit, OnDestroy {
     private modalService: ModalService<ImportJsonModalComponent>
   ) {
     this.columnDefs = [
+      {
+        field: 'id',
+        hide: true,
+        suppressColumnsToolPanel: true
+      },
       {
         field: 'name',
         filter: 'agTextColumnFilter',
@@ -155,7 +162,7 @@ export class OilsGridLayoutComponent implements OnInit, OnDestroy {
     this.oilsList = [];
     this.oilService.getOils().subscribe(querySnapshot => {
       querySnapshot.forEach((doc) => {
-        let data: Oil = doc.data();
+        let data: any = doc.data();
         data.id = doc.id;
         this.oilsList.push(data);
       });
@@ -188,7 +195,7 @@ export class OilsGridLayoutComponent implements OnInit, OnDestroy {
   }
 
   onSelectionChanged(params: any) {
-    const selectedRows: Oil = this.gridApi.getSelectedRows()[0];
+    const selectedRows: any = this.gridApi.getSelectedRows()[0];
     if (selectedRows != null) {
       this.router.navigate(['edit', selectedRows.id!], {relativeTo: this.route});
     }
@@ -198,13 +205,13 @@ export class OilsGridLayoutComponent implements OnInit, OnDestroy {
   onExport(): void {
     if (confirm('Do you want to export all recipes ?')) {
       let oilsModelList: any[] = [];
-      this.oilsList.forEach((oil: Oil) => {
+      /*this.oilsList.forEach((oil: Oil) => {
         const oilModel: any = oil;
         delete oilModel['id'];
         delete oilModel['updatedAt'];
         delete oilModel['createdAt'];
         oilsModelList.push(oilModel);
-      });
+      });*/
 
       Functions.exportJsonFile(oilsModelList, 'oils');
     }

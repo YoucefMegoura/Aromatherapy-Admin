@@ -24,12 +24,9 @@ export class OilsDetailLayoutComponent implements OnInit, OnDestroy {
 
   private detailMethod: DetailsMethod = DetailsMethod.Add;
   private currentOilId: string | undefined;
-  private currentHealthId: string | undefined;
-  private currentBeautyId: string | undefined;
-  private currentWellBeingId: string | undefined;
-
 
   public currentOil: Oil | undefined;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -51,21 +48,18 @@ export class OilsDetailLayoutComponent implements OnInit, OnDestroy {
     let oilAspect = new FormArray([]);
     let oilSmell = new FormArray([]);
 
-    let healthId = '';
     let healthProperties = '';
     let healthPrecautionOfUse = '';
     let healthAreaOfUse = '';
     let healthPracticalUse = '';
     let healthSynergy = '';
 
-    let beautyId = '';
     let beautyProperties = '';
     let beautyPrecautionOfUse = '';
     let beautyAreaOfUse = '';
     let beautyPracticalUse = '';
     let beautySynergy = '';
 
-    let wellBeingId = '';
     let wellBeingProperties = '';
     let wellBeingPrecautionOfUse = '';
     let wellBeingAreaOfUse = '';
@@ -80,12 +74,10 @@ export class OilsDetailLayoutComponent implements OnInit, OnDestroy {
       let currentOilId: string = this.currentOilId!;
 
       this.oilService.getOilById(currentOilId).subscribe(async (oilData) => {
-        this.currentOil = oilData.data();
+        this.currentOil = Oil.fromMap(oilData.data());
         if (this.currentOil == null)
           return;
-        this.currentOil.id = currentOilId!;
 
-        oilId = this.currentOil?.id ?? '';
         oilName = this.currentOil?.name ?? '';
         oilSciName = this.currentOil?.sciName ?? '';
 
@@ -101,7 +93,7 @@ export class OilsDetailLayoutComponent implements OnInit, OnDestroy {
         oilExtractionProcess = this.currentOil?.extractionProcess ?? '';
         if (this.currentOil?.allergies) {
           for (let name of this.currentOil.allergies) {
-            oilOtherNames.push(
+            oilAllergies.push(
               new FormControl(name, Validators.required),
             );
           }
@@ -109,7 +101,7 @@ export class OilsDetailLayoutComponent implements OnInit, OnDestroy {
 
         if (this.currentOil?.color) {
           for (let name of this.currentOil.color) {
-            oilOtherNames.push(
+            oilColor.push(
               new FormControl(name, Validators.required),
             );
           }
@@ -117,7 +109,7 @@ export class OilsDetailLayoutComponent implements OnInit, OnDestroy {
 
         if (this.currentOil?.smell) {
           for (let name of this.currentOil.smell) {
-            oilOtherNames.push(
+            oilSmell.push(
               new FormControl(name, Validators.required),
             );
           }
@@ -125,81 +117,45 @@ export class OilsDetailLayoutComponent implements OnInit, OnDestroy {
 
         if (this.currentOil?.aspect) {
           for (let name of this.currentOil.aspect) {
-            oilOtherNames.push(
+            oilAspect.push(
               new FormControl(name, Validators.required),
             );
           }
         }
+        beautyProperties = this.currentOil.beautyDomain?.properties!;
+        beautyPrecautionOfUse = this.currentOil.beautyDomain?.precautionOfUse!;
+        beautyAreaOfUse = this.currentOil.beautyDomain?.areaOfUse!;
+        beautyPracticalUse = this.currentOil.beautyDomain?.practicalUse!;
+        beautySynergy = this.currentOil.beautyDomain?.synergy!;
 
-        this.oilService.getDomainsByOilId(currentOilId).subscribe((domainsListSnapshot) => {
-          domainsListSnapshot.forEach(domainSnapshot => {
-            let domain: Domain = domainSnapshot.data();
-            if (domain.type == DomainType.beauty) {
-                this.currentBeautyId = domainSnapshot.id;
-                beautyId = domain.id!;
-                beautyProperties = domain.properties!;
-                beautyPrecautionOfUse = domain.precautionOfUse!;
-                beautyAreaOfUse = domain.areaOfUse!;
-                beautyPracticalUse = domain.practicalUse!;
-                beautySynergy = domain.synergy!;
-              }
-            if (domain.type == DomainType.health) {
-              this.currentHealthId = domainSnapshot.id;
+        healthProperties = this.currentOil.beautyDomain?.properties!;
+        healthPrecautionOfUse = this.currentOil.beautyDomain?.precautionOfUse!;
+        healthAreaOfUse = this.currentOil.beautyDomain?.areaOfUse!;
+        healthPracticalUse = this.currentOil.beautyDomain?.practicalUse!;
+        healthSynergy = this.currentOil.beautyDomain?.synergy!;
 
-              healthId = domain.id!;
-                healthProperties = domain.properties!;
-                healthPrecautionOfUse = domain.precautionOfUse!;
-                healthAreaOfUse = domain.areaOfUse!;
-                healthPracticalUse = domain.practicalUse!;
-                healthSynergy = domain.synergy!;
-              }
-            if (domain.type == DomainType.wellBeing) {
-              this.currentWellBeingId = domainSnapshot.id;
-
-              wellBeingId = domain.id!;
-                wellBeingProperties = domain.properties!;
-                wellBeingPrecautionOfUse = domain.precautionOfUse!;
-                wellBeingAreaOfUse = domain.areaOfUse!;
-                wellBeingPracticalUse = domain.practicalUse!;
-                wellBeingSynergy = domain.synergy!;
-              }
+        wellBeingProperties = this.currentOil.beautyDomain?.properties!;
+        wellBeingPrecautionOfUse = this.currentOil.beautyDomain?.precautionOfUse!;
+        wellBeingAreaOfUse = this.currentOil.beautyDomain?.areaOfUse!;
+        wellBeingPracticalUse = this.currentOil.beautyDomain?.practicalUse!;
+        wellBeingSynergy = this.currentOil.beautyDomain?.synergy!;
 
 
-
-          })
-
-          this.getData( //TODO::fix repeeat
-            oilId, oilName, oilSciName, oilOtherNames, oilDistilledOrgan,
-            oilExtractionProcess, oilAllergies, oilColor, oilSmell, oilAspect,
-            healthId, healthProperties, healthPrecautionOfUse, healthAreaOfUse, healthPracticalUse, healthSynergy,
-            beautyId, beautyProperties, beautyPrecautionOfUse, beautyAreaOfUse, beautyPracticalUse, beautySynergy,
-            wellBeingId, wellBeingProperties, wellBeingPrecautionOfUse, wellBeingAreaOfUse, wellBeingPracticalUse, wellBeingSynergy
-          );
-          this.spinner.hide();
-        });
-      }, error => {
-        this.spinner.hide();
-        console.log(error)
-      })
-
-
-
-
-
-      this.getData(
-        oilId, oilName, oilSciName, oilOtherNames, oilDistilledOrgan,
-        oilExtractionProcess, oilAllergies, oilColor, oilSmell, oilAspect,
-        healthId, healthProperties, healthPrecautionOfUse, healthAreaOfUse, healthPracticalUse, healthSynergy,
-        beautyId, beautyProperties, beautyPrecautionOfUse, beautyAreaOfUse, beautyPracticalUse, beautySynergy,
-        wellBeingId, wellBeingProperties, wellBeingPrecautionOfUse, wellBeingAreaOfUse, wellBeingPracticalUse, wellBeingSynergy
-      );
+        this.getData(
+          oilId, oilName, oilSciName, oilOtherNames, oilDistilledOrgan,
+          oilExtractionProcess, oilAllergies, oilColor, oilSmell, oilAspect,
+          healthProperties, healthPrecautionOfUse, healthAreaOfUse, healthPracticalUse, healthSynergy,
+          beautyProperties, beautyPrecautionOfUse, beautyAreaOfUse, beautyPracticalUse, beautySynergy,
+          wellBeingProperties, wellBeingPrecautionOfUse, wellBeingAreaOfUse, wellBeingPracticalUse, wellBeingSynergy
+        );
+      });
     } else if (this.detailMethod == DetailsMethod.Add) {
       this.getData(
         oilId, oilName, oilSciName, oilOtherNames, oilDistilledOrgan,
         oilExtractionProcess, oilAllergies, oilColor, oilSmell, oilAspect,
-        healthId, healthProperties, healthPrecautionOfUse, healthAreaOfUse, healthPracticalUse, healthSynergy,
-        beautyId, beautyProperties, beautyPrecautionOfUse, beautyAreaOfUse, beautyPracticalUse, beautySynergy,
-        wellBeingId, wellBeingProperties, wellBeingPrecautionOfUse, wellBeingAreaOfUse, wellBeingPracticalUse, wellBeingSynergy
+        healthProperties, healthPrecautionOfUse, healthAreaOfUse, healthPracticalUse, healthSynergy,
+        beautyProperties, beautyPrecautionOfUse, beautyAreaOfUse, beautyPracticalUse, beautySynergy,
+        wellBeingProperties, wellBeingPrecautionOfUse, wellBeingAreaOfUse, wellBeingPracticalUse, wellBeingSynergy
       );
       this.spinner.hide();
     }
@@ -219,19 +175,16 @@ export class OilsDetailLayoutComponent implements OnInit, OnDestroy {
     oilColor: FormArray,
     oilSmell: FormArray,
     oilAspect: FormArray,
-    healthId: string,
     healthProperties: string,
     healthPrecautionOfUse: string,
     healthAreaOfUse: string,
     healthPracticalUse: string,
     healthSynergy: string,
-    beautyId: string,
     beautyProperties: string,
     beautyPrecautionOfUse: string,
     beautyAreaOfUse: string,
     beautyPracticalUse: string,
     beautySynergy: string,
-    wellBeingId: string,
     wellBeingProperties: string,
     wellBeingPrecautionOfUse: string,
     wellBeingAreaOfUse: string,
@@ -254,7 +207,6 @@ export class OilsDetailLayoutComponent implements OnInit, OnDestroy {
 
       'domains': new FormGroup({
         'health': new FormGroup({
-          'healthId': new FormControl(healthId),
           'properties': new FormControl(healthProperties),
           'precautionOfUse': new FormControl(healthPrecautionOfUse),
           'areaOfUse': new FormControl(healthAreaOfUse),
@@ -263,7 +215,6 @@ export class OilsDetailLayoutComponent implements OnInit, OnDestroy {
 
         }),
         'beauty': new FormGroup({
-          'beautyId': new FormControl(beautyId),
           'properties': new FormControl(beautyProperties),
           'precautionOfUse': new FormControl(beautyPrecautionOfUse),
           'areaOfUse': new FormControl(beautyAreaOfUse),
@@ -272,7 +223,6 @@ export class OilsDetailLayoutComponent implements OnInit, OnDestroy {
 
         }),
         'wellBeing': new FormGroup({
-          'wellBeingId': new FormControl(wellBeingId),
           'properties': new FormControl(wellBeingProperties),
           'precautionOfUse': new FormControl(wellBeingPrecautionOfUse),
           'areaOfUse': new FormControl(wellBeingAreaOfUse),
@@ -301,7 +251,7 @@ export class OilsDetailLayoutComponent implements OnInit, OnDestroy {
   }
 
 
-  //onClick Export Button
+  //onClick Button
   onAdd(): void {
     if (this.detailMethod == DetailsMethod.Add) {
 
@@ -311,13 +261,13 @@ export class OilsDetailLayoutComponent implements OnInit, OnDestroy {
     }
   }
 
-  //onClick Export Button
+  //onClick Button
   onDelete(): void {
     if (confirm('Do you want to remove this row ?')) {
       this.spinner.show();
       if (this.detailMethod == DetailsMethod.Edit) {
         const currentOilId: string = this.currentOilId!;
-        this.oilService.deleteOilAndDomain(currentOilId).then(() => {
+        this.oilService.deleteOilById(currentOilId).then(() => {
             //TODO:: dialog to confirm
             this.oilService.refreshSubject.next(currentOilId);
             this.router.navigate(['oils']);
@@ -344,19 +294,12 @@ export class OilsDetailLayoutComponent implements OnInit, OnDestroy {
       this.spinner.show();
       if (this.detailMethod == DetailsMethod.Edit) {
         let updatedOil: Oil = this.formToOil(this.oilDetailForm.value);
-        updatedOil.id = this.currentOilId!;
         updatedOil.updatedAt = new Date();
 
-        let updatedHealth: Domain = this.formToDomain(this.currentHealthId, this.oilDetailForm.value, DomainType.health, this.currentOilId!);
-        let updatedBeauty: Domain = this.formToDomain(this.currentBeautyId, this.oilDetailForm.value, DomainType.beauty, this.currentOilId!);
-        let updatedWellBeing: Domain = this.formToDomain(this.currentWellBeingId, this.oilDetailForm.value, DomainType.wellBeing, this.currentOilId!);
-
-
-
-        this.oilService.updateOilAndDomains(this.currentOilId!, Oil.fromMap(updatedOil, this.currentOilId), [updatedBeauty, updatedHealth, updatedWellBeing]).then(() => {
+        this.oilService.updateOilById(this.currentOilId!, updatedOil).then(() => {
             alert(`${updatedOil.name} : Successfully updated`);
-          this.spinner.hide();
-          this.oilService.refreshSubject.next();
+            this.spinner.hide();
+            this.oilService.refreshSubject.next();
           }
         ).catch(error => {
           alert(`Error with saving data`);
@@ -364,15 +307,10 @@ export class OilsDetailLayoutComponent implements OnInit, OnDestroy {
           this.spinner.hide();
         })
       } else if (this.detailMethod == DetailsMethod.Add) {
-        let newOil: Oil = this.oilDetailForm.value;
+        let newOil: Oil = this.formToOil(this.oilDetailForm.value);
         newOil.createdAt = new Date();
         newOil.updatedAt = new Date();
-        console.log(newOil);
-        let newHealth: Domain = this.formToDomain(null, this.oilDetailForm.value, DomainType.health, this.currentOilId!);
-        let newBeauty: Domain = this.formToDomain(null, this.oilDetailForm.value, DomainType.beauty, this.currentOilId!);
-        let newWellBeing: Domain = this.formToDomain(null, this.oilDetailForm.value, DomainType.wellBeing, this.currentOilId!);
-
-        this.oilService.createOilAndDomains(this.formToOil(newOil), [newHealth, newBeauty, newWellBeing]).then(() => {
+        this.oilService.createOil(newOil ?? '').then(() => {
           alert(`${newOil.name} : Successfully created`);
           this.spinner.hide();
           this.oilService.refreshSubject.next();
@@ -429,34 +367,41 @@ export class OilsDetailLayoutComponent implements OnInit, OnDestroy {
   }
 
 
-  formToOil(obj :any): Oil {
+  formToOil(obj: any): Oil {
     return new Oil(
-      obj.id,
-      obj.name,
-      obj.sciName,
-      obj.otherNames,
-      obj.distilledOrgan,
-      obj.extractionProcess,
-      obj.allergies,
-      obj.color,
-      obj.smell,
-      obj.aspect,
-      obj.createdAt,
-      obj.updatedAt
+      obj['name'],
+      obj['sciName'],
+      obj['otherNames'],
+      obj['distilledOrgan'],
+      obj['extractionProcess'],
+      obj['allergies'],
+      obj['color'],
+      obj['smell'],
+      obj['aspect'],
+      obj['createdAt'],
+      obj['updatedAt'],
+
+      new Domain(
+        obj['domains']['health']['properties'] ?? '',
+        obj['domains']['health']['precautionOfUse'] ?? '',
+        obj['domains']['health']['areaOfUse'] ?? '',
+        obj['domains']['health']['practicalUse'] ?? '',
+        obj['domains']['health']['synergy'] ?? ''
+      ),
+      new Domain(
+        obj['domains']['beauty']['properties'] ?? '',
+        obj['domains']['beauty']['precautionOfUse'] ?? '',
+        obj['domains']['beauty']['areaOfUse'] ?? '',
+        obj['domains']['beauty']['practicalUse'] ?? '',
+        obj['domains']['beauty']['synergy'] ?? ''
+      ),
+      new Domain(
+        obj['domains']['wellBeing']['properties'] ?? '',
+        obj['domains']['wellBeing']['precautionOfUse'] ?? '',
+        obj['domains']['wellBeing']['areaOfUse'] ?? '',
+        obj['domains']['wellBeing']['practicalUse'] ?? '',
+        obj['domains']['wellBeing']['synergy'] ?? ''
+      ),
     );
   }
-
-  formToDomain(domainId : string | any, obj: any, domainType: DomainType, oilId: string): Domain {
-    return new Domain(
-      domainId ?? null,
-      domainType,
-      obj['domains'][domainType]['properties'],
-      obj['domains'][domainType]['precautionOfUse'],
-      obj['domains'][domainType]['areaOfUse'],
-      obj['domains'][domainType]['practicalUse'],
-      obj['domains'][domainType]['synergy'],
-      oilId,
-    )
-  }
-
 }
