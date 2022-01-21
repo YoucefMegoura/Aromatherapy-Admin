@@ -73,7 +73,7 @@ export class OilsDetailLayoutComponent implements OnInit, OnDestroy {
 
       let currentOilId: string = this.currentOilId!;
 
-      this.oilService.getOilById(currentOilId).subscribe(async (oilData) => {
+      this.oilService.getOilById(currentOilId).subscribe( (oilData) => {
         this.currentOil = Oil.fromMap(oilData.data());
         if (this.currentOil == null)
           return;
@@ -148,7 +148,18 @@ export class OilsDetailLayoutComponent implements OnInit, OnDestroy {
           beautyProperties, beautyPrecautionOfUse, beautyAreaOfUse, beautyPracticalUse, beautySynergy,
           wellBeingProperties, wellBeingPrecautionOfUse, wellBeingAreaOfUse, wellBeingPracticalUse, wellBeingSynergy
         );
+        this.spinner.hide();
+      }, error => {
+        this.spinner.hide();
+        console.log(error)
       });
+      this.getData(
+        oilId, oilName, oilSciName, oilOtherNames, oilDistilledOrgan,
+        oilExtractionProcess, oilAllergies, oilColor, oilSmell, oilAspect,
+        healthProperties, healthPrecautionOfUse, healthAreaOfUse, healthPracticalUse, healthSynergy,
+        beautyProperties, beautyPrecautionOfUse, beautyAreaOfUse, beautyPracticalUse, beautySynergy,
+        wellBeingProperties, wellBeingPrecautionOfUse, wellBeingAreaOfUse, wellBeingPracticalUse, wellBeingSynergy
+      );
     } else if (this.detailMethod == DetailsMethod.Add) {
       this.getData(
         oilId, oilName, oilSciName, oilOtherNames, oilDistilledOrgan,
@@ -159,8 +170,6 @@ export class OilsDetailLayoutComponent implements OnInit, OnDestroy {
       );
       this.spinner.hide();
     }
-
-
   }
 
 
@@ -202,8 +211,6 @@ export class OilsDetailLayoutComponent implements OnInit, OnDestroy {
       'color': oilColor,
       'smell': oilSmell,
       'aspect': oilAspect,
-
-      //TODO:: complete
 
       'domains': new FormGroup({
         'health': new FormGroup({
@@ -295,7 +302,7 @@ export class OilsDetailLayoutComponent implements OnInit, OnDestroy {
       if (this.detailMethod == DetailsMethod.Edit) {
         let updatedOil: Oil = this.formToOil(this.oilDetailForm.value);
         updatedOil.updatedAt = new Date();
-
+        updatedOil.createdAt = this.currentOil?.createdAt!;
         this.oilService.updateOilById(this.currentOilId!, updatedOil).then(() => {
             alert(`${updatedOil.name} : Successfully updated`);
             this.spinner.hide();
