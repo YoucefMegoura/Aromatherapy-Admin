@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {AuthGuardService} from './auth/auth-guard.service';
+import {AuthGuard} from './auth/auth.guard';
 import {SigninComponent} from './auth/signin.component';
 import {OilsCrudLayoutComponent} from './components/oils-layout/oils-crud-layout.component';
 import {StatsLayoutComponent} from './components/stats-layout/stats-layout.component';
@@ -18,12 +18,12 @@ const routes: Routes = [
   },
   {
     path: 'stats',
-    canActivate: [AuthGuardService],
+    canActivate: [AuthGuard],
     component: StatsLayoutComponent,
   },
   {
     path: 'oils',
-    canActivate: [AuthGuardService],
+    canActivate: [AuthGuard],
     component: OilsCrudLayoutComponent,
     children: [
       {path: 'edit/:id', component: OilsDetailLayoutComponent, pathMatch: 'full',},
@@ -33,7 +33,7 @@ const routes: Routes = [
   //TODO:: oilID path
   {
     path: 'recipes',
-    canActivate: [AuthGuardService],
+    canActivate: [AuthGuard],
     component: RecipesCrudLayoutComponent,
     children: [
       {path: 'edit/:id', component: RecipesDetailLayoutComponent, pathMatch: 'full',},
@@ -43,6 +43,7 @@ const routes: Routes = [
   {
     path: 'auth',
     component: SigninComponent,
+
   },
   { path: '**', redirectTo: '/auth', pathMatch: 'full' },
 ];

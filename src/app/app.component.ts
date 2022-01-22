@@ -9,26 +9,16 @@ import {Subscription} from "rxjs";
 })
 export class AppComponent implements OnInit, OnDestroy {
 
-  public authSubscription: Subscription | undefined;
-  public authStatus: boolean | undefined;
-
-  constructor(private authService: AuthService) {
+  constructor(
+    public authService: AuthService
+  ) {
   }
 
 
   ngOnInit(): void {
-    this.authSubscription = this.authService.authSubject.subscribe(
-      (isAuth: boolean) => {
-        this.authStatus = isAuth;
-      },
-      (error: any) => {
-        console.log(error)
-    }
-    )
   }
 
   ngOnDestroy(): void {
-    this.authSubscription?.unsubscribe();
   }
 
 

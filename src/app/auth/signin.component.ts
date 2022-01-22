@@ -1,9 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthService } from './auth.service';
+import {Router} from '@angular/router';
+import {AuthService} from './auth.service';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import firebase from "firebase/compat";
-import UserCredential = firebase.auth.UserCredential;
 import {NgxSpinnerService} from "ngx-spinner";
 import packageInfo from '../../../package.json';
 
@@ -12,9 +10,8 @@ import packageInfo from '../../../package.json';
   templateUrl: './signin.component.html',
   styleUrls: ['./signin.component.scss']
 })
-export class SigninComponent implements OnInit{
+export class SigninComponent implements OnInit {
   public appVersion: string = packageInfo.version;
-  public authStatus: boolean | undefined;
   public authError: string | undefined;
 
   public authForm: FormGroup;
@@ -28,24 +25,22 @@ export class SigninComponent implements OnInit{
   }
 
   ngOnInit() {
-  }
+    this.authService.afAuth.authState.subscribe((user) => { //TODO:: fix it correctly !!!!
+      if (user){
+        this.router.navigate(['stats'])
+      }
+    })
+    }
 
   onSignIn() {
     this.spinner.show();
     const email: string = this.authForm.value['email'];
     const password: string = this.authForm.value['password'];
-    this.authService.signIn(email, password).then(
-      (userCredential: UserCredential) => {
-        console.log(userCredential);
-        this.router.navigate(['stats']);
-        this.spinner.hide();
-      }
-    ).catch((error : any) => {
-      this.authError = error;
-      alert('There is an authentication problem. please contact the support.');
-      console.log(error)
+    this.authService.signIn(email, password).then(() => {
       this.spinner.hide();
-    });
+
+    })
+
   }
 
   onSignOut() {

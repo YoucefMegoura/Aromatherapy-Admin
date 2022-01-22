@@ -28,6 +28,7 @@ import {
 } from "./components/recipes-layout/recipes-detail-layout/recipes-detail-layout.component";
 import {NgxSpinnerModule} from "ngx-spinner";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {AuthService} from "./auth/auth.service";
 
 @NgModule({
   declarations: [
@@ -57,13 +58,12 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     AgGridModule.withComponents([]),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
-    NgxCsvParserModule,
     BrowserAnimationsModule,
     NgxSpinnerModule,
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent],
 })
 export class AppModule {
