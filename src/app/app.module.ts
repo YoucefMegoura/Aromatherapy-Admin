@@ -18,7 +18,6 @@ import {AngularFireModule} from "@angular/fire/compat";
 import {AngularFireDatabaseModule} from "@angular/fire/compat/database";
 import {ModalComponent} from './shared/modal/modal.component';
 import {ImportJsonModalComponent} from './shared/import-csv-modal/import-json-modal.component';
-import {NgxCsvParserModule} from "ngx-csv-parser";
 import {RecipesCrudLayoutComponent} from "./components/recipes-layout/recipes-crud-layout.component";
 import {
   RecipesGridLayoutComponent

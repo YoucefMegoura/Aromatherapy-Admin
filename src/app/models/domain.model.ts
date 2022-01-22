@@ -15,22 +15,31 @@ export class Domain {
   }
 
 
-  public toMap(): Object {
+  public toMap(): Object | null {
+    if (
+      (this.properties == null || this.properties == "") &&
+      (this.precautionOfUse == null || this.precautionOfUse == "") &&
+      (this.areaOfUse == null || this.areaOfUse == "") &&
+      (this.practicalUse == null || this.practicalUse == "") &&
+      (this.synergy == null || this.synergy == "")
+    ) {
+      return null;
+    }
     return {
-      properties: this.properties,
-      precautionOfUse: this.precautionOfUse,
-      areaOfUse: this.areaOfUse,
-      practicalUse: this.practicalUse,
-      synergy: this.synergy,
+      properties: this.properties?.trim() != "" ? this.properties?.trim() : null,
+      precautionOfUse: this.precautionOfUse?.trim() != "" ? this.properties?.trim() : null,
+      areaOfUse: this.areaOfUse?.trim() != "" ? this.properties?.trim() : null,
+      practicalUse: this.practicalUse?.trim() != "" ? this.properties?.trim() : null,
+      synergy: this.synergy?.trim() != "" ? this.properties?.trim() : null,
     }
   }
 
   public static fromMap(data: any): Domain {
-    let properties: string | null = data['properties'];
-    let precautionOfUse: string | null = data['precautionOfUse'];
-    let areaOfUse: string | null = data['areaOfUse'];
-    let practicalUse: string | null = data['practicalUse'];
-    let synergy: string | null = data['synergy'];
+    let properties: string = data['properties'] ?? "";
+    let precautionOfUse: string = data['precautionOfUse'] ?? "";
+    let areaOfUse: string = data['areaOfUse'] ?? "";
+    let practicalUse: string = data['practicalUse'] ?? "";
+    let synergy: string = data['synergy'] ?? "";
     return new Domain(
       properties,
       precautionOfUse,

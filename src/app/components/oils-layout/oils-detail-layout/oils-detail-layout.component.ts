@@ -122,23 +122,23 @@ export class OilsDetailLayoutComponent implements OnInit, OnDestroy {
             );
           }
         }
-        beautyProperties = this.currentOil.beautyDomain?.properties!;
-        beautyPrecautionOfUse = this.currentOil.beautyDomain?.precautionOfUse!;
-        beautyAreaOfUse = this.currentOil.beautyDomain?.areaOfUse!;
-        beautyPracticalUse = this.currentOil.beautyDomain?.practicalUse!;
-        beautySynergy = this.currentOil.beautyDomain?.synergy!;
+        beautyProperties = this.currentOil.beauty?.properties!;
+        beautyPrecautionOfUse = this.currentOil.beauty?.precautionOfUse!;
+        beautyAreaOfUse = this.currentOil.beauty?.areaOfUse!;
+        beautyPracticalUse = this.currentOil.beauty?.practicalUse!;
+        beautySynergy = this.currentOil.beauty?.synergy!;
 
-        healthProperties = this.currentOil.beautyDomain?.properties!;
-        healthPrecautionOfUse = this.currentOil.beautyDomain?.precautionOfUse!;
-        healthAreaOfUse = this.currentOil.beautyDomain?.areaOfUse!;
-        healthPracticalUse = this.currentOil.beautyDomain?.practicalUse!;
-        healthSynergy = this.currentOil.beautyDomain?.synergy!;
+        healthProperties = this.currentOil.beauty?.properties!;
+        healthPrecautionOfUse = this.currentOil.beauty?.precautionOfUse!;
+        healthAreaOfUse = this.currentOil.beauty?.areaOfUse!;
+        healthPracticalUse = this.currentOil.beauty?.practicalUse!;
+        healthSynergy = this.currentOil.beauty?.synergy!;
 
-        wellBeingProperties = this.currentOil.beautyDomain?.properties!;
-        wellBeingPrecautionOfUse = this.currentOil.beautyDomain?.precautionOfUse!;
-        wellBeingAreaOfUse = this.currentOil.beautyDomain?.areaOfUse!;
-        wellBeingPracticalUse = this.currentOil.beautyDomain?.practicalUse!;
-        wellBeingSynergy = this.currentOil.beautyDomain?.synergy!;
+        wellBeingProperties = this.currentOil.beauty?.properties!;
+        wellBeingPrecautionOfUse = this.currentOil.beauty?.precautionOfUse!;
+        wellBeingAreaOfUse = this.currentOil.beauty?.areaOfUse!;
+        wellBeingPracticalUse = this.currentOil.beauty?.practicalUse!;
+        wellBeingSynergy = this.currentOil.beauty?.synergy!;
 
 
         this.getData(
@@ -317,7 +317,7 @@ export class OilsDetailLayoutComponent implements OnInit, OnDestroy {
         let newOil: Oil = this.formToOil(this.oilDetailForm.value);
         newOil.createdAt = new Date();
         newOil.updatedAt = new Date();
-        this.oilService.createOil(newOil ?? '').then(() => {
+        this.oilService.createOil(newOil).then(() => {
           alert(`${newOil.name} : Successfully created`);
           this.spinner.hide();
           this.oilService.refreshSubject.next();

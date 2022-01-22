@@ -13,65 +13,68 @@ export class Oil {
     public aspect: string[] | null,
     public createdAt: Date,
     public updatedAt: Date | null,
-    public healthDomain: Domain,
-    public beautyDomain: Domain,
-    public wellBeingDomain: Domain,
-  ) {
-  }
+    public health: Domain | null,
+    public beauty: Domain | null,
+    public wellBeing: Domain | null,
+  ) {}
 
   public toMap(): Object {
-    return {
+    let obj: any = {
       name: this.name,
-      sciName: this.sciName,
+      sciName: this.sciName?.trim() != "" ? this.sciName?.trim() : null,
       otherNames: this.otherNames,
-      distilledOrgan: this.distilledOrgan,
-      extractionProcess: this.extractionProcess,
+      distilledOrgan: this.distilledOrgan?.trim() != "" ? this.distilledOrgan?.trim() : null,
+      extractionProcess: this.extractionProcess?.trim() != "" ? this.extractionProcess?.trim() : null,
       allergies: this.allergies,
       color: this.color,
       smell: this.smell,
       aspect: this.aspect,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
-      health: {
-        properties: this.healthDomain.properties,
-        precautionOfUse: this.healthDomain.precautionOfUse,
-        areaOfUse: this.healthDomain.areaOfUse,
-        practicalUse: this.healthDomain.practicalUse,
-        synergy: this.healthDomain.synergy,
-      },
-      beauty: {
-        properties: this.beautyDomain.properties,
-        precautionOfUse: this.beautyDomain.precautionOfUse,
-        areaOfUse: this.beautyDomain.areaOfUse,
-        practicalUse: this.beautyDomain.practicalUse,
-        synergy: this.beautyDomain.synergy,
-      },
-      wellBeing: {
-        properties: this.wellBeingDomain.properties,
-        precautionOfUse: this.wellBeingDomain.precautionOfUse,
-        areaOfUse: this.wellBeingDomain.areaOfUse,
-        practicalUse: this.wellBeingDomain.practicalUse,
-        synergy: this.wellBeingDomain.synergy,
-      },
-
     }
+    if (this.health != null)
+      obj.health = new Domain(
+        this.health.properties,
+        this.health.precautionOfUse,
+        this.health.areaOfUse,
+        this.health.practicalUse,
+        this.health.synergy,
+      ).toMap();
+    if (this.beauty != null)
+      obj.beauty = new Domain(
+        this.beauty.properties,
+        this.beauty.precautionOfUse,
+        this.beauty.areaOfUse,
+        this.beauty.practicalUse,
+        this.beauty.synergy,
+      ).toMap();
+    if (this.wellBeing != null)
+      obj.wellBeing = new Domain(
+        this.wellBeing.properties,
+        this.wellBeing.precautionOfUse,
+        this.wellBeing.areaOfUse,
+        this.wellBeing.practicalUse,
+        this.wellBeing.synergy,
+      ).toMap();
+
+    return obj;
   }
 
   public static fromMap(data: any): Oil {
     let name: string = data['name'];
-    let sciName: string | null = data['sciName'];
-    let otherNames: string[] = data['otherNames'];
-    let distilledOrgan: string | null = data['distilledOrgan'];
-    let extractionProcess: string | null = data['extractionProcess'];
-    let allergies: string[] | null = data['allergies'];
-    let color: string[] | null = data['color'];
-    let smell: string[] | null = data['smell'];
-    let aspect: string[] | null = data['aspect'];
+    let sciName: string = data['sciName'] ?? '';
+    let otherNames: string[] = data['otherNames'] ?? [];
+    let distilledOrgan: string = data['distilledOrgan'] ?? '';
+    let extractionProcess: string = data['extractionProcess'] ?? '';
+    let allergies: string[] = data['allergies'] ?? [];
+    let color: string[] = data['color'] ?? [];
+    let smell: string[] = data['smell'] ?? [];
+    let aspect: string[] = data['aspect'] ?? [];
     let createdAt: Date = data['createdAt'];
     let updatedAt: Date = data['updatedAt'];
-    let health: Domain = data['health'];
-    let beauty: Domain = data['beauty'];
-    let wellBeing: Domain = data['wellBeing'];
+    let health: Domain = Domain.fromMap(data['health']);
+    let beauty: Domain = Domain.fromMap(data['beauty']);
+    let wellBeing: Domain = Domain.fromMap(data['wellBeing']);
     return new Oil(
       name,
       sciName,
@@ -84,9 +87,9 @@ export class Oil {
       aspect,
       createdAt,
       updatedAt,
-      Domain.fromMap(health),
-      Domain.fromMap(beauty),
-      Domain.fromMap(wellBeing)
+      health,
+      beauty,
+      wellBeing
     );
 
   }
