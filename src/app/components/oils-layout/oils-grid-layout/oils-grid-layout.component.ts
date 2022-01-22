@@ -104,6 +104,7 @@ export class OilsGridLayoutComponent implements OnInit, OnDestroy {
         headerName: 'Created At',
         field: 'createdAt',
         filter: 'agDateColumnFilter',
+        sort: 'desc',
         sortable: true,
         filterParams: this.filterParams,
         valueFormatter: (data: any) => {
