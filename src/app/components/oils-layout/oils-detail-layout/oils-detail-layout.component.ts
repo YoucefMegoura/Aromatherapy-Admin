@@ -317,7 +317,8 @@ export class OilsDetailLayoutComponent implements OnInit, OnDestroy {
         let newOil: Oil = this.formToOil(this.oilDetailForm.value);
         newOil.createdAt = new Date();
         newOil.updatedAt = new Date();
-        this.oilService.createOil(newOil).then(() => {
+        this.oilService.createOil(newOil).then((data) => {
+          this.router.navigate([`/oils/edit/${data.id}`]);
           alert(`${newOil.name} : Successfully created`);
           this.spinner.hide();
           this.oilService.refreshSubject.next();

@@ -171,7 +171,8 @@ export class RecipesDetailLayoutComponent implements OnInit, OnDestroy {
         newRecipe.createdAt = new Date();
         newRecipe.updatedAt = new Date();
         console.log(newRecipe);
-        this.recipeService.createRecipe(newRecipe).then(() => {
+        this.recipeService.createRecipe(newRecipe).then((data) => {
+          this.router.navigate([`/recipes/edit/${data.id}`]);
           alert(`${newRecipe.name} : Successfully created`);
           this.recipeService.refreshSubject.next();
           this.spinner.hide();

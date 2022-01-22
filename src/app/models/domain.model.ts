@@ -27,19 +27,19 @@ export class Domain {
     }
     return {
       properties: this.properties?.trim() != "" ? this.properties?.trim() : null,
-      precautionOfUse: this.precautionOfUse?.trim() != "" ? this.properties?.trim() : null,
-      areaOfUse: this.areaOfUse?.trim() != "" ? this.properties?.trim() : null,
-      practicalUse: this.practicalUse?.trim() != "" ? this.properties?.trim() : null,
-      synergy: this.synergy?.trim() != "" ? this.properties?.trim() : null,
+      precautionOfUse: this.precautionOfUse?.trim() != "" ? this.precautionOfUse?.trim() : null,
+      areaOfUse: this.areaOfUse?.trim() != "" ? this.areaOfUse?.trim() : null,
+      practicalUse: this.practicalUse?.trim() != "" ? this.practicalUse?.trim() : null,
+      synergy: this.synergy?.trim() != "" ? this.synergy?.trim() : null,
     }
   }
 
   public static fromMap(data: any): Domain {
-    let properties: string = data['properties'] ?? "";
-    let precautionOfUse: string = data['precautionOfUse'] ?? "";
-    let areaOfUse: string = data['areaOfUse'] ?? "";
-    let practicalUse: string = data['practicalUse'] ?? "";
-    let synergy: string = data['synergy'] ?? "";
+    let properties: string = data == null || data['properties'] == null ? "" : data['properties'];
+    let precautionOfUse: string = data == null || data['precautionOfUse'] == null ? "" : data['precautionOfUse'];
+    let areaOfUse: string = data == null || data['areaOfUse'] == null ? "" : data['areaOfUse'];
+    let practicalUse: string = data == null || data['practicalUse'] == null ? "" : data['practicalUse'];
+    let synergy: string = data == null || data['synergy'] == null ? "" : data['synergy'];
     return new Domain(
       properties,
       precautionOfUse,
