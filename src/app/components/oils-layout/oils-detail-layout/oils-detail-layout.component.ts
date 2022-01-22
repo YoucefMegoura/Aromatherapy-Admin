@@ -337,6 +337,7 @@ export class OilsDetailLayoutComponent implements OnInit, OnDestroy {
   //onClick Button
   onClose() {
     if (confirm('Do you want to exit without saving your data ?')) {
+      this.oilService.refreshSubject.next();
       this.router.navigate(['oils'],);
       this.ngOnDestroy();
     }

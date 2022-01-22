@@ -191,6 +191,7 @@ export class RecipesDetailLayoutComponent implements OnInit, OnDestroy {
   //onClick Button
   onClose() {
     if (confirm('Do you want to exit without saving your data ?')) {
+      this.recipeService.refreshSubject.next();
       this.router.navigate(['recipes'],);
       this.ngOnDestroy();
     }
