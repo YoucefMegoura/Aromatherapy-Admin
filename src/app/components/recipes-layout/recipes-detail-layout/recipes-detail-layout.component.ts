@@ -156,7 +156,7 @@ export class RecipesDetailLayoutComponent implements OnInit, OnDestroy {
     if (this.recipeDetailForm.dirty && this.recipeDetailForm.touched) {
       this.spinner.show();
       if (this.detailMethod == DetailsMethod.Edit) {
-        let updatedRecipe: Recipe = this.recipeDetailForm.value;
+        let updatedRecipe: Recipe = this.formToRecipe(this.recipeDetailForm.value);
         updatedRecipe.createdAt = this.currentRecipe?.createdAt!;
         this.recipeService.updateRecipeById(this.currentRecipeId!, updatedRecipe).then(() => {
             alert(`${updatedRecipe.name} : Successfully updated`);
