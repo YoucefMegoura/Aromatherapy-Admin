@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {OilService} from '../oil.service';
 import * as moment from "moment";
-import {Oil} from "../../../models/oil.model";
+import {Oil} from "../../../models/oil/oil.model";
 import {Subscription} from "rxjs";
 import {ModalService} from "../../../shared/modal.service";
 import {ImportJsonModalComponent} from "../../../shared/import-csv-modal/import-json-modal.component";

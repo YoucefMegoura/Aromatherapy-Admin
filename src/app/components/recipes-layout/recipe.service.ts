@@ -3,8 +3,8 @@ import {Observable, Subject} from 'rxjs';
 import {AngularFirestore} from "@angular/fire/compat/firestore";
 import firebase from "firebase/compat";
 import QuerySnapshot = firebase.firestore.QuerySnapshot;
-import {Recipe} from "../../models/recipes.model";
 import {RecipePaths} from "./recipe.paths";
+import {Recipe} from "../../models/recipe/recipes.model";
 
 @Injectable({
   providedIn: 'root'
@@ -31,12 +31,15 @@ export class RecipeService {
 
 
   async createRecipe(recipe: Recipe): Promise<firebase.firestore.DocumentReference<unknown>> {
-    return await this.firestore.collection(RecipePaths.recipes()).add({...recipe});
+    recipe.createdAt = new Date();
+    recipe.updatedAt = new Date();
+    return await this.firestore.collection(RecipePaths.recipes()).add({...recipe.toMap()});
   }
 
 
   async updateRecipeById(id: string, recipe: Recipe): Promise<void> {
-    return await this.firestore.doc(RecipePaths.recipe(id)).update({...recipe});
+    recipe.updatedAt = new Date();
+    return await this.firestore.doc(RecipePaths.recipe(id)).update({...recipe.toMap()});
   }
 
   async deleteRecipeById(id: string): Promise<void> {

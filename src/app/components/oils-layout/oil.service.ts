@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Observable, Subject} from 'rxjs';
-import {Oil} from "../../models/oil.model";
+import {Oil} from "../../models/oil/oil.model";
 import {AngularFirestore, DocumentReference} from "@angular/fire/compat/firestore";
-import {Domain} from "../../models/domain.model";
+import {Domain} from "../../models/oil/domain.model";
 import firebase from "firebase/compat";
 import QuerySnapshot = firebase.firestore.QuerySnapshot;
 import {OilPaths} from "./oil.paths";
@@ -28,11 +28,14 @@ export class OilService {
   }
 
   async createOil(oil: Oil): Promise<firebase.firestore.DocumentReference<unknown>> {
+    oil.createdAt = new Date();
+    oil.updatedAt = new Date();
     return await this.firestore.collection(OilPaths.oils()).add({...oil.toMap()});
   }
 
 
   async updateOilById( oilId: string, oil: Oil): Promise<void> {
+    oil.updatedAt = new Date();
     return await this.firestore.doc(OilPaths.oil(oilId)).update({...oil.toMap()});
   }
 

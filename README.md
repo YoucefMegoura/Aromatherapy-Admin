@@ -9,3 +9,5 @@
 
 ### TODO
 - export oils
+- alert confirmation on logout
+- deni mobile user 

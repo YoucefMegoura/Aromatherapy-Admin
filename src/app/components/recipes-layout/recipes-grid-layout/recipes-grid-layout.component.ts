@@ -2,11 +2,11 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {RecipeService} from '../recipe.service';
 import * as moment from "moment";
 import {ModalService} from "../../../shared/modal.service";
-import {Recipe} from "../../../models/recipes.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Functions} from "../../../shared/functions";
 import {ImportJsonModalComponent} from "../../../shared/import-csv-modal/import-json-modal.component";
 import {Subscription} from "rxjs";
+import {Recipe} from "../../../models/recipe/recipes.model";
 
 @Component({
   selector: 'app-recipes-grid-layout',

@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {OilService} from "../oil.service";
-import {Oil} from "../../../models/oil.model";
-import {Domain, DomainType} from "../../../models/domain.model";
+import {Oil} from "../../../models/oil/oil.model";
+import {Domain, DomainType} from "../../../models/oil/domain.model";
 import {FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Subscription} from "rxjs";
 import {ActivatedRoute, Params, Router} from "@angular/router";
@@ -301,7 +301,6 @@ export class OilsDetailLayoutComponent implements OnInit, OnDestroy {
       this.spinner.show();
       if (this.detailMethod == DetailsMethod.Edit) {
         let updatedOil: Oil = this.formToOil(this.oilDetailForm.value);
-        updatedOil.updatedAt = new Date();
         updatedOil.createdAt = this.currentOil?.createdAt!;
         this.oilService.updateOilById(this.currentOilId!, updatedOil).then(() => {
             alert(`${updatedOil.name} : Successfully updated`);
@@ -315,8 +314,6 @@ export class OilsDetailLayoutComponent implements OnInit, OnDestroy {
         })
       } else if (this.detailMethod == DetailsMethod.Add) {
         let newOil: Oil = this.formToOil(this.oilDetailForm.value);
-        newOil.createdAt = new Date();
-        newOil.updatedAt = new Date();
         this.oilService.createOil(newOil).then((data) => {
           this.router.navigate([`/oils/edit/${data.id}`]);
           alert(`${newOil.name} : Successfully created`);
