@@ -205,7 +205,7 @@ export class OilsGridLayoutComponent implements OnInit, OnDestroy {
   //onClick Import Button
   async onImport(e: any): Promise<void> {
     //TODO:: implement it
-    if (confirm('Do you want to import all recipes ?')) {
+    if (confirm('Do you want to import all oils ?')) {
       const {ImportJsonOilComponent} = await import(
         '../../../shared/import-json-oil/import-json-oil.component'
         );

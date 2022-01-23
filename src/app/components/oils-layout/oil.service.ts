@@ -71,7 +71,7 @@ export class OilService {
           });
         }
       }
-      alert(`${importedLineCounter} : Recipes successfully imported.`)
+      alert(`${importedLineCounter} : Oils successfully imported.`)
     });
 
   }
