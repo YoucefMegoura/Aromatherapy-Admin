@@ -5,9 +5,6 @@ import {Recipe} from "../../../models/recipe/recipes.model";
 import {Subscription} from "rxjs";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {NgxSpinnerService} from "ngx-spinner";
-import {Ingredient} from "../../../models/recipe/ingredient.model";
-import {Oil} from "../../../models/oil/oil.model";
-import {Domain} from "../../../models/oil/domain.model";
 
 export enum DetailsMethod {//TODO:: find a other name
   Add = 'add',
@@ -129,7 +126,6 @@ export class RecipesDetailLayoutComponent implements OnInit, OnDestroy {
         const currentRecipeId: string = this.currentRecipeId!;
         this.recipeService.deleteRecipeById(currentRecipeId).then(r => {
             console.log(r)
-            //TODO:: dialog to confirm
             this.recipeService.refreshSubject.next(currentRecipeId);
 
             this.router.navigate(['recipes']);
@@ -189,10 +185,18 @@ export class RecipesDetailLayoutComponent implements OnInit, OnDestroy {
 
   //onClick Button
   onClose() {
-    if (confirm('Do you want to exit without saving your data ?')) {
-      this.recipeService.refreshSubject.next();
-      this.router.navigate(['recipes'],);
-      this.ngOnDestroy();
+    {
+      if (this.recipeDetailForm.dirty) {
+        if (confirm('Do you want to exit without saving your data ?')) {
+          this.recipeService.refreshSubject.next();
+          this.router.navigate(['oils'],);
+          this.ngOnDestroy();
+        }
+      } else {
+        this.recipeService.refreshSubject.next();
+        this.router.navigate(['oils'],);
+        this.ngOnDestroy();
+      }
     }
   }
 
@@ -206,7 +210,10 @@ export class RecipesDetailLayoutComponent implements OnInit, OnDestroy {
   }
 
   //onClick Button
-  onDeleteIngredient(i: number) {
+  onDeleteIngredient(i
+                       :
+                       number
+  ) {
     (<FormArray>this.recipeDetailForm.get('ingredients')).removeAt(i);
   }
 
@@ -214,7 +221,11 @@ export class RecipesDetailLayoutComponent implements OnInit, OnDestroy {
     return (this.recipeDetailForm.get('ingredients') as FormArray).controls;
   }
 
-  formToRecipe(obj: any): Recipe {
+  formToRecipe(obj
+                 :
+                 any
+  ):
+    Recipe {
     return new Recipe(
       null,
       obj['name'],

@@ -73,7 +73,7 @@ export class OilsDetailLayoutComponent implements OnInit, OnDestroy {
 
       let currentOilId: string = this.currentOilId!;
 
-      this.oilService.getOilById(currentOilId).subscribe( (oilData) => {
+      this.oilService.getOilById(currentOilId).subscribe((oilData) => {
         this.currentOil = Oil.fromMap(oilData.data());
         if (this.currentOil == null)
           return;
@@ -328,12 +328,17 @@ export class OilsDetailLayoutComponent implements OnInit, OnDestroy {
     } else {
       alert('There is nothing to save');
     }
-  } //TODO:: complete
+  }
 
-  //onClick Export Button
   //onClick Button
   onClose() {
-    if (confirm('Do you want to exit without saving your data ?')) {
+    if (this.oilDetailForm.dirty) {
+      if (confirm('Do you want to exit without saving your data ?')) {
+        this.oilService.refreshSubject.next();
+        this.router.navigate(['oils'],);
+        this.ngOnDestroy();
+      }
+    } else {
       this.oilService.refreshSubject.next();
       this.router.navigate(['oils'],);
       this.ngOnDestroy();
@@ -375,6 +380,7 @@ export class OilsDetailLayoutComponent implements OnInit, OnDestroy {
 
   formToOil(obj: any): Oil {
     return new Oil(
+      null,
       obj['name'],
       obj['sciName'],
       obj['otherNames'],

@@ -18,10 +18,8 @@ export class RecipesGridLayoutComponent implements OnInit, OnDestroy {
   private isExpandedSubscription: Subscription | undefined;
   private refreshSubscription: Subscription | undefined;
 
-
   public recipesList: Recipe[] = [];
   public isExpanded: boolean = false;
-
 
   // Grid vars
   public searchValue: string | undefined;

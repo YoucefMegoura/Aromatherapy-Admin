@@ -2,6 +2,7 @@ import {Domain} from "./domain.model";
 
 export class Oil {
   constructor(
+    public id: string | null,
     public name: string,
     public sciName: string | null,
     public otherNames: string[],
@@ -60,7 +61,8 @@ export class Oil {
     return obj;
   }
 
-  public static fromMap(data: any): Oil {
+  public static fromMap(data: any, documentId: string | null = null): Oil {
+    let id: string | null = documentId;
     let name: string = data['name'];
     let sciName: string = data['sciName'] ?? '';
     let otherNames: string[] = data['otherNames'] ?? [];
@@ -76,6 +78,7 @@ export class Oil {
     let beauty: Domain = Domain.fromMap(data['beauty']);
     let wellBeing: Domain = Domain.fromMap(data['wellBeing']);
     return new Oil(
+      id,
       name,
       sciName,
       otherNames,

@@ -9,7 +9,7 @@ import {
   RecipesDetailLayoutComponent
 } from "./components/recipes-layout/recipes-detail-layout/recipes-detail-layout.component";
 import {OilsDetailLayoutComponent} from "./components/oils-layout/oils-detail-layout/oils-detail-layout.component";
-import {MobileComponent} from "./components/mobile/mobile.component";
+import {MobileLayoutComponent} from "./components/mobile-layout/mobile-layout.component";
 
 const routes: Routes = [
   {
@@ -42,8 +42,8 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'mobile',
-    component: MobileComponent,
+    path: 'mobile-layout',
+    component: MobileLayoutComponent,
   },
   {
     path: 'auth',

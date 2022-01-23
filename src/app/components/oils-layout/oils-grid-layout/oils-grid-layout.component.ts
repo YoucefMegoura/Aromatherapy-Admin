@@ -1,12 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {OilService} from '../oil.service';
 import * as moment from "moment";
-import {Oil} from "../../../models/oil/oil.model";
 import {Subscription} from "rxjs";
 import {ModalService} from "../../../shared/modal.service";
 import {ImportJsonModalComponent} from "../../../shared/import-csv-modal/import-json-modal.component";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Functions} from "../../../shared/functions";
+import {Oil} from "../../../models/oil/oil.model";
 
 
 
@@ -18,12 +18,11 @@ import {Functions} from "../../../shared/functions";
 })
 export class OilsGridLayoutComponent implements OnInit, OnDestroy {
 
-
-  public isExpanded: boolean = false;
-  public oilsList: Object[] = [];
-
   private isExpandedSubscription: Subscription | undefined;
   private refreshSubscription: Subscription | undefined;
+
+  public oilsList: Oil[] = [];
+  public isExpanded: boolean = false;
 
   // Grid vars
   public searchValue: string | undefined;
@@ -154,7 +153,7 @@ export class OilsGridLayoutComponent implements OnInit, OnDestroy {
     this.oilsList = [];
     this.oilService.getOils().subscribe(querySnapshot => {
       querySnapshot.forEach((doc) => {
-        let data: any = doc.data();
+        let data: Oil = doc.data();
         data.id = doc.id;
         this.oilsList.push(data);
       });
@@ -187,7 +186,7 @@ export class OilsGridLayoutComponent implements OnInit, OnDestroy {
   }
 
   onSelectionChanged(params: any) {
-    const selectedRows: any = this.gridApi.getSelectedRows()[0];
+    const selectedRows: Oil = this.gridApi.getSelectedRows()[0];
     if (selectedRows != null) {
       this.router.navigate(['edit', selectedRows.id!], {relativeTo: this.route});
     }
@@ -195,6 +194,7 @@ export class OilsGridLayoutComponent implements OnInit, OnDestroy {
 
   //onClick Export Button
   onExport(): void {
+    //TODO:: implement it
     if (confirm('Do you want to export all recipes ?')) {
       let oilsModelList: any[] = [];
       /*this.oilsList.forEach((oil: Oil) => {
@@ -204,8 +204,9 @@ export class OilsGridLayoutComponent implements OnInit, OnDestroy {
         delete oilModel['createdAt'];
         oilsModelList.push(oilModel);
       });*/
+      alert('This feature represent some issues, we are trying to fix it')
 
-      Functions.exportJsonFile(oilsModelList, 'oils');
+      // Functions.exportJsonFile(oilsModelList, 'oils');
     }
 
 
@@ -213,10 +214,12 @@ export class OilsGridLayoutComponent implements OnInit, OnDestroy {
 
   //onClick Import Button
   async onImport(e: any): Promise<void> {
-    const {ImportJsonModalComponent} = await import(
-      '../../../shared/import-csv-modal/import-json-modal.component'
-      );
-    await this.modalService.open(ImportJsonModalComponent);
+    //TODO:: implement it
+    alert('This feature represent some issues, we are trying to fix it')
+    // const {ImportJsonModalComponent} = await import(
+    //   '../../../shared/import-csv-modal/import-json-modal.component'
+    //   );
+    // await this.modalService.open(ImportJsonModalComponent);
   }
 
 
