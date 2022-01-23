@@ -16,8 +16,11 @@ export class HeaderLayoutComponent implements OnInit {
   }
 
   signOut() : void {
-    this.authService.signOut();
-    this.router.navigate(['auth']);
+    if(confirm('Would you like to disconnect ?')) {
+      this.authService.signOut();
+      this.router.navigate(['auth']);
+    }
+
   }
 
 }
