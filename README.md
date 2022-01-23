@@ -10,4 +10,8 @@
 ### TODO
 - export oils
 - alert confirmation on logout
-- deni mobile user 
+- ~~disallow mobile user~~ 
+- change all alerts to iu alert : @full-fledged/alerts
+- change all confirm message: angular-confirmation-popover
+- change lists to tag using @ngx-chips
+

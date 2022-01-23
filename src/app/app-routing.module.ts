@@ -9,6 +9,7 @@ import {
   RecipesDetailLayoutComponent
 } from "./components/recipes-layout/recipes-detail-layout/recipes-detail-layout.component";
 import {OilsDetailLayoutComponent} from "./components/oils-layout/oils-detail-layout/oils-detail-layout.component";
+import {MobileComponent} from "./components/mobile/mobile.component";
 
 const routes: Routes = [
   {
@@ -39,6 +40,10 @@ const routes: Routes = [
       {path: 'edit/:id', component: RecipesDetailLayoutComponent, pathMatch: 'full',},
       {path: 'new', component: RecipesDetailLayoutComponent, pathMatch: 'full',},
     ]
+  },
+  {
+    path: 'mobile',
+    component: MobileComponent,
   },
   {
     path: 'auth',

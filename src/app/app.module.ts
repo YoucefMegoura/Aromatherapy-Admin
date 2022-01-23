@@ -28,6 +28,7 @@ import {
 import {NgxSpinnerModule} from "ngx-spinner";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {AuthService} from "./auth/auth.service";
+import { MobileComponent } from './components/mobile/mobile.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import {AuthService} from "./auth/auth.service";
     DropdownDirective,
     ModalComponent,
     ImportJsonModalComponent,
+    MobileComponent,
   ],
   imports: [
     BrowserModule,
