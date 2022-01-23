@@ -8,6 +8,7 @@
 - `firebase deploy`
 
 ### TODO
+- ~~correct buttons title~~
 - export oils
 - ~~alert confirmation on logout~~
 - ~~disallow mobile user~~ 

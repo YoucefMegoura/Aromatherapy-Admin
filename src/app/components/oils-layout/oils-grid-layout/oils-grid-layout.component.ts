@@ -215,7 +215,9 @@ export class OilsGridLayoutComponent implements OnInit, OnDestroy {
   //onClick Import Button
   async onImport(e: any): Promise<void> {
     //TODO:: implement it
-    alert('This feature represent some issues, we are trying to fix it')
+    if (confirm('Do you want to import all recipes ?')) {
+      alert('This feature represent some issues, we are trying to fix it')
+    }
     // const {ImportJsonModalComponent} = await import(
     //   '../../../shared/import-csv-modal/import-json-modal.component'
     //   );

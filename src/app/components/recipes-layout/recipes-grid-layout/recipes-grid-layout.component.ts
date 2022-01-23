@@ -187,10 +187,13 @@ export class RecipesGridLayoutComponent implements OnInit, OnDestroy {
 
   //onClick Import Button
   async onImport(e: any): Promise<void> {
-    const {ImportJsonModalComponent} = await import(
-      '../../../shared/import-csv-modal/import-json-modal.component'
-      );
-    await this.modalService.open(ImportJsonModalComponent);
+    if (confirm('Do you want to import all recipes ?')) {
+      const {ImportJsonModalComponent} = await import(
+        '../../../shared/import-csv-modal/import-json-modal.component'
+        );
+      await this.modalService.open(ImportJsonModalComponent);
+    }
+
   }
 
 
