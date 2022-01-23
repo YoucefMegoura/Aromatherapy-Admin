@@ -1,15 +1,15 @@
 <!-- container -->
 <div  class="flex flex-col min-h-screen min-w-screen">
   <!-- header -->
-  <header *ngIf="authStatus">
+  <header *ngIf="authService.isLoggedIn">
     <app-header-layout></app-header-layout>
   </header>
   <!-- main -->
-  <main class="flex flex-col flex-grow" [ngClass]="{' bg-gray-300' : authStatus}">
-    <div class="flex-grow bg-white" [ngClass]="{'mt-3 mx-3 rounded-t-md' : authStatus}">
+  <main class="flex flex-col flex-grow" [ngClass]="{' bg-gray-300' : authService.isLoggedIn}">
+    <div class="flex-grow bg-white" [ngClass]="{'mt-3 mx-3 rounded-t-md' : authService.isLoggedIn}">
       <router-outlet></router-outlet>
     </div>
   </main>
   <!-- footer -->
-  <footer *ngIf="authStatus" class="page-footer"></footer>
+  <footer *ngIf="authService.isLoggedIn" class="page-footer"></footer>
 </div>

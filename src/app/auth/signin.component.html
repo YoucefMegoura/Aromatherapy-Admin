@@ -1,0 +1,79 @@
+<ngx-spinner
+  [bdColor]="'rgba(0, 43, 29, 0.4)'"
+  [color]="'rgba(255, 255, 255, 1)'"
+>
+</ngx-spinner>
+<div class="flex flex-col h-screen">
+  <div id="header" class="flex justify-center items-center bg-gray-100">
+    <img class="object-contain h-48 w-96" src="/assets/images/aromatherapy-logo-test-1.png" alt="image">
+  </div>
+  <br>
+  <div id="main" class="bg-white">
+    <div class="flex flex-row justify-center mx-2 my-2">
+      <form
+        [formGroup]="authForm" #form="ngForm"
+        class="flex flex-col gap-2 text-gray-600"
+        (ngSubmit)="onSignIn()"
+      >
+        <span class="text-red-400 text-sm" *ngIf="form.invalid && form.submitted && form.dirty">Please enter a valid username and password!</span>
+        <span class="text-red-400 text-sm" *ngIf="authError && authForm.touched">{{authError}}</span>
+
+        <input
+          formControlName="email"
+          class="
+            border-1 border-gray-200
+            px-5
+            pr-16
+            h-8
+            rounded-lg
+            text-sm
+            focus:outline-none
+          "
+          [ngClass]="{'border border-red-500' : form.invalid && form.submitted}"
+          type="text"
+          name="email"
+          placeholder="username@email.com"
+          autocomplete="off"
+        >
+        <input
+          formControlName="password"
+          class="
+            border-1 border-gray-200
+            px-5
+            pr-16
+            h-8
+            rounded-lg
+            text-sm
+            focus:outline-none
+          "
+          [ngClass]="{'border border-red-500' : form.invalid && form.submitted}"
+          type="password"
+          name="password"
+          placeholder="Password"
+          autocomplete="off"
+
+        >
+        <button
+          routerLink="/"
+          type="submit"
+          class="
+            bg-green-600
+            rounded-lg
+            text-white
+            px-3
+            py-1.5
+            space-x-2
+            max-w-xs
+          "
+        >
+          Login
+        </button>
+      </form>
+    </div>
+  </div>
+  <div id="footer" class="flex justify-center items-end">
+    <p class="m-3 text-gray-500 text-sm">
+      © Aromatherapy Admin — {{appVersion}}
+    </p>
+  </div>
+</div>

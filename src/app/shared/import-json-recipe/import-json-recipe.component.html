@@ -1,0 +1,61 @@
+<ngx-spinner
+  [bdColor]="'rgba(0, 43, 29, 0.4)'"
+  [color]="'rgba(255, 255, 255, 1)'"
+>
+</ngx-spinner>
+<app-modal #modalComponent>
+  <form [formGroup]="importForm" (ngSubmit)="createRecord()">
+    <label
+      for="file"
+      class="block mt-2 text-gray-600"
+    >Source File <span class="text-red-600">*</span></label
+    >
+    <input
+      id="file"
+      type="file"
+      name="file"
+      formControlName="file"
+      class="form-control
+            block
+            w-full
+            px-3
+            py-1.5
+            text-base
+            font-normal
+            text-gray-700
+            bg-white bg-clip-padding
+            border border-solid border-gray-300
+            rounded
+            transition
+            ease-in-out
+            m-0
+            focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+      required
+      accept=".json"
+      (change)="importFile($event)"
+    >
+
+    <ng-container *ngTemplateOutlet="toolbar"></ng-container>
+  </form>
+</app-modal>
+
+<ng-template #toolbar>
+  <div class="py-3 flex justify-end">
+    <button
+      (click)="close()"
+      type="button"
+      class="rounded-md sm:tracking-wider mx-2 border border-gray-300 px-4 py-2 bg-white text-gray-700 hover:bg-gray-50 focus:outline-none sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+    >
+      Fermer
+    </button>
+
+    <button
+      type="submit"
+      class="bg-green-600 hover:bg-green-700 text-white rounded-md sm:tracking-wider py-2 px-4"
+      [disabled]="importForm.invalid"
+      (click)="importData()"
+    >Import
+    </button
+    >
+  </div>
+</ng-template>

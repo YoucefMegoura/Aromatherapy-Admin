@@ -1,6 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AuthService} from './auth/auth.service';
 import {Subscription} from "rxjs";
+import {Router} from "@angular/router";
+import {Functions} from "./utils/functions";
 
 @Component({
   selector: 'app-root',
@@ -9,26 +11,29 @@ import {Subscription} from "rxjs";
 })
 export class AppComponent implements OnInit, OnDestroy {
 
-  public authSubscription: Subscription | undefined;
-  public authStatus: boolean | undefined;
-
-  constructor(private authService: AuthService) {
+  constructor(
+    public authService: AuthService,
+    private router: Router
+  ) {
   }
 
 
   ngOnInit(): void {
-    this.authSubscription = this.authService.authSubject.subscribe(
-      (isAuth: boolean) => {
-        this.authStatus = isAuth;
-      },
-      (error: any) => {
-        console.log(error)
+    // Disallow mobile-layout browsers
+    if (Functions.isMobileBrowser()) {
+      if (this.authService.isLoggedIn) {
+        this.authService.signOut().then(() => {
+          this.router.navigate(['/mobile-layout']);
+        });
+        return;
+      }
+      this.router.navigate(['/mobile-layout']);
     }
-    )
+
+
   }
 
   ngOnDestroy(): void {
-    this.authSubscription?.unsubscribe();
   }
 
 
