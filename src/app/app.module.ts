@@ -17,7 +17,7 @@ import {environment} from '../environments/environment';
 import {AngularFireModule} from "@angular/fire/compat";
 import {AngularFireDatabaseModule} from "@angular/fire/compat/database";
 import {ModalComponent} from './shared/modal/modal.component';
-import {ImportJsonModalComponent} from './shared/import-csv-modal/import-json-modal.component';
+import {ImportJsonRecipeComponent} from './shared/import-json-recipe/import-json-recipe.component';
 import {RecipesCrudLayoutComponent} from "./components/recipes-layout/recipes-crud-layout.component";
 import {
   RecipesGridLayoutComponent
@@ -29,6 +29,7 @@ import {NgxSpinnerModule} from "ngx-spinner";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {AuthService} from "./auth/auth.service";
 import { MobileLayoutComponent } from './components/mobile-layout/mobile-layout.component';
+import {ImportJsonOilComponent} from "./shared/import-json-oil/import-json-oil.component";
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { MobileLayoutComponent } from './components/mobile-layout/mobile-layout.
     SigninComponent,
     DropdownDirective,
     ModalComponent,
-    ImportJsonModalComponent,
+    ImportJsonRecipeComponent,
+    ImportJsonOilComponent,
     MobileLayoutComponent,
   ],
   imports: [

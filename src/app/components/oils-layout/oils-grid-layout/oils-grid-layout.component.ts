@@ -3,10 +3,9 @@ import {OilService} from '../oil.service';
 import * as moment from "moment";
 import {Subscription} from "rxjs";
 import {ModalService} from "../../../shared/modal.service";
-import {ImportJsonModalComponent} from "../../../shared/import-csv-modal/import-json-modal.component";
 import {ActivatedRoute, Router} from "@angular/router";
-import {Functions} from "../../../utils/functions";
 import {Oil} from "../../../models/oil/oil.model";
+import {ImportJsonOilComponent} from "../../../shared/import-json-oil/import-json-oil.component";
 
 
 
@@ -59,7 +58,7 @@ export class OilsGridLayoutComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private oilService: OilService,
-    private modalService: ModalService<ImportJsonModalComponent>
+    private modalService: ModalService<ImportJsonOilComponent>
   ) {
     this.columnDefs = [
       {
@@ -207,12 +206,12 @@ export class OilsGridLayoutComponent implements OnInit, OnDestroy {
   async onImport(e: any): Promise<void> {
     //TODO:: implement it
     if (confirm('Do you want to import all recipes ?')) {
-      alert('This feature represent some issues, we are trying to fix it')
+      const {ImportJsonOilComponent} = await import(
+        '../../../shared/import-json-oil/import-json-oil.component'
+        );
+      await this.modalService.open(ImportJsonOilComponent);
     }
-    // const {ImportJsonModalComponent} = await import(
-    //   '../../../shared/import-csv-modal/import-json-modal.component'
-    //   );
-    // await this.modalService.open(ImportJsonModalComponent);
+
   }
 
 

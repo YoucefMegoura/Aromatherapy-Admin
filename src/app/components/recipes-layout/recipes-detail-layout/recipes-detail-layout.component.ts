@@ -124,8 +124,7 @@ export class RecipesDetailLayoutComponent implements OnInit, OnDestroy {
       this.spinner.show();
       if (this.detailMethod == DetailsMethod.Edit) {
         const currentRecipeId: string = this.currentRecipeId!;
-        this.recipeService.deleteRecipeById(currentRecipeId).then(r => {
-            console.log(r)
+        this.recipeService.deleteRecipeById(currentRecipeId).then(() => {
             this.recipeService.refreshSubject.next(currentRecipeId);
 
             this.router.navigate(['recipes']);
@@ -152,7 +151,7 @@ export class RecipesDetailLayoutComponent implements OnInit, OnDestroy {
     if (this.recipeDetailForm.dirty && this.recipeDetailForm.touched) {
       this.spinner.show();
       if (this.detailMethod == DetailsMethod.Edit) {
-        let updatedRecipe: Recipe = this.formToRecipe(this.recipeDetailForm.value);
+        let updatedRecipe: Recipe = this.recipeService.formToRecipe(this.recipeDetailForm.value);
         updatedRecipe.createdAt = this.currentRecipe?.createdAt!;
         this.recipeService.updateRecipeById(this.currentRecipeId!, updatedRecipe).then(() => {
             alert(`${updatedRecipe.name} : Successfully updated`);
@@ -165,7 +164,7 @@ export class RecipesDetailLayoutComponent implements OnInit, OnDestroy {
           this.spinner.hide();
         })
       } else if (this.detailMethod == DetailsMethod.Add) {
-        let newRecipe: Recipe = this.formToRecipe(this.recipeDetailForm.value);
+        let newRecipe: Recipe = this.recipeService.formToRecipe(this.recipeDetailForm.value);
         this.recipeService.createRecipe(newRecipe).then((data) => {
           this.router.navigate([`/recipes/edit/${data.id}`]);
           alert(`${newRecipe.name} : Successfully created`);
@@ -221,21 +220,5 @@ export class RecipesDetailLayoutComponent implements OnInit, OnDestroy {
     return (this.recipeDetailForm.get('ingredients') as FormArray).controls;
   }
 
-  formToRecipe(obj
-                 :
-                 any
-  ):
-    Recipe {
-    return new Recipe(
-      null,
-      obj['name'],
-      obj['reference'],
-      obj['ingredients'],
-      obj['description'],
-      obj['notes'],
-      obj['usage'],
-      obj['createdAt'],
-      obj['updatedAt'],
-    );
-  }
+
 }

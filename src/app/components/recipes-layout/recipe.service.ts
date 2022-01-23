@@ -48,8 +48,9 @@ export class RecipeService {
   }
 
   exportData(recipesList: Recipe[]): void {
-    let recipesModelList: any[] = [];
-    recipesList.forEach(recipe => {
+    let recipesModelList: Object[] = [];
+    recipesList.forEach((data: Recipe) => {
+      let recipe: Recipe = this.formToRecipe(data);
       recipesModelList.push(recipe.toExport());
     });
 
@@ -75,6 +76,20 @@ export class RecipeService {
       }
     });
 
+  }
+
+  formToRecipe(obj: any): Recipe {
+    return new Recipe(
+      null,
+      obj['name'],
+      obj['reference'],
+      obj['ingredients'],
+      obj['description'],
+      obj['notes'],
+      obj['usage'],
+      obj['createdAt'],
+      obj['updatedAt'],
+    );
   }
 
 }

@@ -6,17 +6,17 @@ import {
 } from '@angular/forms';
 
 import {ModalComponent} from '../modal/modal.component';
-import {RecipeService} from "../../components/recipes-layout/recipe.service";
 import {NgxSpinnerService} from "ngx-spinner";
+import {OilService} from "../../components/oils-layout/oil.service";
 
 @Component({
-  selector: 'app-importjsonmodal',
-  templateUrl: './import-json-modal.component.html',
-  styleUrls: ['./import-json-modal.component.scss'],
+  selector: 'app-importjsonoil',
+  templateUrl: './import-json-oil.component.html',
+  styleUrls: ['./import-json-oil.component.scss'],
 })
-export class ImportJsonModalComponent {
+export class ImportJsonOilComponent {
   @ViewChild('modalComponent') modal:
-    | ModalComponent<ImportJsonModalComponent>
+    | ModalComponent<ImportJsonOilComponent>
     | undefined;
 
   public importForm: FormGroup;
@@ -25,7 +25,7 @@ export class ImportJsonModalComponent {
 
   constructor(
     public formBuilder: FormBuilder,
-    private recipeService: RecipeService,
+    private oilService: OilService,
     private spinner: NgxSpinnerService,
   ) {
     this.importForm = this.formBuilder.group({
@@ -59,7 +59,7 @@ export class ImportJsonModalComponent {
     this.spinner.show();
     if (this.importForm.valid && this.jsonData != null) {
       if (this.jsonData.length > 0) {
-        this.recipeService.importData(this.jsonData).then(() => {
+        this.oilService.importData(this.jsonData).then(() => {
           this.spinner.hide();
         });
       }

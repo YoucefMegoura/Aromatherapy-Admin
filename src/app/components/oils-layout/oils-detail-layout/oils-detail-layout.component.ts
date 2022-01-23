@@ -1,9 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {OilService} from "../oil.service";
 import {Oil} from "../../../models/oil/oil.model";
-import {Domain, DomainType} from "../../../models/oil/domain.model";
 import {FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
-import {Subscription} from "rxjs";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {NgxSpinnerService} from "ngx-spinner";
 
@@ -212,31 +210,29 @@ export class OilsDetailLayoutComponent implements OnInit, OnDestroy {
       'smell': oilSmell,
       'aspect': oilAspect,
 
-      'domains': new FormGroup({
-        'health': new FormGroup({
-          'properties': new FormControl(healthProperties),
-          'precautionOfUse': new FormControl(healthPrecautionOfUse),
-          'areaOfUse': new FormControl(healthAreaOfUse),
-          'practicalUse': new FormControl(healthPracticalUse),
-          'synergy': new FormControl(healthSynergy),
+      'health': new FormGroup({
+        'properties': new FormControl(healthProperties),
+        'precautionOfUse': new FormControl(healthPrecautionOfUse),
+        'areaOfUse': new FormControl(healthAreaOfUse),
+        'practicalUse': new FormControl(healthPracticalUse),
+        'synergy': new FormControl(healthSynergy),
 
-        }),
-        'beauty': new FormGroup({
-          'properties': new FormControl(beautyProperties),
-          'precautionOfUse': new FormControl(beautyPrecautionOfUse),
-          'areaOfUse': new FormControl(beautyAreaOfUse),
-          'practicalUse': new FormControl(beautyPracticalUse),
-          'synergy': new FormControl(beautySynergy),
+      }),
+      'beauty': new FormGroup({
+        'properties': new FormControl(beautyProperties),
+        'precautionOfUse': new FormControl(beautyPrecautionOfUse),
+        'areaOfUse': new FormControl(beautyAreaOfUse),
+        'practicalUse': new FormControl(beautyPracticalUse),
+        'synergy': new FormControl(beautySynergy),
 
-        }),
-        'wellBeing': new FormGroup({
-          'properties': new FormControl(wellBeingProperties),
-          'precautionOfUse': new FormControl(wellBeingPrecautionOfUse),
-          'areaOfUse': new FormControl(wellBeingAreaOfUse),
-          'practicalUse': new FormControl(wellBeingPracticalUse),
-          'synergy': new FormControl(wellBeingSynergy),
+      }),
+      'wellBeing': new FormGroup({
+        'properties': new FormControl(wellBeingProperties),
+        'precautionOfUse': new FormControl(wellBeingPrecautionOfUse),
+        'areaOfUse': new FormControl(wellBeingAreaOfUse),
+        'practicalUse': new FormControl(wellBeingPracticalUse),
+        'synergy': new FormControl(wellBeingSynergy),
 
-        }),
       }),
 
     });
@@ -300,7 +296,7 @@ export class OilsDetailLayoutComponent implements OnInit, OnDestroy {
     if (this.oilDetailForm.dirty && this.oilDetailForm.touched) {
       this.spinner.show();
       if (this.detailMethod == DetailsMethod.Edit) {
-        let updatedOil: Oil = this.formToOil(this.oilDetailForm.value);
+        let updatedOil: Oil = this.oilService.formToOil(this.oilDetailForm.value);
         updatedOil.createdAt = this.currentOil?.createdAt!;
         this.oilService.updateOilById(this.currentOilId!, updatedOil).then(() => {
             alert(`${updatedOil.name} : Successfully updated`);
@@ -313,7 +309,7 @@ export class OilsDetailLayoutComponent implements OnInit, OnDestroy {
           this.spinner.hide();
         })
       } else if (this.detailMethod == DetailsMethod.Add) {
-        let newOil: Oil = this.formToOil(this.oilDetailForm.value);
+        let newOil: Oil = this.oilService.formToOil(this.oilDetailForm.value);
         this.oilService.createOil(newOil).then((data) => {
           this.router.navigate([`/oils/edit/${data.id}`]);
           alert(`${newOil.name} : Successfully created`);
@@ -378,42 +374,4 @@ export class OilsDetailLayoutComponent implements OnInit, OnDestroy {
   }
 
 
-  formToOil(obj: any): Oil {
-    return new Oil(
-      null,
-      obj['name'],
-      obj['sciName'],
-      obj['otherNames'],
-      obj['distilledOrgan'],
-      obj['extractionProcess'],
-      obj['allergies'],
-      obj['color'],
-      obj['smell'],
-      obj['aspect'],
-      obj['createdAt'],
-      obj['updatedAt'],
-
-      new Domain(
-        obj['domains']['health']['properties'] ?? '',
-        obj['domains']['health']['precautionOfUse'] ?? '',
-        obj['domains']['health']['areaOfUse'] ?? '',
-        obj['domains']['health']['practicalUse'] ?? '',
-        obj['domains']['health']['synergy'] ?? ''
-      ),
-      new Domain(
-        obj['domains']['beauty']['properties'] ?? '',
-        obj['domains']['beauty']['precautionOfUse'] ?? '',
-        obj['domains']['beauty']['areaOfUse'] ?? '',
-        obj['domains']['beauty']['practicalUse'] ?? '',
-        obj['domains']['beauty']['synergy'] ?? ''
-      ),
-      new Domain(
-        obj['domains']['wellBeing']['properties'] ?? '',
-        obj['domains']['wellBeing']['precautionOfUse'] ?? '',
-        obj['domains']['wellBeing']['areaOfUse'] ?? '',
-        obj['domains']['wellBeing']['practicalUse'] ?? '',
-        obj['domains']['wellBeing']['synergy'] ?? ''
-      ),
-    );
-  }
 }

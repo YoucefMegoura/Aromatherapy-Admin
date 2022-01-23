@@ -4,7 +4,7 @@ import * as moment from "moment";
 import {ModalService} from "../../../shared/modal.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Functions} from "../../../utils/functions";
-import {ImportJsonModalComponent} from "../../../shared/import-csv-modal/import-json-modal.component";
+import {ImportJsonRecipeComponent} from "../../../shared/import-json-recipe/import-json-recipe.component";
 import {Subscription} from "rxjs";
 import {Recipe} from "../../../models/recipe/recipes.model";
 
@@ -56,7 +56,7 @@ export class RecipesGridLayoutComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private recipeService: RecipeService,
-    private modalService: ModalService<ImportJsonModalComponent>
+    private modalService: ModalService<ImportJsonRecipeComponent>
   ) {
     this.columnDefs = [
       {
@@ -180,10 +180,10 @@ export class RecipesGridLayoutComponent implements OnInit, OnDestroy {
   //onClick Import Button
   async onImport(e: any): Promise<void> {
     if (confirm('Do you want to import all recipes ?')) {
-      const {ImportJsonModalComponent} = await import(
-        '../../../shared/import-csv-modal/import-json-modal.component'
+      const {ImportJsonRecipeComponent} = await import(
+        '../../../shared/import-json-recipe/import-json-recipe.component'
         );
-      await this.modalService.open(ImportJsonModalComponent);
+      await this.modalService.open(ImportJsonRecipeComponent);
     }
 
   }

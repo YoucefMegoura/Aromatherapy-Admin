@@ -48,8 +48,8 @@ export class SigninComponent implements OnInit {
     this.authService.signOut().then(() => {
       console.log('SignOut Successful');
       this.spinner.hide();
-    }).catch(e => {
-      console.log(e)
+    }).catch(error => {
+      console.log(error)
       alert('There is an authentication problem. please contact the support.');
       this.spinner.hide();
     });
