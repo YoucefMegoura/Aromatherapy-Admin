@@ -30,6 +30,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {AuthService} from "./auth/auth.service";
 import { MobileLayoutComponent } from './components/mobile-layout/mobile-layout.component';
 import {ImportJsonOilComponent} from "./shared/import-json-oil/import-json-oil.component";
+import { TermOfUseComponent } from './components/static-pages/term-of-use/term-of-use.component';
+import { PrivacyPolicyComponent } from './components/static-pages/privacy-policy/privacy-policy.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +53,8 @@ import {ImportJsonOilComponent} from "./shared/import-json-oil/import-json-oil.c
     ImportJsonRecipeComponent,
     ImportJsonOilComponent,
     MobileLayoutComponent,
+    TermOfUseComponent,
+    PrivacyPolicyComponent,
   ],
   imports: [
     BrowserModule,

@@ -10,6 +10,8 @@ import {
 } from "./components/recipes-layout/recipes-detail-layout/recipes-detail-layout.component";
 import {OilsDetailLayoutComponent} from "./components/oils-layout/oils-detail-layout/oils-detail-layout.component";
 import {MobileLayoutComponent} from "./components/mobile-layout/mobile-layout.component";
+import {TermOfUseComponent} from "./components/static-pages/term-of-use/term-of-use.component";
+import {PrivacyPolicyComponent} from "./components/static-pages/privacy-policy/privacy-policy.component";
 
 const routes: Routes = [
   {
@@ -48,8 +50,19 @@ const routes: Routes = [
   {
     path: 'auth',
     component: SigninComponent,
-
   },
+  {
+    path: 'terms-of-use',
+    component: TermOfUseComponent,
+  },
+  {
+    path: 'privacy-policy',
+    component: PrivacyPolicyComponent,
+  },
+
+
+
+
   { path: '**', redirectTo: '/auth', pathMatch: 'full' },
 ];
 
