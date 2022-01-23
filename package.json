@@ -1,6 +1,6 @@
 {
   "name": "aromatherapy-admin",
-  "version": "beta-1.1.5",
+  "version": "beta-1.1.6",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
