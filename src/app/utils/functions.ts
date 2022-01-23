@@ -2,6 +2,7 @@ import * as moment from "moment";
 
 export class Functions {
   public static exportJsonFile(data: any, filename: string = 'data') {
+    //TODO:: return promise
     const sJson = JSON.stringify(data);
     const element = document.createElement('a');
     element.setAttribute('href', "data:text/json;charset=UTF-8," + encodeURIComponent(sJson));

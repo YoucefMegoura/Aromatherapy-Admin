@@ -3,7 +3,7 @@ import {RecipeService} from '../recipe.service';
 import * as moment from "moment";
 import {ModalService} from "../../../shared/modal.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {Functions} from "../../../shared/functions";
+import {Functions} from "../../../utils/functions";
 import {ImportJsonModalComponent} from "../../../shared/import-csv-modal/import-json-modal.component";
 import {Subscription} from "rxjs";
 import {Recipe} from "../../../models/recipe/recipes.model";
@@ -170,16 +170,8 @@ export class RecipesGridLayoutComponent implements OnInit, OnDestroy {
   //onClick Export Button
   onExport(): void {
     if (confirm('Do you want to export all recipes ?')) {
-      let recipesModelList: any[] = [];
-      this.recipesList.forEach(recipe => {
-        const recipeModel: any = recipe;
-        delete recipeModel['id'];
-        delete recipeModel['updatedAt'];
-        delete recipeModel['createdAt'];
-        recipesModelList.push(recipeModel);
-      });
-
-      Functions.exportJsonFile(recipesModelList, 'recipes');
+      this.recipeService.exportData(this.recipesList);
+      //TODO:: inform user how much line was exported
     }
 
 

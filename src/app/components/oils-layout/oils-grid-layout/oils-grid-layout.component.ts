@@ -5,7 +5,7 @@ import {Subscription} from "rxjs";
 import {ModalService} from "../../../shared/modal.service";
 import {ImportJsonModalComponent} from "../../../shared/import-csv-modal/import-json-modal.component";
 import {ActivatedRoute, Router} from "@angular/router";
-import {Functions} from "../../../shared/functions";
+import {Functions} from "../../../utils/functions";
 import {Oil} from "../../../models/oil/oil.model";
 
 
@@ -194,20 +194,11 @@ export class OilsGridLayoutComponent implements OnInit, OnDestroy {
 
   //onClick Export Button
   onExport(): void {
-    //TODO:: implement it
-    if (confirm('Do you want to export all recipes ?')) {
-      let oilsModelList: any[] = [];
-      /*this.oilsList.forEach((oil: Oil) => {
-        const oilModel: any = oil;
-        delete oilModel['id'];
-        delete oilModel['updatedAt'];
-        delete oilModel['createdAt'];
-        oilsModelList.push(oilModel);
-      });*/
-      alert('This feature represent some issues, we are trying to fix it')
-
-      // Functions.exportJsonFile(oilsModelList, 'oils');
+    if (confirm('Do you want to export all oils ?')) {
+      this.oilService.exportData(this.oilsList);
+      //TODO:: inform user how much line was exported
     }
+
 
 
   }

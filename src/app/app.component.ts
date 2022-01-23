@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AuthService} from './auth/auth.service';
 import {Subscription} from "rxjs";
 import {Router} from "@angular/router";
-import {Functions} from "./shared/functions";
+import {Functions} from "./utils/functions";
 
 @Component({
   selector: 'app-root',

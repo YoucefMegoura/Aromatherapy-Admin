@@ -9,9 +9,10 @@
 
 ### TODO
 - ~~correct buttons title~~
-- export oils
+- ~~export oils~~
 - ~~alert confirmation on logout~~
-- ~~disallow mobile user~~ 
+- ~~disallow mobile user~~
+- import oils
 - change all alerts to iu alert : @full-fledged/alerts
 - change all confirm message: angular-confirmation-popover
 - change lists to tag using @ngx-chips

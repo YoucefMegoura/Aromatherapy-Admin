@@ -51,4 +51,41 @@ export class Recipe {
     );
   }
 
+  public toExport(): Object {
+    //TODO:: call toMap and remove createdBy and updatedBy
+    let obj: any = {
+      name: this.name.trim(),
+      ingredients: this.ingredients,
+      reference: this.reference?.trim() != "" ? this.reference?.trim() : null,
+      description: this.description?.trim() != "" ? this.description?.trim() : null,
+      notes: this.notes?.trim() != "" ? this.notes?.trim() : null,
+      usage: this.usage?.trim() != "" ? this.usage?.trim() : null
+    }
+    return obj;
+  }
+
+  public static fromImport(data: Recipe): Recipe {
+    //TODO:: call fromMap and id=null
+    let id: string | null = null;
+    let name: string = data['name'] ?? '';
+    let reference: string = data['reference'] ?? '';
+    let ingredients: Ingredient[] = data['ingredients'] ?? [];
+    let description: string = data['description'] ?? '';
+    let notes: string = data['notes'] ?? '';
+    let usage: string = data['usage'] ?? '';
+    let createdAt: Date = new Date();
+    let updatedAt: Date = new Date();
+    return new Recipe(
+      id,
+      name,
+      reference,
+      ingredients,
+      description,
+      notes,
+      usage,
+      createdAt,
+      updatedAt
+    );
+  }
+
 }

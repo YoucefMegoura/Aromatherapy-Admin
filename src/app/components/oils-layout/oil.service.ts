@@ -6,6 +6,7 @@ import {Domain} from "../../models/oil/domain.model";
 import firebase from "firebase/compat";
 import QuerySnapshot = firebase.firestore.QuerySnapshot;
 import {OilPaths} from "./oil.paths";
+import {Functions} from "../../utils/functions";
 
 @Injectable({
   providedIn: 'root'
@@ -42,6 +43,14 @@ export class OilService {
 
   async deleteOilById(id: string): Promise<void> {
     return await this.firestore.doc(OilPaths.oil(id)).delete();
+  }
+
+  exportData(oilList: Oil[]): void {
+    let recipesModelList: any[] = [];
+    oilList.forEach(oil => {
+      recipesModelList.push(oil.toExport());
+    });
+    Functions.exportJsonFile(recipesModelList, 'oils');
   }
 
 

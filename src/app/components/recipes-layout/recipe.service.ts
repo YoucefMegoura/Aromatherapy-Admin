@@ -5,6 +5,7 @@ import firebase from "firebase/compat";
 import QuerySnapshot = firebase.firestore.QuerySnapshot;
 import {RecipePaths} from "./recipe.paths";
 import {Recipe} from "../../models/recipe/recipes.model";
+import {Functions} from "../../utils/functions";
 
 @Injectable({
   providedIn: 'root'
@@ -44,6 +45,15 @@ export class RecipeService {
 
   async deleteRecipeById(id: string): Promise<void> {
     return await this.firestore.doc(RecipePaths.recipe(id)).delete();
+  }
+
+  exportData(recipesList: Recipe[]): void {
+    let recipesModelList: any[] = [];
+    recipesList.forEach(recipe => {
+      recipesModelList.push(recipe.toExport());
+    });
+
+    Functions.exportJsonFile(recipesModelList, 'recipes');
   }
 
   async importData(recipes: Recipe[]): Promise<void> {
