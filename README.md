@@ -18,3 +18,4 @@
 - change lists to tag using @ngx-chips
 - **integrate ngx-sweetalert2**
 - add feature WYSIWYG HTML angular to edit static-pages : https://github.com/kolkov/angular-editor
+- fix show details data (oils)
