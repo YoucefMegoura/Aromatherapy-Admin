@@ -69,6 +69,7 @@ export class OilsGridLayoutComponent implements OnInit, OnDestroy {
       {
         field: 'name',
         filter: 'agTextColumnFilter',
+        sortable: true
       },
       {
         headerName: 'Scientific Name',

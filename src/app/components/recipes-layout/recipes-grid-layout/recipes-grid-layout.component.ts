@@ -62,6 +62,7 @@ export class RecipesGridLayoutComponent implements OnInit, OnDestroy {
       {
         field: 'name',
         filter: 'agTextColumnFilter',
+        sortable: true
       },
       {
         field: 'reference',
