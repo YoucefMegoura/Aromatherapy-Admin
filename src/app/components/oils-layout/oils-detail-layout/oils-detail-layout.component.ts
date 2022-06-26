@@ -126,17 +126,17 @@ export class OilsDetailLayoutComponent implements OnInit, OnDestroy {
         beautyPracticalUse = this.currentOil.beauty?.practicalUse!;
         beautySynergy = this.currentOil.beauty?.synergy!;
 
-        healthProperties = this.currentOil.beauty?.properties!;
-        healthPrecautionOfUse = this.currentOil.beauty?.precautionOfUse!;
-        healthAreaOfUse = this.currentOil.beauty?.areaOfUse!;
-        healthPracticalUse = this.currentOil.beauty?.practicalUse!;
-        healthSynergy = this.currentOil.beauty?.synergy!;
+        healthProperties = this.currentOil.health?.properties!;
+        healthPrecautionOfUse = this.currentOil.health?.precautionOfUse!;
+        healthAreaOfUse = this.currentOil.health?.areaOfUse!;
+        healthPracticalUse = this.currentOil.health?.practicalUse!;
+        healthSynergy = this.currentOil.health?.synergy!;
 
-        wellBeingProperties = this.currentOil.beauty?.properties!;
-        wellBeingPrecautionOfUse = this.currentOil.beauty?.precautionOfUse!;
-        wellBeingAreaOfUse = this.currentOil.beauty?.areaOfUse!;
-        wellBeingPracticalUse = this.currentOil.beauty?.practicalUse!;
-        wellBeingSynergy = this.currentOil.beauty?.synergy!;
+        wellBeingProperties = this.currentOil.wellBeing?.properties!;
+        wellBeingPrecautionOfUse = this.currentOil.wellBeing?.precautionOfUse!;
+        wellBeingAreaOfUse = this.currentOil.wellBeing?.areaOfUse!;
+        wellBeingPracticalUse = this.currentOil.wellBeing?.practicalUse!;
+        wellBeingSynergy = this.currentOil.wellBeing?.synergy!;
 
 
         this.getData(

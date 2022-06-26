@@ -19,17 +19,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
-    // Disallow mobile-layout browsers
-    if (Functions.isMobileBrowser()) {
-      if (this.authService.isLoggedIn) {
-        this.authService.signOut().then(() => {
-          this.router.navigate(['/mobile-layout']);
-        });
-        return;
-      }
-      this.router.navigate(['/mobile-layout']);
-    }
-
 
   }
 

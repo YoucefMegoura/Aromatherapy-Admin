@@ -51,7 +51,9 @@
     <!--  ***           ***   -->
     <!--  ***  Details  ***   -->
     <!--  ***           ***   -->
-
+    <hr>
+    <h2 class="text-3xl">Details</h2>
+    <hr>
 
     <div>
       <input
@@ -117,7 +119,7 @@
 
 
     <div class="flex flex-col">
-      <label for="distilledOrgan" class="mx-2">distilled organ</label>
+      <label for="distilledOrgan" class="mx-2">Distilled organ</label>
       <textarea
         formControlName="distilledOrgan"
         id="distilledOrgan"
@@ -249,7 +251,7 @@
     <br>
 
     <div formArrayName="aspect">
-      <div class="">Aspects</div>
+      <div class="">Appearance</div> <!--TODO:: replace all aspect with Appearance (stash)-->
       <hr>
       <br>
       <div class="flex flex-col">
@@ -286,11 +288,15 @@
     <!--  ***           ***   -->
     <!--  ***  Domains  ***   -->
     <!--  ***           ***   -->
+    <hr>
+    <h2 class="text-3xl">Domains</h2>
+    <hr>
 
-      <div formGroupName="health">
+    <div formGroupName="health">
+      <h3 class="text-2xl">Health</h3>
         <div class="flex flex-col">
           <label for="health-properties"
-                 class="mx-2">health-properties
+                 class="mx-2">Properties
 
           </label>
           <textarea formControlName="properties"
@@ -301,7 +307,7 @@
         </div><!--properties-->
         <div class="flex flex-col">
           <label for="health-areaOfUse" class="mx-2"
-          >health-areaOfUse</label
+          >Area Of Use</label
           >
           <textarea formControlName="areaOfUse"
                     id="health-areaOfUse"
@@ -311,7 +317,7 @@
         </div><!--areaOfUse-->
         <div class="flex flex-col">
           <label for="health-precautionOfUse" class="mx-2"
-          >health-precautionOfUse</label
+          >Precaution Of Use</label
           >
           <textarea formControlName="precautionOfUse"
                     id="health-precautionOfUse"
@@ -321,7 +327,7 @@
         </div><!--precautionOfUse-->
         <div class="flex flex-col">
           <label for="health-practicalUse" class="mx-2"
-          >health-practicalUse</label
+          >Practical Use</label
           >
           <textarea formControlName="practicalUse"
                     id="health-practicalUse"
@@ -330,7 +336,7 @@
           ></textarea>
         </div><!--practicalUse-->
         <div class="flex flex-col">
-          <label for="health-synergy" class="mx-2">health-synergy</label>
+          <label for="health-synergy" class="mx-2">Synergy</label>
           <textarea formControlName="synergy"
                     id="health-synergy"
                     class="primary-textarea"
@@ -339,9 +345,13 @@
         </div><!--synergy-->
 
       </div>
-      <div formGroupName="beauty">
+    <hr>
+
+    <div formGroupName="beauty">
+        <h3 class="text-2xl">Beauty</h3>
+
         <div class="flex flex-col">
-          <label for="beauty-properties" class="mx-2">beauty-properties
+          <label for="beauty-properties" class="mx-2">Properties
 
           </label>
           <textarea formControlName="properties"
@@ -352,7 +362,7 @@
         </div><!--properties-->
         <div class="flex flex-col">
           <label for="beauty-areaOfUse" class="mx-2"
-          >beauty-areaOfUse</label
+          >Area Of Use</label
           >
           <textarea formControlName="areaOfUse"
                     id="beauty-areaOfUse"
@@ -362,7 +372,7 @@
         </div><!--areaOfUse-->
         <div class="flex flex-col">
           <label for="beauty-precautionOfUse" class="mx-2"
-          >beauty-precautionOfUse</label
+          >Precaution Of Use</label
           >
           <textarea formControlName="precautionOfUse"
                     id="beauty-precautionOfUse"
@@ -372,7 +382,7 @@
         </div><!--precautionOfUse-->
         <div class="flex flex-col">
           <label for="beauty-practicalUse" class="mx-2"
-          >beauty-practicalUse</label
+          >Practical Use</label
           >
           <textarea formControlName="practicalUse"
                     id="beauty-practicalUse"
@@ -381,7 +391,7 @@
           ></textarea>
         </div><!--practicalUse-->
         <div class="flex flex-col">
-          <label for="beauty-synergy" class="mx-2">beauty-synergy</label>
+          <label for="beauty-synergy" class="mx-2">Synergy</label>
           <textarea formControlName="synergy"
                     id="beauty-synergy"
                     class="primary-textarea"
@@ -390,9 +400,14 @@
         </div><!--synergy-->
 
       </div>
-      <div formGroupName="wellBeing">
+
+    <hr>
+
+    <div formGroupName="wellBeing">
+        <h3 class="text-2xl">Well Being</h3>
+
         <div class="flex flex-col">
-          <label for="wellBeing-properties" class="mx-2">wellBeing-properties
+          <label for="wellBeing-properties" class="mx-2">Properties
 
           </label>
           <textarea formControlName="properties"
@@ -403,7 +418,7 @@
         </div><!--properties-->
         <div class="flex flex-col">
           <label for="wellBeing-areaOfUse" class="mx-2"
-          >wellBeing-areaOfUse</label
+          >Area Of Use</label
           >
 
           <textarea formControlName="areaOfUse"
@@ -414,7 +429,7 @@
         </div><!--areaOfUse-->
         <div class="flex flex-col">
           <label for="wellBeing-precautionOfUse" class="mx-2"
-          >wellBeing-precautionOfUse</label
+          >Precaution Of Use</label
           >
           <textarea formControlName="precautionOfUse"
                     id="wellBeing-precautionOfUse"
@@ -424,7 +439,7 @@
         </div><!--precautionOfUse-->
         <div class="flex flex-col">
           <label for="wellBeing-practicalUse" class="mx-2"
-          >wellBeing-practicalUse</label
+          >Practical Use</label
           >
           <textarea formControlName="practicalUse"
                     id="wellBeing-practicalUse"
@@ -433,7 +448,7 @@
           ></textarea>
         </div><!--practicalUse-->
         <div class="flex flex-col">
-          <label for="wellBeing-synergy" class="mx-2">wellBeing-synergy</label>
+          <label for="wellBeing-synergy" class="mx-2">Synergy</label>
           <textarea formControlName="synergy"
                     id="wellBeing-synergy"
                     class="primary-textarea"
